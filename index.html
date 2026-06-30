@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dad's Bookshelf — 297 Books, 2009–2026</title>
+<meta name="description" content="A personal library of every book read since 2009 — 32 all-time greats, seven themes, and a lifetime of reading.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sand: #EFE7D6;
+  --sand-card: #FAF6EB;
+  --sand-card-hover: #FFFDF6;
+  --ink: #2A2318;
+  --ink-soft: #756A56;
+  --ink-faint: #9C927C;
+  --ink-deep: #1A1611;
+  --ink-deep-2: #241F18;
+  --gold: #AD8530;
+  --gold-bright: #C99C3C;
+  --gold-soft: #EFDFAE;
+  --rust: #9C4A2A;
+  --rust-soft: #EAD2C2;
+  --line: rgba(42,35,24,0.14);
+  --line-on-dark: rgba(239,231,214,0.16);
+  --font-display: 'EB Garamond', Georgia, 'Times New Roman', serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --maxw: 1280px;
+  --radius: 3px;
+  --shadow-card: 0 1px 2px rgba(26,22,17,0.06);
+  --shadow-card-hover: 0 10px 24px rgba(26,22,17,0.14);
+  --shadow-panel: -16px 0 48px rgba(26,22,17,0.28);
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--sand);
+  color:var(--ink);
+  font-family:var(--font-body);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+a{color:inherit;}
+button{font-family:inherit;cursor:pointer;}
+::selection{background:var(--gold-soft);}
+
+/* focus visibility */
+a:focus-visible, button:focus-visible, input:focus-visible, .book-card:focus-visible{
+  outline:2px solid var(--gold-bright);
+  outline-offset:2px;
+}
+
+/* ---------- Header ---------- */
+.site-header{
+  position:sticky; top:0; z-index:40;
+  background:var(--ink-deep);
+  color:#EFE7D6;
+  border-bottom:1px solid var(--line-on-dark);
+}
+.header-inner{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:1.1rem clamp(1rem,3vw,2.5rem) 0.85rem;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:1.5rem;
+  flex-wrap:wrap;
+}
+.brand-mark{text-decoration:none;display:flex;flex-direction:column;gap:0.15rem;}
+.brand-title{
+  font-family:var(--font-display);
+  font-size:clamp(1.5rem,3vw,1.9rem);
+  font-weight:600;
+  color:#F6F0E2;
+  letter-spacing:0.01em;
+}
+.brand-sub{
+  font-size:0.7rem;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--gold-bright);
+  font-weight:600;
+}
+.search-wrap{position:relative; flex:0 1 340px; min-width:220px;}
+.search-input{
+  width:100%;
+  background:rgba(239,231,214,0.08);
+  border:1px solid var(--line-on-dark);
+  color:#F6F0E2;
+  font-family:var(--font-body);
+  font-size:0.88rem;
+  padding:0.62rem 2.1rem 0.62rem 0.9rem;
+  border-radius:var(--radius);
+  transition:background 0.15s, border-color 0.15s;
+}
+.search-input::placeholder{color:#A89C82;}
+.search-input:focus{background:rgba(239,231,214,0.13); border-color:var(--gold-bright); outline:none;}
+.search-clear{
+  position:absolute; right:0.5rem; top:50%; transform:translateY(-50%);
+  background:none; border:none; color:#A89C82; font-size:1.1rem; line-height:1;
+  padding:0.2rem 0.3rem; display:none;
+}
+.search-wrap.has-text .search-clear{display:block;}
+.search-wrap.has-text .search-clear:hover{color:#F6F0E2;}
+
+.tab-nav{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:0 clamp(1rem,3vw,2.5rem);
+  display:flex;
+  gap:1.4rem;
+  overflow-x:auto;
+  scrollbar-width:thin;
+  -webkit-overflow-scrolling:touch;
+}
+.tab-nav::-webkit-scrollbar{height:4px;}
+.tab-nav::-webkit-scrollbar-thumb{background:var(--line-on-dark);}
+.tab-btn{
+  background:none; border:none; white-space:nowrap;
+  color:#C7BCA3;
+  font-size:0.82rem;
+  font-weight:600;
+  letter-spacing:0.02em;
+  padding:0.7rem 0.05rem 0.75rem;
+  border-bottom:2px solid transparent;
+  transition:color 0.15s, border-color 0.15s;
+}
+.tab-btn:hover{color:#F6F0E2;}
+.tab-btn.active{color:#F6F0E2; border-bottom-color:var(--gold-bright);}
+.tab-btn .tab-count{color:var(--ink-faint); font-weight:500; margin-left:0.3em; font-variant-numeric:tabular-nums;}
+.tab-btn.active .tab-count{color:var(--gold-bright);}
+
+/* ---------- Intro / Stats ---------- */
+.intro-band{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:2.4rem clamp(1rem,3vw,2.5rem) 0.6rem;
+}
+.intro-eyebrow{
+  font-size:0.74rem;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:var(--rust);
+  font-weight:700;
+  margin:0 0 0.55rem;
+}
+.intro-title{
+  font-family:var(--font-display);
+  font-size:clamp(1.7rem,3.4vw,2.5rem);
+  font-weight:600;
+  margin:0 0 0.6rem;
+  max-width:46ch;
+}
+.intro-copy{
+  font-size:1rem;
+  color:var(--ink-soft);
+  max-width:62ch;
+  line-height:1.6;
+  margin:0;
+}
+.stats-strip{
+  max-width:var(--maxw);
+  margin:1.4rem auto 0;
+  padding:0 clamp(1rem,3vw,2.5rem);
+  display:flex;
+  flex-wrap:wrap;
+  gap:0;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.stat-item{
+  flex:1 1 140px;
+  padding:0.9rem 1.1rem 0.9rem 0;
+  border-right:1px solid var(--line);
+}
+.stat-item:last-child{border-right:none;}
+.stat-num{
+  display:block;
+  font-family:var(--font-display);
+  font-size:1.5rem;
+  font-weight:600;
+  color:var(--ink);
+}
+.stat-label{
+  display:block;
+  font-size:0.68rem;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+  margin-top:0.15rem;
+}
+
+/* ---------- Grid ---------- */
+.grid-wrap{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:1.8rem clamp(1rem,3vw,2.5rem) 4.5rem;
+}
+.book-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(252px,1fr));
+  gap:1.1rem;
+}
+.empty-state{
+  color:var(--ink-soft);
+  font-size:0.95rem;
+  padding:3rem 0;
+  text-align:center;
+}
+
+/* ---------- Card ---------- */
+.book-card{
+  position:relative;
+  background:var(--sand-card);
+  border:1px solid var(--line);
+  border-top:3px solid var(--theme-color, var(--ink-faint));
+  border-radius:var(--radius);
+  padding:1.15rem 1.2rem 1.05rem;
+  box-shadow:var(--shadow-card);
+  cursor:pointer;
+  transition:transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+  display:flex;
+  flex-direction:column;
+  gap:0.5rem;
+  min-height:148px;
+}
+.book-card:hover{
+  transform:translateY(-3px);
+  box-shadow:var(--shadow-card-hover);
+  background:var(--sand-card-hover);
+}
+.card-numeral{
+  font-family:var(--font-display);
+  font-style:italic;
+  font-size:0.78rem;
+  color:var(--gold);
+  font-weight:600;
+  letter-spacing:0.02em;
+}
+.card-title{
+  font-family:var(--font-display);
+  font-size:1.18rem;
+  font-weight:600;
+  line-height:1.28;
+  color:var(--ink);
+}
+.card-author{
+  font-size:0.76rem;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+  font-weight:600;
+}
+.card-meta{
+  margin-top:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:0.5rem;
+  font-size:0.74rem;
+  color:var(--ink-faint);
+}
+.card-meta-left{display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;}
+.rating-dots{letter-spacing:0.12em; color:var(--gold); font-size:0.7rem;}
+.rating-dots .dot-off{color:var(--line);}
+.badge-row{display:flex; gap:0.35rem; flex-wrap:wrap; margin-top:0.1rem;}
+.badge{
+  display:inline-flex; align-items:center; gap:0.3rem;
+  font-size:0.66rem; font-weight:700; letter-spacing:0.04em; text-transform:uppercase;
+  padding:0.22rem 0.5rem; border-radius:20px;
+}
+.badge-africa{background:var(--rust-soft); color:var(--rust);}
+.badge-great{background:var(--gold-soft); color:#7A5A1C;}
+
+.great-ribbon{
+  position:absolute; top:0; right:0;
+  width:0; height:0;
+  border-style:solid;
+  border-width:0 34px 34px 0;
+  border-color:transparent var(--gold) transparent transparent;
+}
+.great-ribbon::after{
+  content:'★';
+  position:absolute;
+  top:3px; right:-29px;
+  font-size:0.62rem;
+  color:#3a2c08;
+}
+
+/* ---------- Author view ---------- */
+.author-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(280px,1fr));
+  gap:1.1rem;
+}
+.author-card{
+  background:var(--sand-card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:1.2rem 1.3rem;
+}
+.author-name{
+  font-family:var(--font-display);
+  font-size:1.25rem;
+  font-weight:600;
+  margin:0 0 0.1rem;
+}
+.author-count{
+  font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--rust); font-weight:700; margin-bottom:0.75rem; display:block;
+}
+.author-titles{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:0.45rem;}
+.author-titles li{
+  font-size:0.88rem; color:var(--ink-soft);
+  border-top:1px solid var(--line);
+  padding-top:0.45rem;
+  cursor:pointer;
+  display:flex; justify-content:space-between; gap:0.6rem;
+}
+.author-titles li:first-child{border-top:none; padding-top:0;}
+.author-titles li:hover{color:var(--ink);}
+.author-titles .at-title{font-family:var(--font-display); font-style:italic;}
+.author-titles .at-year{font-size:0.74rem; color:var(--ink-faint); white-space:nowrap;}
+
+/* ---------- Detail panel ---------- */
+.detail-overlay{
+  position:fixed; inset:0; z-index:100;
+  background:rgba(20,17,12,0.45);
+  display:none;
+  align-items:stretch;
+  justify-content:flex-end;
+}
+.detail-overlay.open{display:flex;}
+.detail-panel{
+  width:min(560px, 100%);
+  background:var(--sand-card);
+  height:100%;
+  overflow-y:auto;
+  box-shadow:var(--shadow-panel);
+  padding:2.2rem clamp(1.4rem,4vw,2.6rem) 3rem;
+  position:relative;
+  animation:slideIn 0.22s ease;
+}
+@keyframes slideIn{from{transform:translateX(24px); opacity:0;} to{transform:translateX(0); opacity:1;}}
+.detail-close{
+  position:absolute; top:1.4rem; right:1.4rem;
+  background:none; border:1px solid var(--line); border-radius:50%;
+  width:32px; height:32px; font-size:1.1rem; color:var(--ink-soft);
+  display:flex; align-items:center; justify-content:center;
+}
+.detail-close:hover{color:var(--ink); border-color:var(--ink-soft);}
+.detail-chips{display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom:1rem;}
+.chip{
+  font-size:0.68rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
+  padding:0.28rem 0.6rem; border-radius:20px; background:var(--sand); color:var(--ink-soft);
+  border:1px solid var(--line);
+}
+.detail-numeral{
+  font-family:var(--font-display); font-style:italic; color:var(--gold); font-weight:600; font-size:0.95rem; margin-bottom:0.3rem;
+}
+.detail-title{
+  font-family:var(--font-display);
+  font-size:clamp(1.7rem,3vw,2.1rem);
+  font-weight:600;
+  line-height:1.18;
+  margin:0 0 0.35rem;
+}
+.detail-author{
+  font-size:0.92rem; color:var(--ink-soft); font-weight:600; margin-bottom:1.3rem;
+}
+.detail-meta-grid{
+  display:grid; grid-template-columns:repeat(2,1fr); gap:0.9rem 1.4rem;
+  padding:1.1rem 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  margin-bottom:1.4rem;
+}
+.dm-label{font-size:0.66rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-faint); display:block; margin-bottom:0.2rem;}
+.dm-value{font-size:0.92rem; color:var(--ink); font-weight:500;}
+.detail-section-eyebrow{
+  font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--rust); font-weight:700; margin:0 0 0.6rem;
+}
+.detail-summary{font-size:1.02rem; line-height:1.72; color:var(--ink); margin-bottom:1.3rem;}
+.detail-summary p{margin:0 0 0.9rem;}
+.pull-quote{
+  font-family:var(--font-display); font-style:italic; font-size:1.12rem; line-height:1.55;
+  color:var(--ink); border-left:3px solid var(--gold); padding:0.2rem 0 0.2rem 1.1rem;
+  margin:0 0 1rem;
+}
+.detail-link{
+  display:inline-block; font-size:0.85rem; font-weight:600; color:var(--rust);
+  text-decoration:none; border-bottom:1px solid var(--rust-soft); padding-bottom:1px; margin-top:0.3rem;
+}
+.detail-link:hover{border-color:var(--rust);}
+.detail-africa{
+  margin-top:1.6rem; padding:1rem 1.1rem; background:var(--rust-soft); border-radius:var(--radius);
+  display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;
+}
+.detail-africa p{margin:0; font-size:0.85rem; color:#5C2C18; max-width:30ch;}
+.detail-africa a{
+  font-size:0.78rem; font-weight:700; letter-spacing:0.03em; text-transform:uppercase;
+  background:var(--rust); color:#FBF2EB; padding:0.5rem 0.9rem; border-radius:20px; text-decoration:none; white-space:nowrap;
+}
+.detail-reread{font-size:0.82rem; color:var(--ink-soft); margin-bottom:1.1rem; font-style:italic;}
+
+/* ---------- Footer ---------- */
+.site-footer{background:var(--ink-deep); color:#C7BCA3; margin-top:2rem;}
+.footer-inner{
+  max-width:var(--maxw); margin:0 auto; padding:2.6rem clamp(1rem,3vw,2.5rem);
+  display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:2rem;
+}
+.footer-title{font-family:var(--font-display); font-size:1.2rem; color:#F6F0E2; font-weight:600; display:block; margin-bottom:0.5rem;}
+.footer-col p{font-size:0.85rem; line-height:1.55; margin:0;}
+.footer-eyebrow{font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold-bright); font-weight:700; display:block; margin-bottom:0.5rem;}
+.footer-col a{display:block; font-size:0.85rem; margin-bottom:0.4rem; text-decoration:none; color:#C7BCA3;}
+.footer-col a:hover{color:#F6F0E2;}
+
+@media (max-width:720px){
+  .footer-inner{grid-template-columns:1fr; gap:1.6rem;}
+  .detail-meta-grid{grid-template-columns:1fr 1fr;}
+  .header-inner{align-items:flex-start;}
+  .search-wrap{flex-basis:100%;}
+}
+
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <a href="#" class="brand-mark" onclick="setView('greats');return false;">
+        <span class="brand-title">Dad's Bookshelf</span>
+        <span class="brand-sub">one shelf, since 2009</span>
+      </a>
+    </div>
+    <div class="search-wrap">
+      <input type="text" id="searchInput" class="search-input" placeholder="Search 297 books by title or author…" autocomplete="off">
+      <button class="search-clear" id="searchClear" aria-label="Clear search" onclick="clearSearch()">&times;</button>
+    </div>
+  </div>
+  <nav class="tab-nav" id="tabNav" aria-label="Browse by collection">
+    <!-- populated by JS -->
+  </nav>
+</header>
+
+<main id="mainContent">
+  <section class="intro-band" id="introBand"></section>
+  <section class="stats-strip" id="statsStrip"></section>
+  <section class="grid-wrap">
+    <div class="book-grid" id="bookGrid"></div>
+    <p class="empty-state" id="emptyState" hidden>No books match that search. Try another title or author.</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <span class="footer-title">Dad's Bookshelf</span>
+      <p>297 books read between 2009 and 2026. Thirty-two of them changed how I think.</p>
+    </div>
+    <div class="footer-col">
+      <span class="footer-eyebrow">Sibling project</span>
+      <a href="https://beyondachebe.com" target="_blank" rel="noopener">Beyond Achebe — a literary atlas of Africa, 54 countries ↗</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-eyebrow">Reviews &amp; reading lists</span>
+      <a href="https://fuuo.blogspot.com" target="_blank" rel="noopener">FUUO ↗</a>
+      <a href="https://kruzoo.blogspot.com" target="_blank" rel="noopener">Kruzoo ↗</a>
+    </div>
+  </div>
+</footer>
+
+<div class="detail-overlay" id="detailOverlay" onclick="if(event.target===this) closeDetail();">
+  <div class="detail-panel" id="detailPanel" role="dialog" aria-modal="true">
+    <!-- populated by JS -->
+  </div>
+</div>
+
+<script>
+const BOOKS = [{"id": 1, "title": "Babylon by Bus", "author": "Donovan Webster & Ray Lemoine", "country": "Iraq", "region": "Middle East", "pubYear": 2006, "yearRead": 2009, "type": "Non-Fiction", "secondaryType": "Biography", "rating": 4, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 2, "title": "Ballistics", "author": "Billy Collins", "country": "America", "region": "North America", "pubYear": 2008, "yearRead": 2009, "type": "Poetry", "secondaryType": "", "rating": 3, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 3, "title": "Blue Like Jazz", "author": "Donald Miller", "country": "America", "region": "North America", "pubYear": 2003, "yearRead": 2009, "type": "Non-Fiction", "secondaryType": "Christian", "rating": 5, "isGreat": false, "africa": false, "theme": "Christian Faith"}, {"id": 4, "title": "Love and Respect", "author": "Dr. Emerson Eggerichs", "country": "America", "region": "North America", "pubYear": 2004, "yearRead": 2009, "type": "Non-Fiction", "secondaryType": "Christian", "rating": 4, "isGreat": false, "africa": false, "theme": "Christian Faith"}, {"id": 5, "title": "My Sister's Keeper", "author": "Jodi Picoult", "country": "American", "region": "North America", "pubYear": 2004, "yearRead": 2009, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 6, "title": "The Hakawati", "author": "Rabig Alemeddine", "country": "Lebanon", "region": "Middle East", "pubYear": 2008, "yearRead": 2009, "type": "Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 7, "title": "The Memory Keeper's Daughter", "author": "Kim Edwards", "country": "America", "region": "North America", "pubYear": 2005, "yearRead": 2009, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 8, "title": "The Shack", "author": "W.M. Paul Young", "country": "America", "region": "North America", "pubYear": 2007, "yearRead": 2009, "type": "Fiction", "secondaryType": "Christian", "rating": 4, "isGreat": false, "africa": false, "theme": "Christian Faith"}, {"id": 9, "title": "The Time Traveler's Wife", "author": "Audrey Niffenegger", "country": "America", "region": "North America", "pubYear": 2003, "yearRead": 2009, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 10, "title": "Three Cups of Tea", "author": "Greg Mortenson", "country": "Afghanistan", "region": "Asia", "pubYear": 2006, "yearRead": 2009, "type": "Non-Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 11, "title": "Water for Elephants", "author": "Sara Gruen", "country": "America", "region": "North America", "pubYear": 2006, "yearRead": 2009, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 12, "title": "A Million Miles in a Thousand Years", "author": "Donald Miller", "country": "America", "region": "North America", "pubYear": 2009, "yearRead": 2010, "type": "Non-Fiction", "secondaryType": "Biography", "rating": 4, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 13, "title": "Breaking Dawn", "author": "Stephenie Meyer", "country": "America", "region": "North America", "pubYear": 2008, "yearRead": 2010, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 14, "title": "Extremely Loud and Incredibly Close", "author": "Jonathan Safran Foer", "country": "America", "region": "North America", "pubYear": 2005, "yearRead": 2010, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 15, "title": "Matterhorn", "author": "Karl Marlantes", "country": "Vietnam", "region": "Asia", "pubYear": 2010, "yearRead": 2010, "type": "Fiction", "secondaryType": "Historical Fiction", "rating": 5, "isGreat": true, "africa": false, "theme": "War, Service & Sacrifice", "summary": "Matterhorn is a novel about Vietnam. More succinctly, it's THE best novel about Vietnam and ONE of the BEST on war ever written. Marlantes was a Yale grad and a Rhodes scholar who served IN Vietnam, was awarded the Navy Cross, the Bronze Star, two Navy Commendation Medals for valor, two Purple Hearts, and ten air medals. And for the past 30 years he has been working on this soul-wrenching story. We spend a disproportionate amount of time studying the facts, tactics, techniques and history of wars. I add this novel to my 'must read for FAOs' list because it adds something missing: CONTEXT and TEXTURE. The words 'acceptable loss' and 'collateral damage' no longer remain as easily typed black words on an after action report, instead they appear in the murky purple of blood and hopelessness.", "quotes": ["We spend a disproportionate amount of time studying the facts, tactics, techniques and history of wars. I add this novel to my 'must read for FAOs' list because it adds something missing: CONTEXT and TEXTURE."], "link": "https://www.amazon.com/review/R3IGCKISGZEOCV/ref=cm_cr_srp_d_rdp_perm"}, {"id": 16, "title": "The Language of Secrets", "author": "Ausma Zehanat Khan", "country": "Canada", "region": "North America", "pubYear": 2015, "yearRead": 2010, "type": "Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 17, "title": "The Last Song", "author": "Nicholas Sparks", "country": "America", "region": "North America", "pubYear": 2009, "yearRead": 2010, "type": "Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 18, "title": "The Lovely Bones", "author": "Alice Sebold", "country": "America", "region": "North America", "pubYear": 2002, "yearRead": 2010, "type": "Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 19, "title": "It Happened on the Way to War", "author": "Rye Barcott", "country": "Kenya", "region": "Africa", "pubYear": 2011, "yearRead": 2011, "type": "Biography", "secondaryType": "Non-Fiction", "rating": 5, "isGreat": false, "africa": true, "theme": "Memoir & a Life Examined"}, {"id": 20, "title": "Naked Economics", "author": "Charles Wheelan", "country": "America", "region": "North America", "pubYear": 2002, "yearRead": 2011, "type": "Non-Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 21, "title": "One Thousand Gifts", "author": "Ann Voskamp", "country": "American", "region": "North America", "pubYear": 2010, "yearRead": 2011, "type": "Non-Fiction", "secondaryType": "Christian", "rating": 5, "isGreat": false, "africa": false, "theme": "Christian Faith"}, {"id": 22, "title": "The Alchemist", "author": "Paulo Coelho", "country": "Spain, Morocco", "region": "Europe", "pubYear": 1988, "yearRead": 2011, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 23, "title": "The Cairo Trilogy", "author": "Maguib Mahfouz", "country": "Egypt", "region": "Middle East", "pubYear": 1956, "yearRead": 2011, "type": "Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 24, "title": "The Help", "author": "Kathyrn Stockett", "country": "America", "region": "North America", "pubYear": 2009, "yearRead": 2011, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 25, "title": "The Hunger Games Trilogy", "author": "Suzanne Collins", "country": "America", "region": "North America", "pubYear": 2008, "yearRead": 2011, "type": "Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 26, "title": "The Shadow of the Sun", "author": "Ryszard Kapuscinski", "country": "Uganda, Multiple", "region": "Africa", "pubYear": 1998, "yearRead": 2011, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 27, "title": "The Shadow of the Wind", "author": "Carlos Ruiz Zafon", "country": "Spain", "region": "Europe", "pubYear": 2001, "yearRead": 2011, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 28, "title": "The Tipping Point", "author": "Malcom Gladwell", "country": "American", "region": "North America", "pubYear": 2000, "yearRead": 2011, "type": "Non-Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 29, "title": "The Zanzibar Chest", "author": "Aidan Hartley", "country": "Kenya, Yemen", "region": "Africa", "pubYear": 2003, "yearRead": 2011, "type": "Biography", "secondaryType": "Non-Fiction", "rating": 5, "isGreat": true, "africa": true, "theme": "Memoir & a Life Examined", "summary": "From time to time, God causes men to be born who have a lust to go abroad at the risk of their lives and discover news. If there were ever an engraving to be mounted on the wall of my hypothetical office it would be Kipling's opening quote from this book. One of my favorite books ever — not technically fiction but it sure reads like it. Hartley was a war correspondent who covered Africa from Somalia to Rwanda to the Congo in the most brutal years. My complete notes and highlights are on FUUO.", "quotes": ["From time to time, God causes men to be born who have a lust to go abroad at the risk of their lives and discover news."], "link": "http://fuuo.blogspot.com/2012/11/thezanzibarchest.aidenhartley.summary.review.notes.html"}, {"id": 30, "title": "Things Fall Apart", "author": "Chinua Achebe", "country": "Nigeria", "region": "Africa", "pubYear": 1958, "yearRead": 2011, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 31, "title": "What Is the What", "author": "Dave Eggers", "country": "Sudan", "region": "Africa", "pubYear": 2006, "yearRead": 2011, "type": "Historical Fiction", "secondaryType": "Biography", "rating": 4, "isGreat": false, "africa": true, "theme": "Memoir & a Life Examined"}, {"id": 32, "title": "Whiteman", "author": "Tony D’Souza", "country": "Cote d'Ivoire", "region": "Africa", "pubYear": 2006, "yearRead": 2011, "type": "Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 33, "title": "Americanah", "author": "Chimamanda Ngozi Adichie", "country": "Nigeria", "region": "Africa", "pubYear": 2013, "yearRead": 2013, "type": "Fiction", "secondaryType": "", "rating": 5, "isGreat": true, "africa": true, "theme": "Sweeping Fiction", "summary": "A riotous look at the fictional-ish journey of one Nigerian woman to the college campuses and social circles of the US. Tuck a copy of Adichie's deft and funny tale into your bag to read this summer a la plage ou a la piscine. Among her many insights into our culture is the American propensity to give visitors a full tour of their home — in Nigeria you will never get past the kitchen and living room.", "quotes": [], "link": "http://kruzoo.blogspot.com/2015/02/americanah-kindle-notes.chimamandangoziadichie.html"}, {"id": 34, "title": "Billy Lynn's Long Halftime Walk", "author": "Ben Fountain", "country": "Iraq", "region": "Middle East", "pubYear": 2012, "yearRead": 2013, "type": "Fiction", "secondaryType": "Military", "rating": 5, "isGreat": false, "africa": false, "theme": "War, Service & Sacrifice"}, {"id": 35, "title": "Crossroads", "author": "W.M. Paul Young", "country": "America", "region": "North America", "pubYear": 2012, "yearRead": 2013, "type": "Fiction", "secondaryType": "Christian", "rating": null, "isGreat": false, "africa": false, "theme": "Christian Faith"}, {"id": 36, "title": "Disgrace", "author": "J.M. Coetzee", "country": "South Africa", "region": "Africa", "pubYear": 1999, "yearRead": 2013, "type": "Fiction", "secondaryType": "", "rating": 1, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 37, "title": "Ender's Game", "author": "Oroson Scott Card", "country": "Space", "region": "North America", "pubYear": 1985, "yearRead": 2013, "type": "Fiction", "secondaryType": "Sci-Fi", "rating": 5, "isGreat": true, "africa": false, "theme": "Speculative & Strange", "summary": "A million times better than the mediocre movie. Start with this one and revel in reading the whole series.", "quotes": [], "link": "http://kruzoo.blogspot.com/2014/02/whatshouldiread.2013readinglist.2014readinglist.topbooks.html"}, {"id": 38, "title": "Foe", "author": "J.M. Coetzee", "country": "South Africa", "region": "Africa", "pubYear": 1986, "yearRead": 2013, "type": "Fiction", "secondaryType": "", "rating": 1, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 39, "title": "Long Walk to Freedom", "author": "Nelson Mandela", "country": "South Africa", "region": "Africa", "pubYear": 1994, "yearRead": 2013, "type": "Non-Fiction", "secondaryType": "Biography", "rating": 5, "isGreat": true, "africa": true, "theme": "Memoir & a Life Examined", "summary": "I started Mandela's autobiography a few weeks before his passing after watching it gather digital dust on my kindle bookshelf for over a year. My reticence to dive into this book stemmed from a general disdain for dense, bloated, self-important celebrations of one's life often captured in autobiographies. My misgivings could not have been more misplaced. More a series of chronological vignettes than a traditional biography, Madiba beautiful and humbly tells not only his story — but that of South Africa.", "quotes": ["More a series of chronological vignettes than a traditional biography, Madiba beautiful and humbly tells not only his story — but that of South Africa."], "link": "http://kruzoo.blogspot.com/2015/02/long-walk-to-freedom-kindle-notes.nelson.mandela.za.html"}, {"id": 40, "title": "Never Let Me Go", "author": "Kazuo Ishiguro", "country": "England", "region": "Europe", "pubYear": 2005, "yearRead": 2013, "type": "Fiction", "secondaryType": "", "rating": 2, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 41, "title": "Orphan's Master Son", "author": "Adam Jonnson", "country": "North Korea", "region": "Europe", "pubYear": 2012, "yearRead": 2013, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 42, "title": "People Who Eat Darkness", "author": "Richard Lloyd Parry", "country": "Japan", "region": "Asia", "pubYear": 2010, "yearRead": 2013, "type": "Biography", "secondaryType": "True Crime", "rating": 1, "isGreat": false, "africa": false, "theme": "Conflict Zones & Hard Truths"}, {"id": 43, "title": "Prodigal God", "author": "Tim Keller", "country": "America", "region": "North America", "pubYear": 2008, "yearRead": 2013, "type": "Non-Fiction", "secondaryType": "", "rating": 5, "isGreat": true, "africa": false, "theme": "Christian Faith", "summary": "First off, as an English major I am embarrassed to admit that I did not know the correct definition of the word prodigal. I always thought it referred to someone who screws up and comes back around, hat in hand. I couldn't be further from the truth — prodigal means someone who is wastefully extravagant, who spends their resources recklessly and freely. So in this story what you really have is a parable about two lost sons and a reckless (with his love) father. Keller's reorientation of the story from its traditional focus on the wayward son gives one more accurate insight into just who this tale was for. In context, Jesus' main audience was the 'older brothers' — the self-righteous pharisees who sought to control their own salvation through rigorous adherence to the law. One of best parts of Prodigal God is that it turns the reader outward showing that recognition of God's costly grace should spur his followers to serve the poor, to love the orphans and widows in society today. On my yearly re-reading list.", "quotes": ["Prodigal means someone who is wastefully extravagant, who spends their resources recklessly and freely.", "The lavish and extravagant call of the Father to sons and daughters of all types—to join him in the banquet."], "link": "http://kruzoo.blogspot.com/p/yearly-reading-list.html", "rereadYears": [2017]}, {"id": 44, "title": "The Light Between Oceans", "author": "M.L. Stedman", "country": "Australia", "region": "North America", "pubYear": 2012, "yearRead": 2013, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 45, "title": "Warriors: Life and Death Among the Somalis", "author": "Gerald Hanley", "country": "Somalia", "region": "Africa", "pubYear": 1971, "yearRead": 2013, "type": "Non-Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": true, "theme": "Conflict Zones & Hard Truths"}, {"id": 46, "title": "West with the Night", "author": "Beryl Markham", "country": "Kenya", "region": "Africa", "pubYear": 1942, "yearRead": 2013, "type": "Biography", "secondaryType": "Aviation", "rating": 5, "isGreat": true, "africa": true, "theme": "Memoir & a Life Examined", "summary": "An aviation pioneer—the first woman to fly from Europe to North America solo—an accomplished horse trainer—illicit lover of the Duke of Gloucester—writer without equal. As a former pilot myself, I am astounded and in awe of the pioneering pilots of the 1920s and 30s in Africa. West with the Night is one of the best written books ever. Hemingway's evaluation of Beryl in a letter to a friend should rocket this novel to the top of your amazon wish list: 'She can write rings around all of us who consider ourselves as writers.'", "quotes": ["She can write rings around all of us who consider ourselves as writers. — Hemingway", "You can live a lifetime and, at the end of it, know more about other people than you know about yourself."], "link": "http://fuuo.blogspot.com/2013/02/berylmarkham.westwiththenight.hemingway.html"}, {"id": 47, "title": "A Hologram for the King", "author": "Dave Eggers", "country": "Saudi Arabia", "region": "Middle East", "pubYear": 2012, "yearRead": 2014, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 48, "title": "A Sport and a Pastime", "author": "James Salter", "country": "America", "region": "North America", "pubYear": 1967, "yearRead": 2014, "type": "Fiction", "secondaryType": "", "rating": 5, "isGreat": true, "africa": false, "theme": "Sweeping Fiction", "summary": "Salter's most celebrated novel and the one that cemented his reputation as a writer's writer. Set in France, it captures light, place, and desire with a precision that makes most other novelists look like they're working in watercolors while Salter works in oil. His prose is the standard by which I measure every other novelist.", "quotes": ["Write as if this were your only book, your last book. Into it put everything you were saving—everything precious, every scrap of capital. Don't be afraid of being left with nothing."], "link": "https://fuuo.blogspot.com/2015/07/salter.obituary.writingwell.english.major.burningthedays.salterquotes.mg.html"}, {"id": 49, "title": "Country of My Skull: Guilt, Sorrow, and the Limits of Forgiveness in the New South Africa", "author": "Antjie Krog", "country": "South Africa", "region": "Africa", "pubYear": 1998, "yearRead": 2014, "type": "Non-Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": true, "theme": "Conflict Zones & Hard Truths"}, {"id": 50, "title": "Empire of the Summer Moon: Quanah Parker and the Rise and Fall of the Comanches, the Most Powerful Indian Tribe in American History", "author": "S.C. Gwynne", "country": "America", "region": "North America", "pubYear": 2010, "yearRead": 2014, "type": "Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 51, "title": "Every Day is for the Thief", "author": "Teju Cole", "country": "Nigeria, NYC", "region": "Africa", "pubYear": 2007, "yearRead": 2014, "type": "Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 52, "title": "Golden Hour", "author": "Todd Moss", "country": "Mali", "region": "Africa", "pubYear": 2014, "yearRead": 2014, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 53, "title": "Jesus > Religion: Why He Is So Much Better Than Trying Harder, Doing More, and Being Good Enough", "author": "Jefferson Bethke", "country": "America", "region": "North America", "pubYear": 2013, "yearRead": 2014, "type": "Non-Fiction", "secondaryType": "Christian", "rating": 4, "isGreat": false, "africa": false, "theme": "Christian Faith"}, {"id": 54, "title": "Lean Life", "author": "Brooks Hollan", "country": "America", "region": "North America", "pubYear": null, "yearRead": 2014, "type": "Non-Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 55, "title": "Marriage in Domoni", "author": "Martin Ottenheimer", "country": "Comoros", "region": "Africa", "pubYear": 1985, "yearRead": 2014, "type": "Non-Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": true, "theme": "Conflict Zones & Hard Truths"}, {"id": 56, "title": "My Traitor's Heart", "author": "Rian Malan", "country": "South Africa", "region": "Africa", "pubYear": 1990, "yearRead": 2014, "type": "Non-Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": true, "theme": "Conflict Zones & Hard Truths"}, {"id": 57, "title": "One Thousand Gifts", "author": "Ann Voskamp", "country": "America", "region": "North America", "pubYear": 2010, "yearRead": 2014, "type": "Christian", "secondaryType": "Non-Fiction", "rating": 5, "isGreat": false, "africa": false, "theme": "Christian Faith"}, {"id": 58, "title": "Say Her Name", "author": "Francisco Goldman", "country": "Mexico, NYC", "region": "North America", "pubYear": 2011, "yearRead": 2014, "type": "Biography", "secondaryType": "Non-Fiction", "rating": 4, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 59, "title": "Strong Fathers Strong Daughters", "author": "Meg Meeker", "country": "America", "region": "North America", "pubYear": 2006, "yearRead": 2014, "type": "Christian", "secondaryType": "Non-Fiction", "rating": 5, "isGreat": false, "africa": false, "theme": "Christian Faith"}, {"id": 60, "title": "The Battle for the Soul of South Africa, from Mandela to Zuma", "author": "Alec Russel", "country": "South Africa", "region": "Africa", "pubYear": 2009, "yearRead": 2014, "type": "Non-Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": true, "theme": "Conflict Zones & Hard Truths"}, {"id": 61, "title": "The Fault in our Stars", "author": "John Green", "country": "America, Amesterdam", "region": "North America", "pubYear": 2012, "yearRead": 2014, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 62, "title": "The Hunters", "author": "James Salter", "country": "Korea, America", "region": "North America", "pubYear": 1956, "yearRead": 2014, "type": "Fiction", "secondaryType": "War", "rating": 5, "isGreat": false, "africa": false, "theme": "War, Service & Sacrifice"}, {"id": 63, "title": "The Love Affairs of Nathaniel P: A Novel", "author": "Adelle Waldman", "country": "America", "region": "North America", "pubYear": 2013, "yearRead": 2014, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 64, "title": "The Son", "author": "Phillip Meyer", "country": "America", "region": "North America", "pubYear": 2013, "yearRead": 2014, "type": "Fiction", "secondaryType": "Americana", "rating": 5, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 65, "title": "Unbroken: A World War II Story of Survival, Resilience, and Redemption", "author": "Laura Hillenbrand", "country": "Japan", "region": "Asia", "pubYear": 2010, "yearRead": 2014, "type": "Non-Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 66, "title": "War", "author": "Sebastian Junger", "country": "America", "region": "Asia", "pubYear": 2010, "yearRead": 2014, "type": "Non-Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 67, "title": "White Fire", "author": "Douglas Preston & Lincoln Child", "country": "England", "region": "Europe", "pubYear": 2013, "yearRead": 2014, "type": "Fiction", "secondaryType": "Mystery", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 68, "title": "Wool", "author": "Hugh Howey", "country": "America", "region": "North America", "pubYear": 2011, "yearRead": 2014, "type": "Fiction", "secondaryType": "Sci-Fi", "rating": 5, "isGreat": false, "africa": false, "theme": "Speculative & Strange"}, {"id": 69, "title": "7 Women and the Secret to their Greaness", "author": "Eric Metaxas", "country": "America", "region": "North America", "pubYear": 2015, "yearRead": 2015, "type": "Non-Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 70, "title": "All the Names", "author": "Jose Saramago", "country": "Portugal", "region": "Europe", "pubYear": 1997, "yearRead": 2015, "type": "Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 71, "title": "Amazing Grace: William Wilberforce and the Heroic Campaign to End Slavery", "author": "Eric Metaxas", "country": "England", "region": "Europe", "pubYear": 2007, "yearRead": 2015, "type": "Non-Fiction", "secondaryType": "History", "rating": 3, "isGreat": false, "africa": false, "theme": "Conflict Zones & Hard Truths"}, {"id": 72, "title": "Better: A Surgeon's Note on Performance", "author": "Atul Gawande", "country": "America", "region": "North America", "pubYear": 2007, "yearRead": 2015, "type": "Non-Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 73, "title": "Burning the Days", "author": "James Salter", "country": "America", "region": "North America", "pubYear": 1997, "yearRead": 2015, "type": "Biography", "secondaryType": "", "rating": 5, "isGreat": true, "africa": false, "theme": "Memoir & a Life Examined", "summary": "Salter's memoir is the book that made me understand what writing could be. His career arc from West Point fighter pilot to revered literary novelist is unlike anything else in American letters. The prose burns throughout — there is not a wasted sentence. Reading this sent me back to read everything else he ever wrote.", "quotes": ["He wrote all his novels by hand, beginning each notebook with the same injunction: SAVE NOTHING."], "link": "https://fuuo.blogspot.com/2015/07/salter.obituary.writingwell.english.major.burningthedays.salterquotes.mg.html"}, {"id": 74, "title": "City of Lies", "author": "Ramita Navai", "country": "Iran", "region": "Middle East", "pubYear": 2014, "yearRead": 2015, "type": "Non-Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": false, "theme": "Conflict Zones & Hard Truths"}, {"id": 75, "title": "Confessions of a CPA: The Truth About Life Insurance", "author": "Bryan S Bloom", "country": "America", "region": "North America", "pubYear": 2013, "yearRead": 2015, "type": "Non-Fiction", "secondaryType": "", "rating": 2, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 76, "title": "Confines of the Shadow", "author": "Alessandro Spina", "country": "Libya", "region": "Africa", "pubYear": 1971, "yearRead": 2015, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 77, "title": "Everything is Yours, Everything is Not Yours", "author": "Clemantine Wamariya,", "country": "Rwanda", "region": "Africa", "pubYear": 2018, "yearRead": 2015, "type": "Fiction", "secondaryType": "Africa", "rating": 4, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 78, "title": "Fearless: The Undaunted Courage and Ultimate Sacrifice of Navy SEAL Team SIX Operator", "author": "Adam Brown", "country": "America", "region": "North America", "pubYear": 2012, "yearRead": 2015, "type": "Biography", "secondaryType": "Non-Fiction", "rating": 3, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 79, "title": "Halfway Home", "author": "Hugh Howey", "country": "America", "region": "North America", "pubYear": 2010, "yearRead": 2015, "type": "Fiction", "secondaryType": "Sci-Fi", "rating": 4, "isGreat": false, "africa": false, "theme": "Speculative & Strange"}, {"id": 80, "title": "Humilitas: A Lost Key to Life, Love, and Leadership", "author": "John Dickson", "country": "America", "region": "North America", "pubYear": 2011, "yearRead": 2015, "type": "Christian", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Christian Faith"}, {"id": 81, "title": "Light Years", "author": "James Salter", "country": "America", "region": "North America", "pubYear": 1975, "yearRead": 2015, "type": "Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 82, "title": "One Day I Will Write About This Place: A Memoir", "author": "Binyavanga Wainaina", "country": "Kenya", "region": "Africa", "pubYear": 2011, "yearRead": 2015, "type": "Biography", "secondaryType": "Non-Fiction", "rating": 4, "isGreat": false, "africa": true, "theme": "Memoir & a Life Examined"}, {"id": 83, "title": "Redeployment", "author": "Phil Klay", "country": "Iraq, Afghanistan", "region": "Middle East", "pubYear": 2014, "yearRead": 2015, "type": "Fiction", "secondaryType": "War", "rating": 4, "isGreat": false, "africa": false, "theme": "War, Service & Sacrifice"}, {"id": 84, "title": "Seven Men and the Secret of Their Greatness", "author": "Eric Metaxas", "country": "America", "region": "North America", "pubYear": 2013, "yearRead": 2015, "type": "Non-Fiction", "secondaryType": "Biography", "rating": 3, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 85, "title": "Shell Collector", "author": "Anthony Doerr", "country": "Kenya", "region": "Africa", "pubYear": 2002, "yearRead": 2015, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 86, "title": "The Cost of Living Like This", "author": "James Kennaway", "country": "England", "region": "Europe", "pubYear": 1969, "yearRead": 2015, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 87, "title": "The Fishermen", "author": "Chigozie Obioma", "country": "Nigeria", "region": "Africa", "pubYear": 2015, "yearRead": 2015, "type": "Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 88, "title": "The Martian", "author": "Andy Weir", "country": "America", "region": "North America", "pubYear": 2011, "yearRead": 2015, "type": "Fiction", "secondaryType": "Sci-Fi", "rating": 5, "isGreat": false, "africa": false, "theme": "Speculative & Strange"}, {"id": 89, "title": "War of the Encyclopaedists", "author": "Christopher Robinson and Gavin Kovite", "country": "Iraq, America", "region": "Middle East", "pubYear": 2015, "yearRead": 2015, "type": "Fiction", "secondaryType": "War", "rating": 5, "isGreat": false, "africa": false, "theme": "War, Service & Sacrifice"}, {"id": 90, "title": "We Need New Names", "author": "Noviolet Bulawayo", "country": "Zimbabwe", "region": "Africa", "pubYear": 2013, "yearRead": 2015, "type": "Fiction", "secondaryType": "Africa", "rating": 4, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 91, "title": "A Bend in the River", "author": "V.S. Naipaul", "country": "DRC", "region": "Africa", "pubYear": 1979, "yearRead": 2016, "type": "Fiction", "secondaryType": "Africa", "rating": 4, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 92, "title": "A Grief Observed", "author": "C.S. Lewis", "country": "England", "region": "Europe", "pubYear": 1961, "yearRead": 2016, "type": "Christian", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Christian Faith"}, {"id": 93, "title": "All Our Names", "author": "Dinaw Mengestu", "country": "Uganda", "region": "Africa", "pubYear": 2014, "yearRead": 2016, "type": "Fiction", "secondaryType": "Africa", "rating": 5, "isGreat": true, "africa": true, "theme": "Sweeping Fiction", "summary": "Read It Because it will Break Your Heart. And it's the Great African Novel. As I read through the final pages of the novel and watched the final paragraphs fade away my heart began to ache and break because I didn't want to let the characters go. And then I focused and slowly read through the final line. I won't ruin it for you but that line — oh that line — it will break your heart.", "quotes": ["No one needs to learn how to kill, but it took the foreigners who came to Africa to show us that it meant nothing to do so."], "link": "http://kruzoo.blogspot.com/2016/03/allournames.thegreatafricannovel.mengestu.ugandaindependence.fao.html"}, {"id": 94, "title": "Allah is Not Obliged", "author": "Ahmadou Kourouma", "country": "Cote D'Ivoire", "region": "Africa", "pubYear": 2000, "yearRead": 2016, "type": "Fiction", "secondaryType": "Africa", "rating": 4, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 95, "title": "An African in Greenland", "author": "Tété-Michel Kpomassie", "country": "Greenland, Togo", "region": "Africa", "pubYear": 1981, "yearRead": 2016, "type": "Biography", "secondaryType": "Africa", "rating": 3, "isGreat": false, "africa": true, "theme": "Memoir & a Life Examined"}, {"id": 96, "title": "Ghana Must Go", "author": "Taiye Selasi", "country": "Ghana", "region": "Africa", "pubYear": 2013, "yearRead": 2016, "type": "Fiction", "secondaryType": "Africa", "rating": 4, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 97, "title": "Houseboy", "author": "Ferdinand Oyono", "country": "Cameroon", "region": "Africa", "pubYear": 1956, "yearRead": 2016, "type": "Fiction", "secondaryType": "Africa", "rating": 3, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 98, "title": "I Did Not Come to You by Chance", "author": "Adaobi Tricia Nwaubani", "country": "Nigeria", "region": "Africa", "pubYear": 2009, "yearRead": 2016, "type": "Fiction", "secondaryType": "Africa", "rating": 5, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 99, "title": "In Praise of Savagery", "author": "Warwick Cairns", "country": "Ethiopia", "region": "Africa", "pubYear": 2010, "yearRead": 2016, "type": "Non-Fiction", "secondaryType": "Biography", "rating": 4, "isGreat": false, "africa": true, "theme": "Memoir & a Life Examined"}, {"id": 100, "title": "Leaving Tangier", "author": "Tahar Ben Jelloun", "country": "Morocco", "region": "Africa", "pubYear": 2006, "yearRead": 2016, "type": "Fiction", "secondaryType": "Africa", "rating": 4, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 101, "title": "Parenting with Love and Logics", "author": "Charles Fay and Foster Clin", "country": "America", "region": "North America", "pubYear": 1990, "yearRead": 2016, "type": "Non-Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 102, "title": "Salvage the Bones", "author": "Jesmyn Ward", "country": "Mississippi", "region": "North America", "pubYear": 2011, "yearRead": 2016, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 103, "title": "Ships of Mercy", "author": "Don Stephens", "country": "America", "region": "North America", "pubYear": 2005, "yearRead": 2016, "type": "Non-Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 104, "title": "So Long a Letter", "author": "Mariama Bâ", "country": "Senegal", "region": "Africa", "pubYear": 1979, "yearRead": 2016, "type": "Fiction", "secondaryType": "Africa", "rating": 3, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 105, "title": "Stories", "author": "John Armstrong", "country": "America", "region": "North America", "pubYear": 2010, "yearRead": 2016, "type": "Non-Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 106, "title": "Superforecasting", "author": "Philip E. Tetlock and Dan M. Gardner", "country": "America", "region": "North America", "pubYear": 2015, "yearRead": 2016, "type": "Non-Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 107, "title": "The Girl on the Train", "author": "Paula Hawkins", "country": "England", "region": "Europe", "pubYear": 2015, "yearRead": 2016, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 108, "title": "The Jive Talker or How to Get a British Passport", "author": "Samson Kambalu", "country": "Malawi, Englad", "region": "Africa", "pubYear": 2008, "yearRead": 2016, "type": "Fiction", "secondaryType": "Africa", "rating": 4, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 109, "title": "The Kafir of Khartala", "author": "Mohamed Toihiri", "country": "Comoros", "region": "Africa", "pubYear": 1984, "yearRead": 2016, "type": "Fiction", "secondaryType": "Africa", "rating": 3, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 110, "title": "The Sympathizer", "author": "Viet Thanh Nguyen", "country": "Vietnam", "region": "Asia", "pubYear": 2015, "yearRead": 2016, "type": "Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 111, "title": "They Are Coming", "author": "Christopher Mlalazi", "country": "Zimbabwe", "region": "Africa", "pubYear": 2014, "yearRead": 2016, "type": "Fiction", "secondaryType": "Africa", "rating": 3, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 112, "title": "Through the Eyes of a Lion", "author": "Levi Lusko", "country": "America", "region": "North America", "pubYear": 2015, "yearRead": 2016, "type": "Non-Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 113, "title": "American Rust", "author": "Philipp Meyer", "country": "America", "region": "North America", "pubYear": 2009, "yearRead": 2017, "type": "Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 114, "title": "Artemis", "author": "Andy Weir", "country": "America", "region": "North America", "pubYear": 2017, "yearRead": 2017, "type": "Fiction", "secondaryType": "Sci-Fi", "rating": 5, "isGreat": false, "africa": false, "theme": "Speculative & Strange"}, {"id": 115, "title": "Chaos Monkeys", "author": "Antonio García Martínez", "country": "America", "region": "North America", "pubYear": 2016, "yearRead": 2017, "type": "Non-Fiction", "secondaryType": "Business", "rating": 4, "isGreat": false, "africa": false, "theme": "Leadership & Building Things"}, {"id": 116, "title": "Deep Work", "author": "Cal Newport", "country": "America", "region": "North America", "pubYear": 2016, "yearRead": 2017, "type": "Non-Fiction", "secondaryType": "Business", "rating": 5, "isGreat": true, "africa": false, "theme": "Leadership & Building Things", "summary": "This was one of the most useful books that I have ever read. My full review is titled 'Read Deep Work Because It Will Change Everything.' Newport makes the case that the ability to focus without distraction on cognitively demanding tasks is one of the most valuable and increasingly rare skills in the modern economy.", "quotes": [], "link": "https://kruzoo.blogspot.com/2017/05/2017-reading-list.html"}, {"id": 117, "title": "Essentialism: The Discipline Pursuit of Less", "author": "Greg McKeown", "country": "America", "region": "North America", "pubYear": 2014, "yearRead": 2017, "type": "Non-Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 118, "title": "Hawaii", "author": "James A. Michener", "country": "America", "region": "North America", "pubYear": 1959, "yearRead": 2017, "type": "Fiction", "secondaryType": "Historical Fiction", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 119, "title": "Hidden Christmas", "author": "Tim Keller", "country": "America", "region": "North America", "pubYear": 2016, "yearRead": 2017, "type": "Non-Fiction", "secondaryType": "Christian", "rating": 4, "isGreat": false, "africa": false, "theme": "Christian Faith"}, {"id": 120, "title": "Moving the Palace", "author": "Charif Majdalani", "country": "Lebanon, Sudan", "region": "Africa", "pubYear": 2007, "yearRead": 2017, "type": "Fiction", "secondaryType": "Africa", "rating": 3, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 121, "title": "Prodigal God", "author": "Tim Keller", "country": "America", "region": "North America", "pubYear": 2008, "yearRead": 2017, "type": "Non-Fiction", "secondaryType": "Christian", "rating": 5, "isGreat": true, "africa": false, "theme": "Christian Faith", "summary": "First off, as an English major I am embarrassed to admit that I did not know the correct definition of the word prodigal. I always thought it referred to someone who screws up and comes back around, hat in hand. I couldn't be further from the truth — prodigal means someone who is wastefully extravagant, who spends their resources recklessly and freely. So in this story what you really have is a parable about two lost sons and a reckless (with his love) father. Keller's reorientation of the story from its traditional focus on the wayward son gives one more accurate insight into just who this tale was for. In context, Jesus' main audience was the 'older brothers' — the self-righteous pharisees who sought to control their own salvation through rigorous adherence to the law. One of best parts of Prodigal God is that it turns the reader outward showing that recognition of God's costly grace should spur his followers to serve the poor, to love the orphans and widows in society today. On my yearly re-reading list.", "quotes": ["Prodigal means someone who is wastefully extravagant, who spends their resources recklessly and freely.", "The lavish and extravagant call of the Father to sons and daughters of all types—to join him in the banquet."], "link": "http://kruzoo.blogspot.com/p/yearly-reading-list.html", "isGreatDuplicate": true}, {"id": 122, "title": "Sleepwalking Land", "author": "Mia Couto", "country": "Mozambique", "region": "Africa", "pubYear": 1992, "yearRead": 2017, "type": "Fiction", "secondaryType": "Africa", "rating": 3, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 123, "title": "The Hard Thing About Hard Things", "author": "Ben Horowitz", "country": "America", "region": "North America", "pubYear": 2014, "yearRead": 2017, "type": "Non-Fiction", "secondaryType": "Business", "rating": 5, "isGreat": false, "africa": false, "theme": "Leadership & Building Things"}, {"id": 124, "title": "The Last Will and Testament of Senor da Silva Araujo", "author": "Germano Almeida", "country": "Cape Verde", "region": "Africa", "pubYear": 1989, "yearRead": 2017, "type": "Fiction", "secondaryType": "Africa", "rating": 3, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 125, "title": "The Leader's Bookshelf", "author": "Adm. James Stavridis & R. Manning Ancell", "country": "America", "region": "North America", "pubYear": 2017, "yearRead": 2017, "type": "Non-Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 126, "title": "The Twelve Lives of Samuel Hawley", "author": "Hannah Tinti", "country": "America", "region": "North America", "pubYear": 2017, "yearRead": 2017, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 127, "title": "The Warmth of Other Suns", "author": "Isabel Wilkerson", "country": "America", "region": "North America", "pubYear": 2010, "yearRead": 2017, "type": "Non-Fiction", "secondaryType": "African-American", "rating": 5, "isGreat": true, "africa": false, "theme": "Conflict Zones & Hard Truths", "summary": "Read it Because: You can't afford not to. Before the publication of Warmth some seven years ago, there had never been a definitive and comprehensive analysis of these waves of migration that began following the reconstruction era as Jim Crow set in. Let the following statement sink in: Just 77 years ago, in 1/3 of the US, killing blacks was not a crime. Now while I may not agree with every single tenet of the #blacklivesmatter movement, reading this book opened my eyes to the historical headspace from which its leaders and followers are coming. Much of the conflict in today's society would at least be softened if both sides took the time to know one another's history. Wilkerson has presented a gift to Americans.", "quotes": ["Just 77 years ago, in 1/3 of the US, killing blacks was not a crime.", "Wilkerson has captured a fundamental piece of our history that before only existed buried in the margins of dusty newspapers and crumbling, fading memories of aging octogenarians."], "link": "http://kruzoo.blogspot.com/2017/04/the-warmth-of-other-suns.wilkerson.greatmigration.blacklivesmatter.trump.html"}, {"id": 128, "title": "Transit", "author": "Abdourahman A. Waberi*", "country": "Djibouti", "region": "Africa", "pubYear": 2003, "yearRead": 2017, "type": "Fiction", "secondaryType": "Africa", "rating": 4, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 129, "title": "Vakio Milamina", "author": "Soamiely Andriamananjara", "country": "Madagascar", "region": "Africa", "pubYear": 2012, "yearRead": 2017, "type": "Fiction", "secondaryType": "Africa", "rating": 4, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 130, "title": "African Kaiser", "author": "Robert Gaudi", "country": "Tanzania", "region": "Africa", "pubYear": 2017, "yearRead": 2018, "type": "Non-Fiction", "secondaryType": "Africa", "rating": 4, "isGreat": false, "africa": true, "theme": "Conflict Zones & Hard Truths"}, {"id": 131, "title": "American War: A Novel", "author": "Omar El Akkad", "country": "America", "region": "North America", "pubYear": 2017, "yearRead": 2018, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 132, "title": "Beyond the Rice Fields", "author": "Naivo", "country": "Madagascar", "region": "Africa", "pubYear": 2012, "yearRead": 2018, "type": "Fiction", "secondaryType": "Africa", "rating": 4, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 133, "title": "Dancing in the Glory of Monsters", "author": "Jason Stearns", "country": "DRC", "region": "Africa", "pubYear": 2011, "yearRead": 2018, "type": "Non-Fiction", "secondaryType": "Africa", "rating": 3, "isGreat": false, "africa": true, "theme": "Conflict Zones & Hard Truths"}, {"id": 134, "title": "Every Good Endeavor: Connecting Your Work to God's Work", "author": "Tim Keller", "country": "America", "region": "North America", "pubYear": 2012, "yearRead": 2018, "type": "Non-Fiction", "secondaryType": "Christian", "rating": 5, "isGreat": false, "africa": false, "theme": "Christian Faith"}, {"id": 135, "title": "Memoirs of a Porcupine", "author": "Alain Mabanckou", "country": "Republic of Congo", "region": "Africa", "pubYear": 1998, "yearRead": 2018, "type": "Fiction", "secondaryType": "Africa", "rating": 3, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 136, "title": "Sing, Unburied, Sing", "author": "Jesmyn Ward", "country": "America", "region": "North America", "pubYear": 2017, "yearRead": 2018, "type": "Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 137, "title": "The Beautiful Things that Heaven Bears", "author": "Dinaw Mengestu", "country": "Ethiopia", "region": "Africa", "pubYear": 2007, "yearRead": 2018, "type": "Fiction", "secondaryType": "Africa", "rating": 5, "isGreat": true, "africa": true, "theme": "Sweeping Fiction", "summary": "Before Adichie was regaling the world with her story of a relatively privileged immigrant experience in 'Americanah', Ethiopian author Dinaw Mengestu was pulling back the curtain on a much bleaker immigrant experience. The title comes from the closing lines of Dante's Inferno. In the case of the narrator Sepha and his friends, they have escaped the violence in their own country and arrived in America, 'seeing the stars.' Only they soon discover that while their new life in the United States may not be hell, it will likely be much more like the penance of purgatory than that of paradiso.", "quotes": ["As it was, I did not come to America to find a better life. I came here running and screaming with the ghosts of an old one firmly attached to my back.", "All the best dictators are colonels."], "link": "https://fuuo.blogspot.com/2018/05/kruses-keys.mengestu.beautifulthings.selassie.ethiopia.vw.html"}, {"id": 138, "title": "The Gunny Sack", "author": "M.G. Vassanji", "country": "Tanzania", "region": "Africa", "pubYear": 1989, "yearRead": 2018, "type": "Fiction", "secondaryType": "Africa", "rating": 4, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 139, "title": "The Memory of Love", "author": "Aminattah Forna", "country": "Sierra Leone", "region": "Africa", "pubYear": 2010, "yearRead": 2018, "type": "Fiction", "secondaryType": "Africa", "rating": 4, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 140, "title": "Turn the Ship Around", "author": "David Marquet", "country": "America", "region": "North America", "pubYear": 2012, "yearRead": 2018, "type": "Non-Fiction", "secondaryType": "Leadership", "rating": 5, "isGreat": false, "africa": false, "theme": "Leadership & Building Things"}, {"id": 141, "title": "What the Day Owes the Night", "author": "Yasmina Khadra", "country": "Algeria", "region": "Africa", "pubYear": 2008, "yearRead": 2018, "type": "Fiction", "secondaryType": "Africa", "rating": 5, "isGreat": true, "africa": true, "theme": "Sweeping Fiction", "summary": "This book is a perfect example of why reading fiction is important. Reading fiction like this forces the reader to internalize and grapple with historical events in a way that a straightforward history never could. In this case, by personalizing something like the Algerian independence struggle, the reader must reevaluate the dry numbers, facts and statistics littering the historical record and connect them to the actual people and struggles behind them.", "quotes": ["Have you ever dared, Younes, even once in your life?", "If a woman loves you, no star is beyond your grasp, no god can touch you.", "Only love can make good the misfortunes and evils of the world."], "link": "https://fuuo.blogspot.com/2018/04/love.fiction.algerianwarofindependence.html", "rereadYears": [2021]}, {"id": 142, "title": "Beacon 23", "author": "Hugh Howey", "country": "America", "region": "North America", "pubYear": 2015, "yearRead": 2019, "type": "Fiction", "secondaryType": "Sci-Fi", "rating": 4, "isGreat": false, "africa": false, "theme": "Speculative & Strange"}, {"id": 143, "title": "Beneath the Lion's Gaze", "author": "Maaza Mengiste", "country": "Ethiopia", "region": "Africa", "pubYear": 2010, "yearRead": 2019, "type": "Historical Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 144, "title": "Between the World and Me", "author": "Ta-Nehisi Coates", "country": "America", "region": "North America", "pubYear": 2015, "yearRead": 2019, "type": "Biography", "secondaryType": "African-American", "rating": 5, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 145, "title": "Ghost Fleet", "author": "P.W. Singer & August Cole", "country": "America", "region": "North America", "pubYear": 2015, "yearRead": 2019, "type": "Fiction", "secondaryType": "Military", "rating": 4, "isGreat": false, "africa": false, "theme": "War, Service & Sacrifice"}, {"id": 146, "title": "Gratitude in Low Voices", "author": "Dawit Gebremichael Habte", "country": "Eritrea", "region": "Africa", "pubYear": 2017, "yearRead": 2019, "type": "Historical Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 147, "title": "Hillbilly Elegy", "author": "J.D. Vance", "country": "America", "region": "North America", "pubYear": 2016, "yearRead": 2019, "type": "Biography", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 148, "title": "Homegoing", "author": "Yaa Gyasi", "country": "Ghana", "region": "Africa", "pubYear": 2016, "yearRead": 2019, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 149, "title": "Mister Drainpipe", "author": "Marc Secchia", "country": "Ethiopia", "region": "Africa", "pubYear": null, "yearRead": 2019, "type": "Fiction", "secondaryType": "Africa", "rating": null, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 150, "title": "Prevail: The Inspiring Story of Ethiopia's Victory Over Mussolini's Invasion", "author": "Jeff Pearce", "country": "Ethiopia", "region": "Africa", "pubYear": 2014, "yearRead": 2019, "type": "Non-Fiction", "secondaryType": "History", "rating": 3, "isGreat": false, "africa": true, "theme": "Conflict Zones & Hard Truths"}, {"id": 151, "title": "Rock Breaks Scissors", "author": "William Poundstone", "country": "America", "region": "North America", "pubYear": 2014, "yearRead": 2019, "type": "Non-Fiction", "secondaryType": "", "rating": 2, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 152, "title": "Season of the Shadow", "author": "Léonora Miano", "country": "Cameroon", "region": "Africa", "pubYear": 2013, "yearRead": 2019, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 153, "title": "The Shadow King", "author": "Maaza Mengiste", "country": "Ethiopia", "region": "Africa", "pubYear": 2019, "yearRead": 2019, "type": "Historical Fiction", "secondaryType": "", "rating": 5, "isGreat": true, "africa": true, "theme": "Sweeping Fiction", "summary": "Following Mussolini's invasion to avenge Italy's 19th-century embarrassment at the Battle of Adua, Kidane assembles a local militia at exiled Emperor Haile Selassie's behest. His wife Aster leads the women who trail the fighters supplying food and bullets, and eventually convinces him to let her women fight. Mengiste brings to light a forgotten piece of Ethiopia's resistance against Italy — the women who fought and were written out of the history. Her talent has continued to grow since her debut, evident in stunning lines throughout.", "quotes": ["They have come to rewrite history, to alter memory, to resurrect their dead and refashion them as heroes.", "She is one woman. She is many women. She is all the sound that exists in the world.", "We were the Shadow King. We were those who stepped into a country left dark by an invading plague and gave new hope to Ethiopia's people."], "link": "https://fuuo.blogspot.com/2019/12/kruses-keys-read-shadow-king-to.html"}, {"id": 154, "title": "Small Country", "author": "Gaël Faye", "country": "Burundi", "region": "Africa", "pubYear": 2016, "yearRead": 2019, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 155, "title": "Strong Fathers, Strong Daughters: 10 Secrets Every Father Should Know", "author": "Meg Meeker", "country": "America", "region": "North America", "pubYear": 2006, "yearRead": 2019, "type": "Non-Fiction", "secondaryType": "Christian", "rating": 5, "isGreat": false, "africa": false, "theme": "Christian Faith"}, {"id": 156, "title": "The Dry", "author": "Jane Harper", "country": "Australia", "region": "Asia", "pubYear": 2016, "yearRead": 2019, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 157, "title": "The Furious Longing of God", "author": "Brennan Manning", "country": "America", "region": "North America", "pubYear": 2009, "yearRead": 2019, "type": "Non-Fiction", "secondaryType": "Christian", "rating": 4, "isGreat": false, "africa": false, "theme": "Christian Faith"}, {"id": 158, "title": "The Heart of War: Misadventures in the Pentagon", "author": "Kathleen J. McInnis", "country": "America", "region": "North America", "pubYear": 2018, "yearRead": 2019, "type": "Fiction", "secondaryType": "Military", "rating": 4, "isGreat": false, "africa": false, "theme": "War, Service & Sacrifice"}, {"id": 159, "title": "The High Mountains of Portugal", "author": "Yann Martel", "country": "Portugal", "region": "Europe", "pubYear": 2016, "yearRead": 2019, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 160, "title": "The Three Body Problem", "author": "Cixin Liu", "country": "China", "region": "Asia", "pubYear": 2006, "yearRead": 2019, "type": "Fiction", "secondaryType": "Sci-Fi", "rating": 4, "isGreat": false, "africa": false, "theme": "Speculative & Strange"}, {"id": 161, "title": "To Stop a Warlord: My Story of Justice, Grace, and the Fight for Peace", "author": "Shannon Sedgwick Davis", "country": "Uganda", "region": "Africa", "pubYear": 2019, "yearRead": 2019, "type": "Biography", "secondaryType": "", "rating": 4, "isGreat": false, "africa": true, "theme": "Memoir & a Life Examined"}, {"id": 162, "title": "Where the Crawdads Sing", "author": "Delia Owens", "country": "America", "region": "North America", "pubYear": 2018, "yearRead": 2019, "type": "Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 163, "title": "Where the Light Gets In: Losing My Mother Only To Find Her Again", "author": "Kimberly Williams-Paisley", "country": "America", "region": "North America", "pubYear": 2016, "yearRead": 2019, "type": "Biography", "secondaryType": "Memoir", "rating": 4, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 164, "title": "American Spy", "author": "Lauren Wilkinson", "country": "America", "region": "North America", "pubYear": 2019, "yearRead": 2020, "type": "Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 165, "title": "Being Mortal", "author": "Atul Gawande", "country": "America", "region": "North America", "pubYear": 2014, "yearRead": 2020, "type": "Non-Fiction", "secondaryType": "", "rating": 5, "isGreat": true, "africa": false, "theme": "Memoir & a Life Examined", "summary": "Early on author Atul Gawande captures the decision that we will all make (ideally) before we grow old: 'how to make life worth living when we're weak and frail and can't fend for ourselves anymore.' More specifically, he seeks to find out how people can age without having to choose between neglect and institutionalization. Most frightening is his conclusion that for the majority of the medical community 'hope is not a plan, but it is our plan.'", "quotes": ["How to make life worth living when we're weak and frail and can't fend for ourselves anymore.", "Hope is not a plan, but it is our plan."], "link": "https://kruzoo.blogspot.com/2020/04/kruses-keys-end-of-life-planning-boomers-book.html"}, {"id": 166, "title": "Blessed Child", "author": "Ted Dekker & Bill Bright", "country": "America", "region": "North America", "pubYear": 2001, "yearRead": 2020, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 167, "title": "Burn-In", "author": "P.W. Singer & August Cole", "country": "America", "region": "North America", "pubYear": 2020, "yearRead": 2020, "type": "Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 168, "title": "By Night the Mountains Burn", "author": "Juan Tomás Ávila Laurel", "country": "Equatorial Guinea", "region": "Africa", "pubYear": 2009, "yearRead": 2020, "type": "Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 169, "title": "Call Sign Chaos", "author": "Jim Mattis & Bing West", "country": "America", "region": "North America", "pubYear": 2019, "yearRead": 2020, "type": "Non-Fiction", "secondaryType": "", "rating": 5, "isGreat": true, "africa": false, "theme": "War, Service & Sacrifice", "summary": "This book has been long anticipated and it delivers. General Mattis writes just as he leads — candid and thoughtful. This book strikes a delicate balance between an autobiography and a leadership book. Mattis and co-author Bing West utilize Mattis' career as a roadmap to illustrate leadership at three different levels: Direct, Executive, and Strategic. The one theme he kept coming back to was unleashing others' initiative. Required reading for any military officer or anyone in a leadership position.", "quotes": ["If you haven't read hundreds of books, you are functionally illiterate, and you will be incompetent, because your personal experiences alone aren't broad enough to sustain you.", "A leader's role is problem solving. If you don't like problems, stay out of leadership."], "link": "https://kruzoo.blogspot.com/2020/01/2020-reading-list.html"}, {"id": 170, "title": "Chasing Black Unicorns", "author": "Marek Zmyslowski", "country": "Poland", "region": "Europe", "pubYear": 2019, "yearRead": 2020, "type": "Non-Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 171, "title": "Death Be Not Proud", "author": "John Gunther", "country": "America", "region": "North America", "pubYear": 1949, "yearRead": 2020, "type": "Non-Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 172, "title": "Designing Your Life: A Framework For Building A Life You Can Thrive In", "author": "Bill Burnett & Dave Evans", "country": "America", "region": "North America", "pubYear": 2016, "yearRead": 2020, "type": "Non-Fiction", "secondaryType": "", "rating": 5, "isGreat": true, "africa": false, "theme": "Leadership & Building Things", "summary": "Stanford design professors Burnett and Evans apply design thinking to the challenge of building a life. The core insight is to stop asking 'what do I want to do with my life' (a gravity problem — unchangeable) and start prototyping multiple possible lives to see what fits. Essential reading for anyone navigating a career transition.", "quotes": [], "link": "https://kruzoo.blogspot.com/2020/01/2020-reading-list.html"}, {"id": 173, "title": "Diamonds, Gold, and War: The British, the Boers, and the Making of South Africa", "author": "Martin Meredith", "country": "South Africa", "region": "Africa", "pubYear": 2007, "yearRead": 2020, "type": "Non-Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": true, "theme": "Conflict Zones & Hard Truths"}, {"id": 174, "title": "Don't Save Anything", "author": "James Salter", "country": "America", "region": "North America", "pubYear": 2017, "yearRead": 2020, "type": "Non-Fiction", "secondaryType": "", "rating": 5, "isGreat": true, "africa": false, "theme": "Memoir & a Life Examined", "summary": "Salter's wife put together a collection of his essays and articles and entitled it 'Don't Save Anything'. The title comes from Salter's long time advice 'don't save anything' — meaning don't reserve any writing ideas or details for a later piece, rather pour everything you have into each piece. It's a fitting title representing some of the best writing from Salter, the authors' author. In particular, I was struck by the Salter's terrific profile pieces in the book — I've never read such masterful writing in this genre. Reading them made me wish he'd done biographies.", "quotes": ["Don't save anything — meaning don't reserve any writing ideas or details for a later piece, rather pour everything you have into each piece."], "link": "https://kruzoo.blogspot.com/2020/02/kruses-keys-read-dont-save-anything.salter.greene.html"}, {"id": 175, "title": "Educated", "author": "Tara Westover", "country": "America", "region": "North America", "pubYear": 2018, "yearRead": 2020, "type": "Non-Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 176, "title": "Lives Other Than My Own", "author": "Emmanuel Carrère", "country": "Sri Lanka", "region": "Asia", "pubYear": 2009, "yearRead": 2020, "type": "Non-Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 177, "title": "Mrs. Bridge", "author": "Evan S. Connell", "country": "America", "region": "North America", "pubYear": 1959, "yearRead": 2020, "type": "Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 178, "title": "She Would Be King", "author": "Wayétu Moore", "country": "Liberia", "region": "Africa", "pubYear": 2018, "yearRead": 2020, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 179, "title": "That Will Never Work", "author": "Marc Randolph", "country": "America", "region": "North America", "pubYear": 2019, "yearRead": 2020, "type": "Non-Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 180, "title": "The Art of Fiction", "author": "James Salter", "country": "America", "region": "North America", "pubYear": 1983, "yearRead": 2020, "type": "Non-Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 181, "title": "The Insanity of God (", "author": "Nik Ripken", "country": "Somalia", "region": "Africa", "pubYear": 2013, "yearRead": 2020, "type": "Non-Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": true, "theme": "Conflict Zones & Hard Truths"}, {"id": 182, "title": "The Red-Haired Woman", "author": "Orhan Pamuk", "country": "Turkey", "region": "Middle East", "pubYear": 2016, "yearRead": 2020, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 183, "title": "The Submission", "author": "Amy Waldman", "country": "America", "region": "North America", "pubYear": 2011, "yearRead": 2020, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 184, "title": "American Dirt", "author": "Jeanine Cummins", "country": "America", "region": "North America", "pubYear": 2020, "yearRead": 2021, "type": "Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 185, "title": "Behold the Dreamers", "author": "Mbolo Mbue", "country": "Cameroon", "region": "Africa", "pubYear": 2016, "yearRead": 2021, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 186, "title": "Born a Crime: Tales from a South African Childhood", "author": "Trevor Noah", "country": "South Africa", "region": "Africa", "pubYear": 2016, "yearRead": 2021, "type": "Non-Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": true, "theme": "Conflict Zones & Hard Truths"}, {"id": 187, "title": "Cocktail Hour Under the Tree of Forgetfulness", "author": "Alexandra Fuller", "country": "Zambia", "region": "Africa", "pubYear": 2011, "yearRead": 2021, "type": "Non-Fiction", "secondaryType": "Biography", "rating": 4, "isGreat": false, "africa": true, "theme": "Memoir & a Life Examined"}, {"id": 188, "title": "Homeland Elegies", "author": "Ayad Akhtar", "country": "America", "region": "North America", "pubYear": 2020, "yearRead": 2021, "type": "Fiction", "secondaryType": "", "rating": 5, "isGreat": true, "africa": false, "theme": "Sweeping Fiction", "summary": "Pulitzer-winning author Ayad Akhtar charges that America is a 'buffer solution' that 'keeps things together but always separated' in his unforgettable novel-cum-memoir. DoDReads published my full review.", "quotes": ["America is a buffer solution that keeps things together but always separated."], "link": "https://www.dodreads.com/homeland-elegies-a-call-for-clarity/"}, {"id": 189, "title": "I'm Still Here: Black Dignity in a World Made for Whiteness", "author": "Austin Channing Brow", "country": "America", "region": "North America", "pubYear": 2018, "yearRead": 2021, "type": "Non-Fiction", "secondaryType": "Sci-Fi", "rating": 3, "isGreat": false, "africa": false, "theme": "Speculative & Strange"}, {"id": 190, "title": "Lion Mountain", "author": "Mustapha Tlili", "country": "Tunisia", "region": "Africa", "pubYear": 1988, "yearRead": 2021, "type": "Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 191, "title": "Missionaries", "author": "Phil Klay", "country": "Columbia", "region": "South America", "pubYear": 2020, "yearRead": 2021, "type": "Fiction", "secondaryType": "", "rating": 5, "isGreat": true, "africa": false, "theme": "War, Service & Sacrifice", "summary": "Reading Marine veteran Phil Klay's new novel forces readers to step back and consider the 'progress' and globalization of American warfare since 9-11. The novel accomplishes this by examining the decades-long Colombian civil war through the converging lives of a weary American war-zone journalist, an American Special Forces Officer, a career Colombian Army officer, and an orphaned Colombian village boy-turned-killer. DoDReads published my full review.", "quotes": [], "link": "https://www.dodreads.com/to-stop-and-care/"}, {"id": 192, "title": "Project Hail Mary", "author": "Andy Weir", "country": "America", "region": "North America", "pubYear": 2021, "yearRead": 2021, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 193, "title": "Quiet Cadence", "author": "Mark Treanor", "country": "Vietnam", "region": "Asia", "pubYear": 2020, "yearRead": 2021, "type": "Historical Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 194, "title": "Raising Up a Generation of Third Culture Kids", "author": "Lauren Wells", "country": "America", "region": "North America", "pubYear": 2020, "yearRead": 2021, "type": "Non-Fiction", "secondaryType": "Biography", "rating": 3, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 195, "title": "Steal Away Home: Charles Spurgeon and Thomas Johnson, Unlikely Friends on the Passage to Freedom", "author": "Matt Carter and Aaron Ivey", "country": "England, America", "region": "Europe", "pubYear": 2017, "yearRead": 2021, "type": "Non-Fiction", "secondaryType": "Biography", "rating": 4, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 196, "title": "Talking to Strangers", "author": "Malcom Gladwell", "country": "America", "region": "North America", "pubYear": 2019, "yearRead": 2021, "type": "Non-Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 197, "title": "The Anomaly", "author": "Hervé Le Tellier", "country": "Multiple", "region": "Europe", "pubYear": 2020, "yearRead": 2021, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 198, "title": "The Desert and the Drum", "author": "Mbarek Ould Beyrouk", "country": "Mauritania", "region": "Africa", "pubYear": 2015, "yearRead": 2021, "type": "Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 199, "title": "The Dissent Channel", "author": "Elizabeth Shackleford", "country": "Sudan/South Sudan", "region": "Africa", "pubYear": 2020, "yearRead": 2021, "type": "Non-Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": true, "theme": "Conflict Zones & Hard Truths"}, {"id": 200, "title": "The Promise", "author": "Damon Galgut", "country": "South Africa", "region": "Africa", "pubYear": 2021, "yearRead": 2021, "type": "Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 201, "title": "What the Day Owes the Night", "author": "Yasmina Khadra", "country": "Algeria", "region": "Africa", "pubYear": 2008, "yearRead": 2021, "type": "Fiction", "secondaryType": "", "rating": 5, "isGreat": true, "africa": true, "theme": "Sweeping Fiction", "summary": "This book is a perfect example of why reading fiction is important. Reading fiction like this forces the reader to internalize and grapple with historical events in a way that a straightforward history never could. In this case, by personalizing something like the Algerian independence struggle, the reader must reevaluate the dry numbers, facts and statistics littering the historical record and connect them to the actual people and struggles behind them.", "quotes": ["Have you ever dared, Younes, even once in your life?", "If a woman loves you, no star is beyond your grasp, no god can touch you.", "Only love can make good the misfortunes and evils of the world."], "link": "https://fuuo.blogspot.com/2018/04/love.fiction.algerianwarofindependence.html", "isGreatDuplicate": true}, {"id": 202, "title": "A Caring Life", "author": "Aaron Santymire", "country": "Multiple", "region": "Africa", "pubYear": 2020, "yearRead": 2022, "type": "Non-Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": true, "theme": "Conflict Zones & Hard Truths"}, {"id": 203, "title": "An Italian Education", "author": "Tiim Parks", "country": "Italy", "region": "Europe", "pubYear": 1996, "yearRead": 2022, "type": "Non-Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 204, "title": "How Beautiful We Were", "author": "Mbolo Mbue", "country": "Cameroon", "region": "Africa", "pubYear": 2021, "yearRead": 2022, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 205, "title": "In the Name of Jesus: Reflections on Christian Leadership", "author": "Henri J.M. Nouwen", "country": "Netherlands", "region": "Europe", "pubYear": 1989, "yearRead": 2022, "type": "Non-Fiction", "secondaryType": "Christian", "rating": 4, "isGreat": false, "africa": false, "theme": "Christian Faith"}, {"id": 206, "title": "Let My People Go Surfing: The Education of a Reluctant Businessman", "author": "Yvon Chouinard", "country": "America", "region": "North America", "pubYear": 2005, "yearRead": 2022, "type": "Non-Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 207, "title": "SuperNova Era", "author": "Ciu Lixin", "country": "China", "region": "Asia", "pubYear": 2003, "yearRead": 2022, "type": "Science Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": false, "theme": "Speculative & Strange"}, {"id": 208, "title": "Taste: My Life Through Food", "author": "Stanley Tucci", "country": "America", "region": "North America", "pubYear": 2021, "yearRead": 2022, "type": "Non-Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 209, "title": "The Fortune Men", "author": "Nadifa Mohamed", "country": "Somalia", "region": "Africa", "pubYear": 2021, "yearRead": 2022, "type": "Historical Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 210, "title": "The Gendarme", "author": "Mark Mustian", "country": "Turkey", "region": "Asia", "pubYear": 2010, "yearRead": 2022, "type": "Historical Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 211, "title": "The House of Sand and Fog", "author": "Andre Dubus III", "country": "Iran", "region": "Middle East", "pubYear": 1999, "yearRead": 2022, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 212, "title": "The Long Way Home: Discovering the Fullness of Life in the Father", "author": "Matt Carter", "country": "America", "region": "North America", "pubYear": 2017, "yearRead": 2022, "type": "Non-Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 213, "title": "The Power", "author": "Naomi Alderman", "country": "Muttiple", "region": "Other", "pubYear": 2016, "yearRead": 2022, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 214, "title": "Transcendent Kingdom", "author": "Yaa Gyasi", "country": "Ghana", "region": "Africa", "pubYear": 2020, "yearRead": 2022, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 215, "title": "Afterlives.", "author": "Abdulrazak Gurnah", "country": "Tanzania", "region": "Africa", "pubYear": 2020, "yearRead": 2023, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 216, "title": "City of Dreams", "author": "Don Winslow", "country": "USA", "region": "North America", "pubYear": 2023, "yearRead": 2023, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 217, "title": "City on Fire", "author": "Don Winslow", "country": "America", "region": "North America", "pubYear": 2022, "yearRead": 2023, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 218, "title": "Dispatches From a Cowgirl: Through the Looking Glass With a Navy Diplomat's Wife", "author": "Julie Tully", "country": "Africa", "region": "Africa", "pubYear": 2022, "yearRead": 2023, "type": "Non-Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": true, "theme": "Conflict Zones & Hard Truths"}, {"id": 219, "title": "Falling: A Novel", "author": "T.J. Newman", "country": "USA", "region": "North America", "pubYear": 2021, "yearRead": 2023, "type": "Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 220, "title": "Into Thin Air.", "author": "Jon Krakauer", "country": "Nepal", "region": "Asia", "pubYear": 1997, "yearRead": 2023, "type": "Non-Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 221, "title": "Khalil", "author": "Yasmina Khadra", "country": "France", "region": "Africa", "pubYear": 2018, "yearRead": 2023, "type": "Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 222, "title": "Paradise.", "author": "Abdulrazak Gurnah", "country": "Tanzania", "region": "Africa", "pubYear": 1994, "yearRead": 2023, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 223, "title": "Romantic Comedy: A Novel", "author": "Curtis Sittenfield", "country": "USA", "region": "North America", "pubYear": 2023, "yearRead": 2023, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 224, "title": "The Heartbeat of Wounded Knee: Native American from 1890 to Presen", "author": "David Treuer", "country": "America", "region": "North America", "pubYear": 2019, "yearRead": 2023, "type": "Non-Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 225, "title": "The Last Policeman.", "author": "Ben H. Winters", "country": "France", "region": "North America", "pubYear": 2012, "yearRead": 2023, "type": "Non-Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 226, "title": "The Love Songs of W.E.B. Du Bois", "author": "Honorée Fanonne Jeffers", "country": "America", "region": "North America", "pubYear": 2021, "yearRead": 2023, "type": "Fiction", "secondaryType": "", "rating": 5, "isGreat": true, "africa": false, "theme": "Sweeping Fiction", "summary": "A sweeping, multi-generational saga that traces one Black American family across centuries, from West Africa to Georgia to the present day. One of the most ambitious American novels in years. My full review is on kruzoo.", "quotes": [], "link": "https://kruzoo.blogspot.com/2023/01/kruses-key-read-love-songs-of-web-du.html"}, {"id": 227, "title": "The Midnight Library", "author": "Matt Haig", "country": "U.K", "region": "Europe", "pubYear": 2020, "yearRead": 2023, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 228, "title": "The Murder Rule (Audible)", "author": "Dervla McTiernan", "country": "America", "region": "North America", "pubYear": 2022, "yearRead": 2023, "type": "Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 229, "title": "The Overstory", "author": "Richard Powers", "country": "America", "region": "North America", "pubYear": 2018, "yearRead": 2023, "type": "Fiction", "secondaryType": "", "rating": 5, "isGreat": true, "africa": false, "theme": "Sweeping Fiction", "summary": "I set the book down and became a raving lunatic about trees — the way they communicate and speak and nurture and repair one another. Powers does something fiction rarely does: he permanently altered the way I look at the world. I have since become 'that guy' who will not stop talking about trees. My full review is on kruzoo.", "quotes": [], "link": "https://kruzoo.blogspot.com/2023/01/overstory.richardpowers.chestnutblight.pullitzer.html"}, {"id": 230, "title": "The Passenger", "author": "Cormac McCarthy", "country": "America", "region": "North America", "pubYear": 2022, "yearRead": 2023, "type": "Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 231, "title": "The Violin Conspiracy: A Novel", "author": "Brendan Slocumb", "country": "USA", "region": "North America", "pubYear": 2022, "yearRead": 2023, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 232, "title": "Tomorrow and Tomorrow and Tomorrow", "author": "Gabrielle Zevin", "country": "USA", "region": "North America", "pubYear": 2022, "yearRead": 2023, "type": "Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 233, "title": "Uncertain Ground: Citizenship in an Age of Endless, Invisible War", "author": "Phil Klay", "country": "Phil Klay", "region": "America", "pubYear": 2022, "yearRead": 2023, "type": "Non-Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 234, "title": "A City in Ruins", "author": "Don Winslow", "country": "USA", "region": "North America", "pubYear": 2024, "yearRead": 2024, "type": "Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 235, "title": "A Promised Land", "author": "Barack Obama", "country": "USA", "region": "North America", "pubYear": 2020, "yearRead": 2024, "type": "Non-Fiction", "secondaryType": "", "rating": 5, "isGreat": true, "africa": false, "theme": "Memoir & a Life Examined", "summary": "This memoir delivers — engrossing and full of insights into what a president goes through on a daily basis — from thought process, to congressional politics to family dynamics. No matter your politics you'll enjoy this humble and thoughtful retrospective. It ends right after they kill Osama so I can't wait for the next book! From a classmate's newsletter: 'What I look for in a memoir: Fun-to-read writing; laugh-out-loud humor; deep dives into the why of pivotal decisions. Conclusion: This book met and/or exceeded all of my criteria.'", "quotes": [], "link": "https://kruzoo.blogspot.com/2024/02/2024-reading-list.html"}, {"id": 236, "title": "Beartown", "author": "Fredrik Backman", "country": "Sweden", "region": "Europe", "pubYear": 2016, "yearRead": 2024, "type": "Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 237, "title": "Because of Winter", "author": "Nikki Brochetti", "country": "USA", "region": "North America", "pubYear": 2024, "yearRead": 2024, "type": "Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 238, "title": "Brazil: A Biography", "author": "Lilia M. Schwarcz & Heloisa M. Starling", "country": "Brazil", "region": "South America", "pubYear": 2015, "yearRead": 2024, "type": "Non-Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 239, "title": "Brazillionaires (", "author": "Alex Cuadros", "country": "Brazil", "region": "South America", "pubYear": 2016, "yearRead": 2024, "type": "Non-Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 240, "title": "Clandestine in Chile.", "author": "Gabriel García Márquez", "country": "Chile", "region": "South America", "pubYear": 1986, "yearRead": 2024, "type": "Non-Fiction", "secondaryType": "", "rating": 1, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 241, "title": "Dancing with the Devil in the City of God: Rio de Janeiro and the Olympic Dream", "author": "Juliana Barbassa", "country": "Brazil", "region": "South America", "pubYear": 2015, "yearRead": 2024, "type": "Non-Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 242, "title": "Demon Copperhead (", "author": "Barbara Kingsolver", "country": "USA", "region": "North America", "pubYear": 2022, "yearRead": 2024, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 243, "title": "Greenlights", "author": "Matthew McConaughey", "country": "USA", "region": "North America", "pubYear": 2020, "yearRead": 2024, "type": "Non-Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 244, "title": "How to Know a Person: The Art of Seeing Others Deeply and Being Seen", "author": "David Brooks", "country": "USA", "region": "North America", "pubYear": 2023, "yearRead": 2024, "type": "Non-Fiction", "secondaryType": "", "rating": 5, "isGreat": true, "africa": false, "theme": "Leadership & Building Things", "summary": "A phenomenal and important read. I listened to it on Audible and about 1/3 of the way through I found it so incredible that I ordered a physical copy so I could reread it and make extensive notes. Author David Brooks offers a framework by which one could be not a better leader but a more caring and empathetic friend and person in general. I particularly enjoyed some of the questions he uses to better understand where people come from. One example: In your family what was one thing you could never do?", "quotes": ["In your family what was one thing you could never do?"], "link": "https://kruzoo.blogspot.com/2024/02/2024-reading-list.html"}, {"id": 245, "title": "How to Stop Time", "author": "Matt Haig", "country": "U.K", "region": "Europe", "pubYear": 2017, "yearRead": 2024, "type": "Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 246, "title": "The Collector of Leftover Souls: Field Notes on Brazil's Everyday Insurrections.", "author": "Eliane Brum", "country": "Brazil", "region": "South America", "pubYear": 2019, "yearRead": 2024, "type": "Non-Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 247, "title": "The Extraordinary Mountain Creatures of North America.", "author": "Betty Kruse (my daughter)", "country": "USA", "region": "North America", "pubYear": 2024, "yearRead": 2024, "type": "Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 248, "title": "The Invisibles", "author": "Ed Siegle", "country": "Brazil", "region": "South America", "pubYear": 2013, "yearRead": 2024, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 249, "title": "Why I am Still Surprised by the Power of the Spirit: Discovering How God Speaks and Heals Today.", "author": "Jack Deere", "country": "USA", "region": "North America", "pubYear": 2020, "yearRead": 2024, "type": "Non-Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 250, "title": "A Death in Brazil", "author": "Peter Robb", "country": "Brazil", "region": "South America", "pubYear": 2003, "yearRead": 2025, "type": "Historical Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 251, "title": "A Moveable Feast", "author": "Ernest Hemingway", "country": "France", "region": "Europe", "pubYear": 1964, "yearRead": 2025, "type": "Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 252, "title": "A Place on Earth", "author": "Wendell Berry", "country": "USA", "region": "North America", "pubYear": 1967, "yearRead": 2025, "type": "Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 253, "title": "All the Light We Cannot See", "author": "Anthony Doerr", "country": "France", "region": "Europe", "pubYear": 2014, "yearRead": 2025, "type": "Historical Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 254, "title": "Andy Catlett: Early Travels", "author": "Wendell Berry", "country": "USA", "region": "North America", "pubYear": 2006, "yearRead": 2025, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 255, "title": "Barbarians at the Gate", "author": "Bryan Burrough & John Helyar", "country": "USA", "region": "North America", "pubYear": 1989, "yearRead": 2025, "type": "Non-Fiction", "secondaryType": "", "rating": 2, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 256, "title": "Caste: The Origin of our Discontent", "author": "Isabel Wilkerson", "country": "USA", "region": "North America", "pubYear": 2020, "yearRead": 2025, "type": "Non-Fiction", "secondaryType": "", "rating": 2, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 257, "title": "Cutting for Stone", "author": "Abraham Verghese", "country": "Ethiopia", "region": "Africa", "pubYear": 2009, "yearRead": 2025, "type": "Fiction", "secondaryType": "Africa", "rating": 5, "isGreat": true, "africa": true, "theme": "Sweeping Fiction", "summary": "Verghese's sweeping novel of twin brothers born in an Ethiopian mission hospital and separated by circumstance and destiny. One of the great medical novels ever written, and one of the great African novels. Verghese writes about the body, about surgery, about Ethiopia with a precision and love that is stunning.", "quotes": [], "link": "https://kruzoo.blogspot.com/2025/01/2025-reading-list.html"}, {"id": 258, "title": "East of Eden", "author": "John Steinbeck", "country": "USA", "region": "North America", "pubYear": 1952, "yearRead": 2025, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 259, "title": "Elizabeth Ritchie and the Kingdom of Whatnots", "author": "Betty Kruse", "country": "USA", "region": "North America", "pubYear": 2024, "yearRead": 2025, "type": "Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 260, "title": "Fresh Water for Flowers", "author": "Valérie Perrin", "country": "France", "region": "Europe", "pubYear": 2020, "yearRead": 2025, "type": "Fiction", "secondaryType": "", "rating": 2, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 261, "title": "Gabriela, Clove and Cinnamon", "author": "Jorge Amado", "country": "Brazil", "region": "South America", "pubYear": 1958, "yearRead": 2025, "type": "Historical Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 262, "title": "Hannah Coulter", "author": "Wendell Berry", "country": "USA", "region": "North America", "pubYear": 2004, "yearRead": 2025, "type": "Fiction", "secondaryType": "", "rating": 5, "isGreat": true, "africa": false, "theme": "Sweeping Fiction", "summary": "Berry's gentle, devastating novel about a Kentucky farm woman looking back on her life — two husbands, her children, the land, the community of Port William. It is a novel about what endures when everything else falls away. Reading Berry always feels like being told the truth about something you've always known but never been able to say.", "quotes": [], "link": "https://kruzoo.blogspot.com/2025/01/2025-reading-list.html"}, {"id": 263, "title": "How to Stay Married", "author": "Harrison Scott Key", "country": "USA", "region": "North America", "pubYear": 2023, "yearRead": 2025, "type": "Biography", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 264, "title": "James", "author": "Percival Everett", "country": "USA", "region": "North America", "pubYear": 2024, "yearRead": 2025, "type": "Historical Fiction", "secondaryType": "", "rating": 5, "isGreat": true, "africa": false, "theme": "Sweeping Fiction", "summary": "Pulitzer Prize winner. Everett reimagines Huckleberry Finn from Jim's perspective, and in doing so transforms one of American literature's most troubling relationships into something revelatory. One of the most important American novels in years.", "quotes": [], "link": "https://kruzoo.blogspot.com/2025/01/2025-reading-list.html"}, {"id": 265, "title": "Leaf by Niggle", "author": "J.R.R. Tolkien", "country": "UK", "region": "Europe", "pubYear": 1945, "yearRead": 2025, "type": "Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 266, "title": "May the Wolf Die", "author": "Elizabeth Heidler", "country": "Italy", "region": "Europe", "pubYear": 2024, "yearRead": 2025, "type": "Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 267, "title": "Nathan Coulter", "author": "Wendell Berry", "country": "USA", "region": "North America", "pubYear": 1960, "yearRead": 2025, "type": "Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 268, "title": "Our Missing Hearts", "author": "Celeste Ng", "country": "USA", "region": "North America", "pubYear": 2022, "yearRead": 2025, "type": "Science Fiction", "secondaryType": "Dystopian", "rating": 4, "isGreat": false, "africa": false, "theme": "Speculative & Strange"}, {"id": 269, "title": "Praying Like Monks, Living Like Fools", "author": "Tyler Staton", "country": "USA", "region": "North America", "pubYear": 2022, "yearRead": 2025, "type": "Non-Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 270, "title": "Reasons to Stay Alive", "author": "Matt Haig", "country": "UK", "region": "Europe", "pubYear": 2015, "yearRead": 2025, "type": "Biography", "secondaryType": "", "rating": 3, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 271, "title": "Right-Hand Shore", "author": "Christopher Tilghman", "country": "USA", "region": "North America", "pubYear": 2012, "yearRead": 2025, "type": "Historical Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 272, "title": "Rumors of Another World", "author": "Philip Yancey", "country": "USA", "region": "North America", "pubYear": 2003, "yearRead": 2025, "type": "Non-Fiction", "secondaryType": "Christian", "rating": 4, "isGreat": false, "africa": false, "theme": "Christian Faith"}, {"id": 273, "title": "Someone Like Us", "author": "Dinaw Mengestu", "country": "Ethiopia", "region": "Africa", "pubYear": 2018, "yearRead": 2025, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 274, "title": "Street Girls: Hope on the Streets of Brazil", "author": "Matt Roper", "country": "Brazil", "region": "South America", "pubYear": 2011, "yearRead": 2025, "type": "Non-Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 275, "title": "The Covenant of Water", "author": "Abraham Verghese", "country": "India", "region": "Asia", "pubYear": 2023, "yearRead": 2025, "type": "Historical Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 276, "title": "The Life Impossible", "author": "Matt Haig", "country": "Ibiza", "region": "Europe", "pubYear": 2024, "yearRead": 2025, "type": "Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 277, "title": "The Ruthless Elimination of Hurry", "author": "Tim Comer", "country": "USA", "region": "North America", "pubYear": 2019, "yearRead": 2025, "type": "Non-Fiction", "secondaryType": "", "rating": 5, "isGreat": true, "africa": false, "theme": "Christian Faith", "summary": "Life-changing. Comer's core argument is that hurry is the enemy of the spiritual life — and that the pace of modern life is fundamentally incompatible with following Jesus. The solution is not a productivity hack but a wholesale reorientation of how you move through time. This led me to read Practicing the Way the following year.", "quotes": [], "link": "https://kruzoo.blogspot.com/2025/01/2025-reading-list.html"}, {"id": 278, "title": "When the Cranes Fly South", "author": "Lisa Ridzen", "country": "Sweden", "region": "Europe", "pubYear": 2024, "yearRead": 2025, "type": "Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 279, "title": "You Shall Know Our Velocity", "author": "Dave Eggers", "country": "Global", "region": "Europe", "pubYear": 2002, "yearRead": 2025, "type": "Fiction", "secondaryType": "", "rating": 1, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 280, "title": "A Day in the Life of Abed Salama: Anatomy of a Jerusalem Tragedy", "author": "Nathan Thrall", "country": "Palestine", "region": "Middle East", "pubYear": 2023, "yearRead": 2026, "type": "Non-Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Conflict Zones & Hard Truths"}, {"id": 281, "title": "A Marriage at Sea", "author": "Sophie Elmhirst", "country": "UK", "region": "Europe", "pubYear": 2024, "yearRead": 2026, "type": "Non-Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 282, "title": "America Fantastica", "author": "Tim O'Brien", "country": "USA", "region": "North America", "pubYear": 2023, "yearRead": 2026, "type": "Fiction", "secondaryType": "", "rating": 2, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 283, "title": "Before the Night Comes", "author": "Matt Roper", "country": "Brazil", "region": "South America", "pubYear": 2024, "yearRead": 2026, "type": "Non-Fiction", "secondaryType": "", "rating": 4, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 284, "title": "Before the Night Comes", "author": "Matt Roper", "country": "Brazil", "region": "South America", "pubYear": 2024, "yearRead": 2026, "type": "Non-Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 285, "title": "Bird by Bird: Some Instruction on Writing and Life", "author": "Anne Lamott", "country": "USA", "region": "North America", "pubYear": 1994, "yearRead": 2026, "type": "Non-Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 286, "title": "Bound by Violence", "author": "Yambo Ouologuem", "country": "Mali", "region": "Africa", "pubYear": 1968, "yearRead": 2026, "type": "Fiction", "secondaryType": "", "rating": null, "isGreat": false, "africa": true, "theme": "Sweeping Fiction"}, {"id": 287, "title": "Hamnet", "author": "Maggie O'Farrell", "country": "UK", "region": "Europe", "pubYear": 2020, "yearRead": 2026, "type": "Fiction", "secondaryType": "", "rating": 5, "isGreat": true, "africa": false, "theme": "Sweeping Fiction", "summary": "First thing to set straight: during Shakespeare's time, the names 'Hamnet' and 'Hamlet' were used interchangeably. Author Maggie O'Farrell can write. She crafts a fictional-ish narrative that connects Shakespeare's 11-year-old son Hamnet's death to his writing of his famous play. She stacks that narrative with layers of lush writing, conversations, and descriptions that transport you to the middle of that bubonic time period on the macro level while at the same time embedding you inside of unbearable loss. I won't spoil the ending but I will say that the movie's ending is far more satisfying than the book. There's a moment there in the movie as Hamnet's mother watches her husband's play that hangs on the screen as your heart breaks. The power of Shakespeare lives on 426 years later!", "quotes": [], "link": "https://kruzoo.blogspot.com/2026/01/2026-reading-list.html"}, {"id": 288, "title": "Jayber Crow", "author": "Wendell Berry", "country": "USA", "region": "North America", "pubYear": 2000, "yearRead": 2026, "type": "Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 289, "title": "Letters by a Modern Mystic: Excerpts from Letters Written at Dansalan, Lake Lanao, Philippine Islands, to His Father", "author": "Frank C. Laubach", "country": "Philippines", "region": "Asia", "pubYear": 1937, "yearRead": 2026, "type": "Non-Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 290, "title": "My Life as a Student and Teacher at Woodberry Forest School: A Memoir", "author": "Paul Huber", "country": "USA", "region": "North America", "pubYear": 2025, "yearRead": 2026, "type": "Biography", "secondaryType": "", "rating": null, "isGreat": false, "africa": false, "theme": "Memoir & a Life Examined"}, {"id": 291, "title": "New Boy", "author": "Murphy Evans", "country": "USA", "region": "North America", "pubYear": 2026, "yearRead": 2026, "type": "Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 292, "title": "Practicing the Way: Be with Jesus.  Become Like Him. Do as He Did.", "author": "Tim Comer", "country": "USA", "region": "North America", "pubYear": 2024, "yearRead": 2026, "type": "Non-Fiction", "secondaryType": "", "rating": 5, "isGreat": true, "africa": false, "theme": "Christian Faith", "summary": "Last year we read Comer's 'Ruthless Elimination of Hurry' and it was life changing. This book is for those who read Ruthless and ask themselves: so how do we actually implement an unhurried and contemplative life? Practicing the Way lays out a path that is a call first and foremost to eat Jesus' dust — this refers to the Jewish practice of following and imitating a rabbi so closely that you literally would be walking in his dust. It's noteworthy that the term Christian appears only 3 times in the New Testament, while the word for 'Apprentice' (mathetes) appears 269 times.", "quotes": ["The term Christian appears only 3 times in the New Testament, while the word for Apprentice (mathetes) appears 269 times."], "link": "https://kruzoo.blogspot.com/2026/01/2026-reading-list.html"}, {"id": 293, "title": "The 20-Minute Networking Meeting: Executive Edition", "author": "Marcia Ballinger & Nathan A. Perez", "country": "USA", "region": "North America", "pubYear": 2012, "yearRead": 2026, "type": "Non-Fiction", "secondaryType": "Business", "rating": null, "isGreat": false, "africa": false, "theme": "Leadership & Building Things"}, {"id": 294, "title": "The Lemon Tree: An Arab, a Jew, and the Heart of the Middle East", "author": "Sandy Tolan", "country": "Israel/Palestine", "region": "Middle East", "pubYear": 2006, "yearRead": 2026, "type": "Non-Fiction", "secondaryType": "", "rating": 5, "isGreat": false, "africa": false, "theme": "Conflict Zones & Hard Truths"}, {"id": 295, "title": "The Playground", "author": "Richard Powers", "country": "Makatea", "region": "Asia", "pubYear": 2023, "yearRead": 2026, "type": "Fiction", "secondaryType": "", "rating": 3, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}, {"id": 296, "title": "Theo of Golden", "author": "Allen Levi", "country": "USA", "region": "North America", "pubYear": 2023, "yearRead": 2026, "type": "Fiction", "secondaryType": "", "rating": 5, "isGreat": true, "africa": false, "theme": "Christian Faith", "summary": "There's not much allegorical fiction being written these days. Theo of Golden makes me want a lot more of it — at least more of it written by Allan Levi. Published in 2023 but somehow I only heard of the novel a month ago from a pastor friend named Steve. The story is about an octogenarian named Theo who mysteriously arrives in the town of Golden and proceeds to — incredibly — get to know perfect strangers! He uses the gift of hand drawn portraits as the mechanism in this quest and along the way offers a winsome example of kindness in action.", "quotes": [], "link": "https://kruzoo.blogspot.com/2026/01/2026-reading-list.html"}, {"id": 297, "title": "Tomcat in Love", "author": "Tim O'Brien", "country": "USA", "region": "North America", "pubYear": 1998, "yearRead": 2026, "type": "Fiction", "secondaryType": "", "rating": 2, "isGreat": false, "africa": false, "theme": "Sweeping Fiction"}];
+/* ===========================================================
+   Dad's Bookshelf — application logic
+   BOOKS is the embedded dataset (297 entries). Each book has:
+   id, title, author, country, region, pubYear, yearRead, type,
+   secondaryType, rating, isGreat, africa, theme, and for the
+   32 all-time greats: summary, quotes[], link, (rereadYears),
+   (isGreatDuplicate)
+   =========================================================== */
+
+const THEMES = [
+  "Christian Faith",
+  "War, Service & Sacrifice",
+  "Leadership & Building Things",
+  "Memoir & a Life Examined",
+  "Sweeping Fiction",
+  "Speculative & Strange",
+  "Conflict Zones & Hard Truths"
+];
+
+const THEME_COLORS = {
+  "Christian Faith": "#AD8530",
+  "War, Service & Sacrifice": "#6E5642",
+  "Leadership & Building Things": "#7A6A2E",
+  "Memoir & a Life Examined": "#9C4A2A",
+  "Sweeping Fiction": "#5B6B52",
+  "Speculative & Strange": "#4A6670",
+  "Conflict Zones & Hard Truths": "#7A3B33"
+};
+
+const THEME_INTROS = {
+  "Christian Faith": "Books that shaped how I think about belief, grace, and the actual practice of following Jesus — not the tidy version, the lived one.",
+  "War, Service & Sacrifice": "Written by and about people who served. The cost of it, the weight of command, and what the after-action report leaves out.",
+  "Leadership & Building Things": "On running organizations, building habits, and doing hard, slow work well — in uniform and out of it.",
+  "Memoir & a Life Examined": "Lives told plainly. Biography, memoir, and the non-fiction that reads like someone leveling with you.",
+  "Sweeping Fiction": "Novels with real scope — historical canvases, family sagas, and stories that earn their length.",
+  "Speculative & Strange": "Science fiction and the genuinely strange. Worlds built sideways from this one.",
+  "Conflict Zones & Hard Truths": "Reporting and history from the hardest places — the kind of non-fiction that doesn't let you look away."
+};
+
+/* ---------- Beyond Achebe cross-link ----------
+   Edit this if/when Beyond Achebe gets per-country deep links
+   (e.g. a #/country/<slug> route). Defaults to the homepage. */
+function beyondAchebeLink(country){
+  return "https://beyondachebe.com/";
+}
+
+/* ---------- derive: unique greats in chronological reading order ---------- */
+const GREATS_ORDERED = BOOKS
+  .filter(b => b.isGreat && !b.isGreatDuplicate)
+  .sort((a,b) => (a.yearRead - b.yearRead) || a.title.localeCompare(b.title));
+
+const NUMERALS = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV","XXV","XXVI","XXVII","XXVIII","XXIX","XXX","XXXI","XXXII"];
+const GREAT_NUMERAL = {};
+GREATS_ORDERED.forEach((b,i) => GREAT_NUMERAL[b.id] = NUMERALS[i] || String(i+1));
+
+/* ---------- author index (computed, not hardcoded) ---------- */
+function authorIndex(){
+  const map = {};
+  BOOKS.forEach(b => {
+    if(!b.author) return;
+    if(!map[b.author]) map[b.author] = [];
+    map[b.author].push(b);
+  });
+  return Object.entries(map)
+    .filter(([name, books]) => books.length >= 2)
+    .map(([name, books]) => ({
+      name,
+      books: books.slice().sort((a,b)=>a.yearRead-b.yearRead),
+      count: books.length,
+      greats: books.filter(b=>b.isGreat).length
+    }))
+    .sort((a,b) => (b.count - a.count) || (b.greats - a.greats) || a.name.localeCompare(b.name));
+}
+const AUTHORS = authorIndex();
+
+/* ---------- state ---------- */
+let state = { view: "greats", query: "" };
+
+/* ---------- nav tabs ---------- */
+function tabDefs(){
+  const tabs = [
+    { key:"greats", label:"All-Time Greats", count: GREATS_ORDERED.length },
+    { key:"authors", label:"Authors I Return To", count: AUTHORS.length }
+  ];
+  THEMES.forEach(t => tabs.push({ key:"theme:"+t, label:t, count: BOOKS.filter(b=>b.theme===t).length }));
+  tabs.push({ key:"all", label:"All 297", count: BOOKS.length });
+  return tabs;
+}
+
+function renderTabs(){
+  const nav = document.getElementById("tabNav");
+  nav.innerHTML = "";
+  tabDefs().forEach(t => {
+    const btn = document.createElement("button");
+    btn.className = "tab-btn" + (state.view === t.key && !state.query ? " active" : "");
+    btn.innerHTML = `${t.label}<span class="tab-count">${t.count}</span>`;
+    btn.onclick = () => setView(t.key);
+    nav.appendChild(btn);
+  });
+}
+
+function setView(key){
+  state.view = key;
+  state.query = "";
+  document.getElementById("searchInput").value = "";
+  document.getElementById("searchWrap-toggle") && void 0;
+  document.querySelector(".search-wrap").classList.remove("has-text");
+  render();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+/* ---------- search ---------- */
+document.addEventListener("DOMContentLoaded", () => {
+  const input = document.getElementById("searchInput");
+  input.addEventListener("input", (e) => {
+    state.query = e.target.value.trim();
+    document.querySelector(".search-wrap").classList.toggle("has-text", state.query.length > 0);
+    render();
+  });
+  renderTabs();
+  render();
+});
+
+function clearSearch(){
+  state.query = "";
+  document.getElementById("searchInput").value = "";
+  document.querySelector(".search-wrap").classList.remove("has-text");
+  render();
+}
+
+/* ---------- filtering ---------- */
+function currentBooks(){
+  if(state.query){
+    const q = state.query.toLowerCase();
+    return BOOKS.filter(b =>
+      b.title.toLowerCase().includes(q) ||
+      (b.author && b.author.toLowerCase().includes(q)) ||
+      (b.theme && b.theme.toLowerCase().includes(q))
+    ).sort((a,b)=> a.title.localeCompare(b.title));
+  }
+  if(state.view === "greats") return GREATS_ORDERED;
+  if(state.view === "all") return BOOKS.slice().sort((a,b)=> b.yearRead - a.yearRead || a.title.localeCompare(b.title));
+  if(state.view.startsWith("theme:")){
+    const theme = state.view.slice(6);
+    return BOOKS.filter(b => b.theme === theme && !b.isGreatDuplicate)
+      .sort((a,b)=> (b.isGreat - a.isGreat) || b.yearRead - a.yearRead);
+  }
+  return [];
+}
+
+/* ---------- intro band ---------- */
+function renderIntro(){
+  const el = document.getElementById("introBand");
+  if(state.query){
+    const n = currentBooks().length;
+    el.innerHTML = `
+      <p class="intro-eyebrow">Search</p>
+      <h1 class="intro-title">${n} result${n===1?"":"s"} for &ldquo;${escapeHtml(state.query)}&rdquo;</h1>`;
+    document.getElementById("statsStrip").innerHTML = "";
+    return;
+  }
+  if(state.view === "greats"){
+    el.innerHTML = `
+      <p class="intro-eyebrow">The shelf, distilled</p>
+      <h1 class="intro-title">32 All-Time Greats</h1>
+      <p class="intro-copy">Start here. These are books that can change and shape you, alight your imagination, wreck you, and inspire you.</p>`;
+    renderStats();
+    return;
+  }
+  if(state.view === "authors"){
+    el.innerHTML = `
+      <p class="intro-eyebrow">Repeat readers</p>
+      <h1 class="intro-title">Authors I Return To</h1>
+      <p class="intro-copy">Writers I've come back to more than once — the surest sign a voice actually stuck.</p>`;
+    document.getElementById("statsStrip").innerHTML = "";
+    return;
+  }
+  if(state.view === "all"){
+    el.innerHTML = `
+      <p class="intro-eyebrow">The whole shelf</p>
+      <h1 class="intro-title">All 297 Books</h1>
+      <p class="intro-copy">Everything since 2009, most recent first.</p>`;
+    renderStats();
+    return;
+  }
+  if(state.view.startsWith("theme:")){
+    const theme = state.view.slice(6);
+    el.innerHTML = `
+      <p class="intro-eyebrow">Theme</p>
+      <h1 class="intro-title">${theme}</h1>
+      <p class="intro-copy">${THEME_INTROS[theme] || ""}</p>`;
+    document.getElementById("statsStrip").innerHTML = "";
+  }
+}
+
+function renderStats(){
+  const africaCount = BOOKS.filter(b=>b.africa).length;
+  const years = BOOKS.map(b=>b.yearRead).filter(Boolean);
+  const span = Math.max(...years) - Math.min(...years) + 1;
+  const stats = [
+    [BOOKS.length, "Books read"],
+    [span, "Years"],
+    [GREATS_ORDERED.length, "All-time greats"],
+    [africaCount, "From Africa"],
+  ];
+  document.getElementById("statsStrip").innerHTML = stats.map(([num,label]) =>
+    `<div class="stat-item"><span class="stat-num">${num}</span><span class="stat-label">${label}</span></div>`
+  ).join("");
+}
+
+/* ---------- grid render ---------- */
+function ratingDots(rating){
+  if(!rating) return `<span class="rating-dots">unrated</span>`;
+  let out = "";
+  for(let i=1;i<=5;i++) out += i <= rating ? "●" : `<span class="dot-off">●</span>`;
+  return `<span class="rating-dots">${out}</span>`;
+}
+
+function bookCard(b){
+  const color = THEME_COLORS[b.theme] || "#9C927C";
+  const numeral = b.isGreat ? GREAT_NUMERAL[b.id] : null;
+  return `
+    <div class="book-card" style="--theme-color:${color}" tabindex="0" onclick="openDetail(${b.id})" onkeypress="if(event.key==='Enter') openDetail(${b.id})">
+      ${b.isGreat && !b.isGreatDuplicate ? '<div class="great-ribbon"></div>' : ''}
+      ${numeral ? `<span class="card-numeral">${numeral}</span>` : ''}
+      <span class="card-title">${escapeHtml(b.title)}</span>
+      <span class="card-author">${escapeHtml(b.author || "Unknown")}</span>
+      <div class="badge-row">
+        ${b.isGreat ? '<span class="badge badge-great">★ Great</span>' : ''}
+        ${b.africa ? '<span class="badge badge-africa">🌍 Africa</span>' : ''}
+      </div>
+      <div class="card-meta">
+        <div class="card-meta-left">
+          <span>${b.yearRead || "—"}</span>
+          <span>·</span>
+          <span>${b.region || "—"}</span>
+        </div>
+        ${ratingDots(b.rating)}
+      </div>
+    </div>`;
+}
+
+function authorCard(a){
+  return `
+    <div class="author-card">
+      <h3 class="author-name">${escapeHtml(a.name)}</h3>
+      <span class="author-count">${a.count} books${a.greats ? ` · ${a.greats} all-time great${a.greats>1?'s':''}` : ''}</span>
+      <ul class="author-titles">
+        ${a.books.map(b => `<li onclick="openDetail(${b.id})"><span class="at-title">${escapeHtml(b.title)}</span><span class="at-year">${b.yearRead||""}</span></li>`).join("")}
+      </ul>
+    </div>`;
+}
+
+function render(){
+  renderTabs();
+  renderIntro();
+  const grid = document.getElementById("bookGrid");
+  const empty = document.getElementById("emptyState");
+
+  if(state.view === "authors" && !state.query){
+    grid.className = "author-grid";
+    if(AUTHORS.length === 0){
+      grid.innerHTML = ""; empty.hidden = false;
+    } else {
+      empty.hidden = true;
+      grid.innerHTML = AUTHORS.map(authorCard).join("");
+    }
+    return;
+  }
+
+  grid.className = "book-grid";
+  const books = currentBooks();
+  if(books.length === 0){
+    grid.innerHTML = "";
+    empty.hidden = false;
+  } else {
+    empty.hidden = true;
+    grid.innerHTML = books.map(bookCard).join("");
+  }
+}
+
+/* ---------- detail panel ---------- */
+function openDetail(id){
+  const b = BOOKS.find(x => x.id === id);
+  if(!b) return;
+  const overlay = document.getElementById("detailOverlay");
+  const panel = document.getElementById("detailPanel");
+
+  const chips = [
+    b.type,
+    b.secondaryType,
+    b.region,
+    b.country && b.country !== b.region ? b.country : null
+  ].filter(Boolean);
+
+  let html = `<button class="detail-close" onclick="closeDetail()" aria-label="Close">&times;</button>`;
+  if(b.isGreat){
+    html += `<div class="detail-numeral">${GREAT_NUMERAL[b.id] || ""} of XXXII</div>`;
+  }
+  html += `<div class="detail-chips">${chips.map(c=>`<span class="chip">${escapeHtml(c)}</span>`).join("")}</div>`;
+  html += `<h2 class="detail-title">${escapeHtml(b.title)}</h2>`;
+  html += `<div class="detail-author">${escapeHtml(b.author || "Unknown author")}</div>`;
+
+  html += `<div class="detail-meta-grid">
+    <div><span class="dm-label">Published</span><span class="dm-value">${b.pubYear || "—"}</span></div>
+    <div><span class="dm-label">Read</span><span class="dm-value">${b.yearRead || "—"}</span></div>
+    <div><span class="dm-label">Rating</span><span class="dm-value">${ratingDots(b.rating)}</span></div>
+    <div><span class="dm-label">Theme</span><span class="dm-value">${escapeHtml(b.theme || "—")}</span></div>
+  </div>`;
+
+  if(b.rereadYears && b.rereadYears.length){
+    html += `<p class="detail-reread">Read again in ${b.rereadYears.join(", ")}.</p>`;
+  }
+
+  if(b.isGreat && b.summary){
+    html += `<p class="detail-section-eyebrow">From the shelf</p>`;
+    html += `<div class="detail-summary">${b.summary.split(/\n+/).map(p=>`<p>${escapeHtml(p)}</p>`).join("")}</div>`;
+    if(b.quotes && b.quotes.length){
+      b.quotes.forEach(q => {
+        html += `<blockquote class="pull-quote">&ldquo;${escapeHtml(q)}&rdquo;</blockquote>`;
+      });
+    }
+    if(b.link){
+      html += `<a class="detail-link" href="${escapeAttr(b.link)}" target="_blank" rel="noopener">Read the original review ↗</a>`;
+    }
+  } else {
+    html += `<p class="detail-section-eyebrow">Note</p>
+      <div class="detail-summary"><p>No full review on file for this one — just the record that it was read.</p></div>`;
+  }
+
+  if(b.africa){
+    html += `<div class="detail-africa">
+      <p>This book is also catalogued on Beyond Achebe, a literary atlas of Africa.</p>
+      <a href="${escapeAttr(beyondAchebeLink(b.country))}" target="_blank" rel="noopener">Open ↗</a>
+    </div>`;
+  }
+
+  panel.innerHTML = html;
+  overlay.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeDetail(){
+  document.getElementById("detailOverlay").classList.remove("open");
+  document.body.style.overflow = "";
+}
+document.addEventListener("keydown", (e) => {
+  if(e.key === "Escape") closeDetail();
+});
+
+/* ---------- utils ---------- */
+function escapeHtml(str){
+  if(str === null || str === undefined) return "";
+  return String(str)
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+}
+function escapeAttr(str){ return escapeHtml(str); }
+
+</script>
+</body>
+</html>
