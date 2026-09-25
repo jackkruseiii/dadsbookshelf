@@ -445,6 +445,107 @@ a:focus-visible, button:focus-visible, input:focus-visible, .book-card:focus-vis
   .search-wrap{flex-basis:100%;}
 }
 
+
+/* ---------- Feedback / suggestions widget ---------- */
+#fb-open{
+  position:fixed; z-index:90;
+  right:calc(1.25rem + env(safe-area-inset-right,0px));
+  bottom:calc(1.25rem + env(safe-area-inset-bottom,0px));
+  display:inline-flex; align-items:center; gap:0.5rem;
+  padding:0.6rem 1.05rem; border-radius:var(--radius); cursor:pointer;
+  background:var(--ink-deep); color:#F6F0E2; border:1px solid rgba(173,133,48,0.55);
+  font-family:var(--font-display); font-size:0.98rem; letter-spacing:0.01em;
+  box-shadow:0 6px 22px rgba(26,22,17,0.3);
+  transition:background 0.15s, border-color 0.15s;
+}
+#fb-open:hover{background:var(--ink-deep-2); border-color:var(--gold-bright);}
+#fb-open:focus-visible{outline:2px solid var(--gold-bright); outline-offset:3px;}
+#fb-open .fb-mark{color:var(--gold-bright); line-height:1;}
+body:has(.detail-overlay.open) #fb-open{display:none;}
+
+#fb-overlay{
+  position:fixed; inset:0; z-index:120; display:none;
+  align-items:center; justify-content:center; padding:1.25rem;
+  background:rgba(20,17,12,0.5);
+}
+#fb-overlay.open{display:flex;}
+#fb-card{
+  width:100%; max-width:480px; max-height:88vh; overflow-y:auto;
+  background:var(--sand-card); border-radius:var(--radius);
+  border-top:3px solid var(--gold);
+  padding:clamp(1.35rem,3vw,1.9rem);
+  box-shadow:0 18px 52px rgba(26,22,17,0.4);
+  animation:slideIn 0.22s ease;
+}
+#fb-card h2{
+  font-family:var(--font-display); font-weight:600; font-size:1.35rem;
+  line-height:1.2; margin:0 0 0.3rem; color:var(--ink);
+}
+#fb-card .fb-intro{
+  font-family:var(--font-display); font-style:italic; font-size:0.98rem;
+  line-height:1.55; color:var(--ink-soft); margin:0 0 1.3rem;
+}
+#fb-head{display:flex; align-items:flex-start; justify-content:space-between; gap:1rem;}
+#fb-close{
+  flex-shrink:0; background:none; border:1px solid var(--line); border-radius:var(--radius);
+  color:var(--ink-soft); cursor:pointer; font-size:0.8rem; padding:0.25rem 0.55rem;
+  font-family:var(--font-body); line-height:1.4;
+}
+#fb-close:hover{background:var(--sand); color:var(--ink);}
+#fb-card label{
+  display:block; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--ink-faint); font-weight:700; margin-bottom:0.3rem;
+}
+#fb-card input[type=text], #fb-card input[type=email], #fb-card select, #fb-card textarea{
+  width:100%; background:var(--sand-card-hover); border:1px solid var(--line);
+  border-radius:var(--radius); padding:0.5rem 0.65rem;
+  font-family:var(--font-body); font-size:0.88rem; color:var(--ink); line-height:1.5;
+}
+#fb-card textarea{
+  font-family:var(--font-display); font-size:1rem; line-height:1.6;
+  min-height:110px; resize:vertical;
+}
+#fb-card input:focus, #fb-card select:focus, #fb-card textarea:focus{
+  outline:none; border-color:var(--gold); box-shadow:0 0 0 2px rgba(173,133,48,0.16);
+}
+#fb-card .fb-field{margin-bottom:0.95rem;}
+#fb-card .fb-row{display:flex; gap:0.6rem;}
+#fb-card .fb-row .fb-field{flex:1;}
+#fb-card .fb-hp{position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden;}
+#fb-send{
+  width:100%; margin-top:0.3rem; padding:0.65rem; border:none; border-radius:var(--radius);
+  cursor:pointer; background:var(--ink-deep); color:#F6F0E2;
+  font-family:var(--font-display); font-size:1rem; letter-spacing:0.01em;
+  transition:background 0.15s;
+}
+#fb-send:hover{background:var(--ink-deep-2);}
+#fb-send:disabled{opacity:0.55; cursor:default;}
+#fb-send:focus-visible{outline:2px solid var(--gold); outline-offset:2px;}
+#fb-note{font-size:0.78rem; line-height:1.5; margin-top:0.7rem; color:var(--ink-soft); min-height:1em;}
+#fb-note.fb-err{color:var(--rust);}
+#fb-done{display:none; text-align:center; padding:1.3rem 0 0.4rem;}
+#fb-done p{
+  font-family:var(--font-display); font-size:1.08rem; font-style:italic;
+  line-height:1.6; color:var(--ink-soft); margin:0 0 1.2rem;
+}
+#fb-done button{
+  background:none; border:1px solid var(--line); border-radius:var(--radius);
+  padding:0.45rem 1.1rem; cursor:pointer; font-family:var(--font-body);
+  font-size:0.82rem; color:var(--ink-soft);
+}
+#fb-overlay.sent #fb-form{display:none;}
+#fb-overlay.sent #fb-done{display:block;}
+.footer-col button.fb-footer-link{
+  display:block; background:none; border:0; padding:0; margin-top:0.9rem;
+  font-family:var(--font-body); font-size:0.85rem; color:#C7BCA3;
+  cursor:pointer; text-align:left;
+}
+.footer-col button.fb-footer-link:hover{color:#F6F0E2;}
+@media (max-width:480px){
+  #fb-open{right:0.85rem; bottom:0.85rem; padding:0.55rem 0.9rem; font-size:0.92rem;}
+  #fb-card .fb-row{flex-direction:column; gap:0;}
+}
+
 </style>
 </head>
 <body>
@@ -481,6 +582,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, .book-card:focus-vis
     <div class="footer-col">
       <span class="footer-title">Dad's Bookshelf</span>
       <p id="footerCount">301 books read between 2009 and 2026. Thirty-two of them changed how I think.</p>
+      <button type="button" class="fb-footer-link" onclick="openFeedback()">Suggest a book &rarr;</button>
     </div>
     <div class="footer-col">
       <span class="footer-eyebrow">Sibling project</span>
@@ -933,5 +1035,194 @@ function jsEscape(str){
 }
 
 </script>
+
+<!-- ---------- Feedback / suggestions widget ---------- -->
+<button id="fb-open" type="button" aria-haspopup="dialog" onclick="openFeedback()">
+  <span class="fb-mark" aria-hidden="true">&#9998;</span>Suggest a book
+</button>
+
+<div id="fb-overlay" role="dialog" aria-modal="true" aria-labelledby="fb-title">
+  <div id="fb-card">
+    <div id="fb-head">
+      <div>
+        <h2 id="fb-title">Suggest a book, or tell me what's off</h2>
+        <p class="fb-intro">Read something that belongs on this shelf? Spotted a wrong year or a broken link? Send it along.</p>
+      </div>
+      <button id="fb-close" type="button">&times; Close</button>
+    </div>
+
+    <form id="fb-form" novalidate>
+      <div class="fb-field">
+        <label for="fb-kind">What's this about</label>
+        <select id="fb-kind" name="kind">
+          <option>A book I should read</option>
+          <option>A correction</option>
+          <option>General feedback</option>
+        </select>
+      </div>
+
+      <div class="fb-field">
+        <label for="fb-book">Book or author (optional)</label>
+        <input type="text" id="fb-book" name="book" placeholder="Title, author&hellip;">
+      </div>
+
+      <div class="fb-field">
+        <label for="fb-msg">Your message</label>
+        <textarea id="fb-msg" name="message" placeholder="What it is, and why I'd like it&hellip;"></textarea>
+      </div>
+
+      <div class="fb-row">
+        <div class="fb-field">
+          <label for="fb-name">Name (optional)</label>
+          <input type="text" id="fb-name" name="name">
+        </div>
+        <div class="fb-field">
+          <label for="fb-email">Email (optional)</label>
+          <input type="email" id="fb-email" name="email" placeholder="if you'd like a reply">
+        </div>
+      </div>
+
+      <div class="fb-hp" aria-hidden="true">
+        <label for="fb-hp">Leave this empty</label>
+        <input type="text" id="fb-hp" name="_gotcha" tabindex="-1" autocomplete="off">
+      </div>
+
+      <button id="fb-send" type="submit">Send</button>
+      <div id="fb-note" role="status" aria-live="polite"></div>
+    </form>
+
+    <div id="fb-done">
+      <p>Thank you &mdash; it's in my inbox. Good recommendations have a way of ending up on the shelf.</p>
+      <button type="button" id="fb-done-close">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ==============================================================
+   FEEDBACK / SUGGESTIONS WIDGET
+   ==============================================================
+   CONFIG - three ways to receive messages:
+     1. Email only  : leave ACCESS_KEY and ENDPOINT empty. Opens the
+                      visitor's own mail app, pre-filled.
+     2. Web3Forms   : paste your key into ACCESS_KEY (set below).
+     3. Formspree   : paste your form URL into ENDPOINT instead.
+   EMAIL is the fallback shown if a send ever fails.
+   ============================================================== */
+(function(){
+  var ACCESS_KEY = "b8cf6764-abdb-4b50-b461-55f99ab72543";   // Web3Forms key
+  var ENDPOINT   = "";                                       // Formspree URL, or leave empty
+  var EMAIL      = "jackkruseiii@gmail.com";                 // your address
+
+  if(ACCESS_KEY && !ENDPOINT) ENDPOINT = "https://api.web3forms.com/submit";
+
+  var overlay = document.getElementById('fb-overlay'),
+      card    = document.getElementById('fb-card'),
+      form    = document.getElementById('fb-form'),
+      note    = document.getElementById('fb-note'),
+      send    = document.getElementById('fb-send'),
+      lastFocus = null;
+
+  function val(id){ return (document.getElementById(id).value || '').trim(); }
+
+  window.openFeedback = function(){
+    lastFocus = document.activeElement;
+    overlay.classList.remove('sent');
+    note.textContent = '';
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function(){ document.getElementById('fb-kind').focus(); }, 30);
+  };
+  function closeFeedback(){
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    if(lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  function setNote(text, isError){
+    note.textContent = text;
+    note.className = isError ? 'fb-err' : '';
+  }
+
+  document.getElementById('fb-close').addEventListener('click', closeFeedback);
+  document.getElementById('fb-done-close').addEventListener('click', closeFeedback);
+  overlay.addEventListener('mousedown', function(e){ if(e.target === overlay) closeFeedback(); });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && overlay.classList.contains('open')) closeFeedback();
+  });
+  /* keep tabbing inside the panel while it's open */
+  card.addEventListener('keydown', function(e){
+    if(e.key !== 'Tab') return;
+    var f = card.querySelectorAll('button, input, select, textarea, a[href]');
+    f = Array.prototype.filter.call(f, function(el){
+      return el.offsetParent !== null && el.tabIndex !== -1 && !el.disabled;
+    });
+    if(!f.length) return;
+    var first = f[0], last = f[f.length - 1];
+    if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+    else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+  });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(val('fb-hp')) return;                        /* bot caught by honeypot */
+
+    if(!val('fb-msg')){
+      setNote('Add a message first - a title and author is plenty.', true);
+      document.getElementById('fb-msg').focus();
+      return;
+    }
+
+    var kind  = val('fb-kind'),
+        book  = val('fb-book'),
+        body  = val('fb-msg'),
+        name  = val('fb-name'),
+        email = val('fb-email'),
+        page  = (location.pathname + location.search) || '/';
+
+    if(!ENDPOINT){
+      var text = kind + '\n\nBook: ' + (book || '-') +
+                 '\n\n' + body +
+                 '\n\n- ' + (name || 'a reader') + (email ? ' (' + email + ')' : '') +
+                 '\nSent from ' + page;
+      window.location.href = 'mailto:' + EMAIL +
+        '?subject=' + encodeURIComponent("Dad's Bookshelf - " + kind) +
+        '&body='    + encodeURIComponent(text);
+      overlay.classList.add('sent');
+      return;
+    }
+
+    var payload = {
+      subject: "Dad's Bookshelf - " + kind,
+      from_name: name || 'A reader',
+      site: "Dad's Bookshelf",
+      kind: kind,
+      book: book || '-',
+      message: body,
+      name: name || '-',
+      email: email || '',
+      page: page
+    };
+    if(ACCESS_KEY) payload.access_key = ACCESS_KEY;
+
+    send.disabled = true;
+    setNote('Sending\u2026', false);
+
+    fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function(r){
+      if(!r.ok) throw new Error('bad status');
+      form.reset();
+      overlay.classList.add('sent');
+    }).catch(function(){
+      setNote('That didn\u2019t go through. Email it to ' + EMAIL + ' instead.', true);
+    }).then(function(){
+      send.disabled = false;
+    });
+  });
+})();
+</script>
+
 </body>
 </html>
