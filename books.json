@@ -332,7 +332,9 @@
     "theme": "Christian Faith",
     "rereadYears": [
       2014
-    ]
+    ],
+    "note": "One Thousand Gifts is THE book to read when you find yourself in a valley—or even just in the midst of a tough month. A thankful and grateful heart can change your perspective on everything.",
+    "link": "http://kruzoo.blogspot.com/2015/01/2015readinglist.madagascar.africa.jesus.unbroken.endersgame.eggers.howey.html"
   },
   {
     "id": 22,
@@ -2799,15 +2801,15 @@
     "id": 170,
     "title": "Chasing Black Unicorns",
     "author": "Marek Zmyslowski",
-    "country": "Poland",
-    "region": "Europe",
+    "country": "Poland, Nigeria",
+    "region": "Africa",
     "pubYear": 2019,
     "yearRead": 2020,
     "type": "Non-Fiction",
     "secondaryType": "",
     "rating": 4,
     "isGreat": false,
-    "africa": false,
+    "africa": true,
     "theme": "Memoir & a Life Examined"
   },
   {
