@@ -329,7 +329,10 @@
     "rating": 5,
     "isGreat": false,
     "africa": false,
-    "theme": "Christian Faith"
+    "theme": "Christian Faith",
+    "rereadYears": [
+      2014
+    ]
   },
   {
     "id": 22,
@@ -3093,7 +3096,7 @@
     "theme": "Sweeping Fiction",
     "summary": "Pulitzer-winning author Ayad Akhtar charges that America is a 'buffer solution' that 'keeps things together but always separated' in his unforgettable novel-cum-memoir. DoDReads published my full review.",
     "quotes": [
-      "America is a buffer solution that keeps things together but always separated."
+      "Constantly defining yourself in opposition to what others say about you is not self-knowledge. It’s confusion."
     ],
     "link": "https://www.dodreads.com/homeland-elegies-a-call-for-clarity/"
   },
