@@ -235,9 +235,7 @@
     "africa": false,
     "theme": "War, Service & Sacrifice",
     "summary": "Matterhorn is a novel about Vietnam. More succinctly, it's THE best novel about Vietnam and ONE of the BEST on war ever written. Marlantes was a Yale grad and a Rhodes scholar who served IN Vietnam, was awarded the Navy Cross, the Bronze Star, two Navy Commendation Medals for valor, two Purple Hearts, and ten air medals. And for the past 30 years he has been working on this soul-wrenching story. We spend a disproportionate amount of time studying the facts, tactics, techniques and history of wars. I add this novel to my 'must read for FAOs' list because it adds something missing: CONTEXT and TEXTURE. The words 'acceptable loss' and 'collateral damage' no longer remain as easily typed black words on an after action report, instead they appear in the murky purple of blood and hopelessness.",
-    "quotes": [
-      "We spend a disproportionate amount of time studying the facts, tactics, techniques and history of wars. I add this novel to my 'must read for FAOs' list because it adds something missing: CONTEXT and TEXTURE."
-    ],
+    "quotes": [],
     "link": "https://www.amazon.com/review/R3IGCKISGZEOCV/ref=cm_cr_srp_d_rdp_perm"
   },
   {
@@ -455,9 +453,12 @@
     "theme": "Memoir & a Life Examined",
     "summary": "From time to time, God causes men to be born who have a lust to go abroad at the risk of their lives and discover news. If there were ever an engraving to be mounted on the wall of my hypothetical office it would be Kipling's opening quote from this book. One of my favorite books ever — not technically fiction but it sure reads like it. Hartley was a war correspondent who covered Africa from Somalia to Rwanda to the Congo in the most brutal years. My complete notes and highlights are on FUUO.",
     "quotes": [
-      "From time to time, God causes men to be born who have a lust to go abroad at the risk of their lives and discover news."
+      "From time to time, God causes men to be born—and thou art one of them—who have a lust to go abroad at the risk of their lives and discover news."
     ],
-    "link": "http://fuuo.blogspot.com/2012/11/thezanzibarchest.aidenhartley.summary.review.notes.html"
+    "link": "http://fuuo.blogspot.com/2012/11/thezanzibarchest.aidenhartley.summary.review.notes.html",
+    "quoteSources": [
+      "the book's epigraph"
+    ]
   },
   {
     "id": 30,
@@ -696,10 +697,7 @@
     "africa": false,
     "theme": "Christian Faith",
     "summary": "First off, as an English major I am embarrassed to admit that I did not know the correct definition of the word prodigal. I always thought it referred to someone who screws up and comes back around, hat in hand. I couldn't be further from the truth — prodigal means someone who is wastefully extravagant, who spends their resources recklessly and freely. So in this story what you really have is a parable about two lost sons and a reckless (with his love) father. Keller's reorientation of the story from its traditional focus on the wayward son gives one more accurate insight into just who this tale was for. In context, Jesus' main audience was the 'older brothers' — the self-righteous pharisees who sought to control their own salvation through rigorous adherence to the law. One of best parts of Prodigal God is that it turns the reader outward showing that recognition of God's costly grace should spur his followers to serve the poor, to love the orphans and widows in society today. On my yearly re-reading list.",
-    "quotes": [
-      "Prodigal means someone who is wastefully extravagant, who spends their resources recklessly and freely.",
-      "The lavish and extravagant call of the Father to sons and daughters of all types—to join him in the banquet."
-    ],
+    "quotes": [],
     "link": "http://kruzoo.blogspot.com/p/yearly-reading-list.html",
     "rereadYears": [
       2017
@@ -787,11 +785,10 @@
     "isGreat": true,
     "africa": false,
     "theme": "Sweeping Fiction",
-    "summary": "Salter's most celebrated novel and the one that cemented his reputation as a writer's writer. Set in France, it captures light, place, and desire with a precision that makes most other novelists look like they're working in watercolors while Salter works in oil. His prose is the standard by which I measure every other novelist.",
     "quotes": [
-      "Write as if this were your only book, your last book. Into it put everything you were saving—everything precious, every scrap of capital. Don't be afraid of being left with nothing."
+      "Her teeth are hypnotic. Her smile crushes one's hope."
     ],
-    "link": "https://fuuo.blogspot.com/2015/07/salter.obituary.writingwell.english.major.burningthedays.salterquotes.mg.html"
+    "link": "http://kruzoo.blogspot.com/2015/02/a-sport-and-pastime-open-road-by-jamessalter.html"
   },
   {
     "id": 49,
@@ -1189,11 +1186,11 @@
     "isGreat": true,
     "africa": false,
     "theme": "Memoir & a Life Examined",
-    "summary": "Salter's memoir is the book that made me understand what writing could be. His career arc from West Point fighter pilot to revered literary novelist is unlike anything else in American letters. The prose burns throughout — there is not a wasted sentence. Reading this sent me back to read everything else he ever wrote.",
+    "summary": "Ultimately Burning the Days is not a memoir about anyone but Salter and his own quest (or pursuit) of immortality … his outsized power in description--there's no author who does in better today. My favorite part … are his descriptions of favorite books and authors--I added about 10 new books to my Amazon wish list!",
     "quotes": [
-      "The poets, writers, the sages and voices of their time, they are a chorus, the anthem they share is the same: the great and the small are joined, the beautiful lives, the other dies, and all is foolish except honor, love, and what little is known by the heart."
+      "Art, in a sense, is life brought to a standstill, rescued from time."
     ],
-    "link": "https://fuuo.blogspot.com/2015/07/salter.obituary.writingwell.english.major.burningthedays.salterquotes.mg.html"
+    "link": "http://kruzoo.blogspot.com/2015/04/burning-days-kindle-notes.james.salter.nytimes..html"
   },
   {
     "id": 74,
@@ -1884,9 +1881,14 @@
     "isGreat": true,
     "africa": false,
     "theme": "Leadership & Building Things",
-    "summary": "This was one of the most useful books that I have ever read. My full review is titled 'Read Deep Work Because It Will Change Everything.' Newport makes the case that the ability to focus without distraction on cognitively demanding tasks is one of the most valuable and increasingly rare skills in the modern economy.",
-    "quotes": [],
-    "link": "https://kruzoo.blogspot.com/2017/05/2017-reading-list.html"
+    "summary": "This was one of the most useful books that I have ever read. My full review is titled 'Read Deep Work Because It Will Change Everything.'",
+    "quotes": [
+      "Great creative minds think like artists but work like accountants."
+    ],
+    "link": "http://kruzoo.blogspot.com/2017/08/newport.deepwork.myelin.sabbath.beingbetter.studyhack.html",
+    "quoteSources": [
+      "David Brooks, quoted in the book"
+    ]
   },
   {
     "id": 117,
@@ -2070,9 +2072,7 @@
     "africa": false,
     "theme": "Conflict Zones & Hard Truths",
     "summary": "Read it Because: You can't afford not to. Before the publication of Warmth some seven years ago, there had never been a definitive and comprehensive analysis of these waves of migration that began following the reconstruction era as Jim Crow set in. Let the following statement sink in: Just 77 years ago, in 1/3 of the US, killing blacks was not a crime. Now while I may not agree with every single tenet of the #blacklivesmatter movement, reading this book opened my eyes to the historical headspace from which its leaders and followers are coming. Much of the conflict in today's society would at least be softened if both sides took the time to know one another's history. Wilkerson has presented a gift to Americans.",
-    "quotes": [
-      "Just 77 years ago, in 1/3 of the US, killing blacks was not a crime."
-    ],
+    "quotes": [],
     "link": "http://kruzoo.blogspot.com/2017/04/the-warmth-of-other-suns.wilkerson.greatmigration.blacklivesmatter.trump.html"
   },
   {
@@ -2776,8 +2776,7 @@
     "theme": "War, Service & Sacrifice",
     "summary": "This book has been long anticipated and it delivers. General Mattis writes just as he leads — candid and thoughtful. This book strikes a delicate balance between an autobiography and a leadership book. Mattis and co-author Bing West utilize Mattis' career as a roadmap to illustrate leadership at three different levels: Direct, Executive, and Strategic. The one theme he kept coming back to was unleashing others' initiative. Required reading for any military officer or anyone in a leadership position.",
     "quotes": [
-      "If you haven't read hundreds of books, you are functionally illiterate, and you will be incompetent, because your personal experiences alone aren't broad enough to sustain you.",
-      "A leader's role is problem solving. If you don't like problems, stay out of leadership."
+      "Have a bias for action. Set the tempo for that action and reward those who meet that tempo or exceed it. Speed is king because time can't be recovered once it's lost. Reward the initiative of those under you--even when they fail."
     ],
     "link": "https://kruzoo.blogspot.com/2020/01/2020-reading-list.html"
   },
@@ -2827,7 +2826,7 @@
     "isGreat": true,
     "africa": false,
     "theme": "Leadership & Building Things",
-    "summary": "Stanford design professors Burnett and Evans apply design thinking to the challenge of building a life. The core insight is to stop asking 'what do I want to do with my life' (a gravity problem — unchangeable) and start prototyping multiple possible lives to see what fits. Essential reading for anyone navigating a career transition.",
+    "summary": "I also purchased the accompanying workbook which is excellent! The authors use design prototype theory to lead readers through a process of self-reflection and self-discovery. This is an ESSENTIAL read for any veteran considering a transition from the military, or for anyone considering a career pivot.",
     "quotes": [],
     "link": "https://kruzoo.blogspot.com/2020/01/2020-reading-list.html"
   },
@@ -3148,7 +3147,7 @@
     "theme": "War, Service & Sacrifice",
     "summary": "Reading Marine veteran Phil Klay's new novel forces readers to step back and consider the 'progress' and globalization of American warfare since 9-11. The novel accomplishes this by examining the decades-long Colombian civil war through the converging lives of a weary American war-zone journalist, an American Special Forces Officer, a career Colombian Army officer, and an orphaned Colombian village boy-turned-killer. DoDReads published my full review.",
     "quotes": [
-      "Wars are not fought by armies. They are fought by cultures. Your job is not to trim the claws. It's to kill the beast.",
+      "Wars are not fought by armies. They are fought by cultures. … Your job is not to trim the claws. It’s to kill the beast.",
       "In all his time watching Yemenis die on video screens, he had not once talked to a single Yemeni, or even seen one in person. They were a notional people to him."
     ],
     "link": "https://www.dodreads.com/to-stop-and-care/"
@@ -3722,7 +3721,7 @@
     "isGreat": true,
     "africa": false,
     "theme": "Sweeping Fiction",
-    "summary": "A sweeping, multi-generational saga that traces one Black American family across centuries, from West Africa to Georgia to the present day. One of the most ambitious American novels in years. My full review is on kruzoo.",
+    "summary": "Acclaimed poet Honorée Fanonne Jeffers’ soaring 800-page debut (!) novel … can also be read as a history of the United States in Georgia. … It's to Jeffers’ credit that she peels back the layers of this family’s history … And who better to have written the “The Great American Novel” than a poet?",
     "quotes": [
       "She was owned, but her memories were not.",
       "For the original transgression of this land was not slavery. It was greed, and it could not be contained."
@@ -4236,7 +4235,7 @@
     "isGreat": true,
     "africa": true,
     "theme": "Sweeping Fiction",
-    "summary": "Verghese's sweeping novel of twin brothers born in an Ethiopian mission hospital and separated by circumstance and destiny. One of the great medical novels ever written, and one of the great African novels. Verghese writes about the body, about surgery, about Ethiopia with a precision and love that is stunning.",
+    "summary": "This has been on my reading list since it's publication in 2009. … pulled me back into Ethiopia where we lived for over 2 years … multiple layers of betrayal, intrigue and redemption.",
     "quotes": [],
     "link": "https://kruzoo.blogspot.com/2025/01/2025-reading-list.html"
   },
@@ -4319,9 +4318,11 @@
     "isGreat": true,
     "africa": false,
     "theme": "Sweeping Fiction",
-    "summary": "Berry's gentle, devastating novel about a Kentucky farm woman looking back on her life — two husbands, her children, the land, the community of Port William. It is a novel about what endures when everything else falls away. Reading Berry always feels like being told the truth about something you've always known but never been able to say.",
-    "quotes": [],
-    "link": "https://kruzoo.blogspot.com/2025/01/2025-reading-list.html"
+    "summary": "Hannah Coulter, the penultimate novel in Wendell Berry's Port Williams series, offers a touching first-person account of its title character's life … It's a deep narrative, full of sorrow and triumph, heartache and love, pain and healing … reading it as a husband and father at the midpoint of his life feels like a clarion call.",
+    "quotes": [
+      "Love held us, kindness held us."
+    ],
+    "link": "https://kruzoo.blogspot.com/2025/09/hannahcoulterportwilliams.html"
   },
   {
     "id": 263,
@@ -4353,9 +4354,11 @@
     "isGreat": true,
     "africa": false,
     "theme": "Sweeping Fiction",
-    "summary": "Pulitzer Prize winner. Everett reimagines Huckleberry Finn from Jim's perspective, and in doing so transforms one of American literature's most troubling relationships into something revelatory. One of the most important American novels in years.",
-    "quotes": [],
-    "link": "https://kruzoo.blogspot.com/2025/01/2025-reading-list.html"
+    "summary": "An incredibly imaginative retelling of Mark Twain's 'Adventures of Huckleberry Finn' that boldly centers the narrative on the character of Jim … a searing indictment of the institution of slavery and a powerful reminder of the terror of everyday life for enslaved people. Jim often depends on the young white child (i.e., Tom Sawyer) for his very survival at several junctures.",
+    "quotes": [
+      "But where does a slave put anger?"
+    ],
+    "link": "https://kruzoo.blogspot.com/2025/07/kruses-keys-read-james-to-hear-jims.html"
   },
   {
     "id": 265,
@@ -4565,9 +4568,11 @@
     "isGreat": true,
     "africa": false,
     "theme": "Christian Faith",
-    "summary": "Life-changing. Comer's core argument is that hurry is the enemy of the spiritual life — and that the pace of modern life is fundamentally incompatible with following Jesus. The solution is not a productivity hack but a wholesale reorientation of how you move through time. This led me to read Practicing the Way the following year.",
-    "quotes": [],
-    "link": "https://kruzoo.blogspot.com/2025/01/2025-reading-list.html"
+    "summary": "Life-changing. … one of the most important and influential (I hope) books I've read in the last decade … This was hands down the biggest change I needed in my life. This led me to read Practicing the Way the following year.",
+    "quotes": [
+      "What you give your attention to is the person you become."
+    ],
+    "link": "https://kruzoo.blogspot.com/2025/07/kruses-key-read-ruthless-elimination-of.html"
   },
   {
     "id": 278,
@@ -4794,9 +4799,7 @@
     "africa": false,
     "theme": "Christian Faith",
     "summary": "Last year we read Comer's 'Ruthless Elimination of Hurry' and it was life changing. This book is for those who read Ruthless and ask themselves: so how do we actually implement an unhurried and contemplative life? Practicing the Way lays out a path that is a call first and foremost to eat Jesus' dust — this refers to the Jewish practice of following and imitating a rabbi so closely that you literally would be walking in his dust. It's noteworthy that the term Christian appears only 3 times in the New Testament, while the word for 'Apprentice' (mathetes) appears 269 times.",
-    "quotes": [
-      "The term Christian appears only 3 times in the New Testament, while the word for Apprentice (mathetes) appears 269 times."
-    ],
+    "quotes": [],
     "link": "https://kruzoo.blogspot.com/2026/01/2026-reading-list.html"
   },
   {
@@ -4862,8 +4865,10 @@
     "africa": false,
     "theme": "Christian Faith",
     "summary": "There's not much allegorical fiction being written these days. Theo of Golden makes me want a lot more of it — at least more of it written by Allan Levi. Published in 2023 but somehow I only heard of the novel a month ago from a pastor friend named Steve. The story is about an octogenarian named Theo who mysteriously arrives in the town of Golden and proceeds to — incredibly — get to know perfect strangers! He uses the gift of hand drawn portraits as the mechanism in this quest and along the way offers a winsome example of kindness in action.",
-    "quotes": [],
-    "link": "https://kruzoo.blogspot.com/2026/01/2026-reading-list.html"
+    "quotes": [
+      "God gave us faces so we can see each other better."
+    ],
+    "link": "https://kruzoo.blogspot.com/2026/05/kruses-keys-read-theo-of-golden-to-see.html"
   },
   {
     "id": 297,

@@ -405,6 +405,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, .book-card:focus-vis
 }
 .detail-summary{font-size:1.02rem; line-height:1.72; color:var(--ink); margin-bottom:1.3rem;}
 .detail-summary p{margin:0 0 0.9rem;}
+.quote-source{display:block;margin-top:.4rem;font-family:var(--font-body);font-size:.8rem;font-style:normal;opacity:.75;}
 .pull-quote{
   font-family:var(--font-display); font-style:italic; font-size:1.12rem; line-height:1.55;
   color:var(--ink); border-left:3px solid var(--gold); padding:0.2rem 0 0.2rem 1.1rem;
@@ -972,12 +973,15 @@ function openDetail(id){
     html += `<p class="detail-reread">Read again in ${b.rereadYears.join(", ")}.</p>`;
   }
 
-  if(b.isGreat && b.summary){
+  if(b.isGreat && (b.summary || (b.quotes && b.quotes.length))){
     html += `<p class="detail-section-eyebrow">From the shelf</p>`;
-    html += `<div class="detail-summary">${b.summary.split(/\n+/).map(p=>`<p>${escapeHtml(p)}</p>`).join("")}</div>`;
+    if(b.summary){
+      html += `<div class="detail-summary">${b.summary.split(/\n+/).map(p=>`<p>${escapeHtml(p)}</p>`).join("")}</div>`;
+    }
     if(b.quotes && b.quotes.length){
-      b.quotes.forEach(q => {
-        html += `<blockquote class="pull-quote">&ldquo;${escapeHtml(q)}&rdquo;</blockquote>`;
+      b.quotes.forEach((q, qi) => {
+        const src = b.quoteSources && b.quoteSources[qi];
+        html += `<blockquote class="pull-quote">&ldquo;${escapeHtml(q)}&rdquo;${src ? `<cite class="quote-source"> — ${escapeHtml(src)}</cite>` : ""}</blockquote>`;
       });
     }
     if(b.link){
