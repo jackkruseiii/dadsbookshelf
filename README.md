@@ -28,8 +28,7 @@ Two files do all the work (plus a social preview image). There is no build step.
 
 Everything on the site comes from `books.json`. Other files are not authoritative:
 
-- `Dads_Bookshelf_Master.xlsx` is out of date. It does not contain the Achebe entries, *A Personal Matter*, or the *Hamnet* typo fix.
-- `greats_reviews.json` is stale and should not be used to update the site.
+- `Dads_Bookshelf_Master.xlsx` and `greats_reviews.json` are retired. They are not used and are not kept in sync. Do not read from them or update them.
 
 When in doubt, `books.json` wins.
 
@@ -61,4 +60,3 @@ Session notes for Claude:
 
 - Some books still have no note/summary or no rating.
 - The "Beyond Achebe" badge sends `?country=<Name>#atlas`, but beyondachebe.com does not read `?country=` yet, so the link lands on the atlas section.
-- `Dads_Bookshelf_Master.xlsx` and `greats_reviews.json` still need to be brought in line with `books.json` (or retired).
