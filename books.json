@@ -352,7 +352,7 @@
   {
     "id": 23,
     "title": "The Cairo Trilogy",
-    "author": "Maguib Mahfouz",
+    "author": "Naguib Mahfouz",
     "country": "Egypt",
     "region": "Middle East",
     "pubYear": 1956,
@@ -362,12 +362,14 @@
     "rating": 5,
     "isGreat": false,
     "africa": false,
-    "theme": "Sweeping Fiction"
+    "theme": "Sweeping Fiction",
+    "note": "In the meantime, I can recommend Naguib Mahfouz's Palace Walk. I finished it last week and it was a great read, especially in light of Egypt's recent revolution.",
+    "link": "https://fuuo.blogspot.com/2011/08/fuuo-will-be-mia-for-bit-but-here-are.html"
   },
   {
     "id": 24,
     "title": "The Help",
-    "author": "Kathyrn Stockett",
+    "author": "Kathryn Stockett",
     "country": "America",
     "region": "North America",
     "pubYear": 2009,
@@ -408,7 +410,10 @@
     "rating": 4,
     "isGreat": false,
     "africa": true,
-    "theme": "Sweeping Fiction"
+    "theme": "Sweeping Fiction",
+    "note": "Beautiful writing.",
+    "quote": "Africa does not exist.",
+    "link": "http://fuuo.blogspot.com/2012/11/africareadinglistforbeginners.html"
   },
   {
     "id": 27,
@@ -478,7 +483,8 @@
     "africa": true,
     "theme": "Sweeping Fiction",
     "quote": "It is more difficult and more bitter when a man fails alone.",
-    "link": "http://fuuo.blogspot.com/2012/01/things-fall-apart-notes.html"
+    "link": "http://fuuo.blogspot.com/2012/01/things-fall-apart-notes.html",
+    "note": "The missionaries destroy the unity of the clan in winning converts. Here you could derive the interesting idea of missionaries as the original COINistas!"
   },
   {
     "id": 31,
@@ -557,7 +563,7 @@
     "yearRead": 2013,
     "type": "Fiction",
     "secondaryType": "Christian",
-    "rating": null,
+    "rating": 4,
     "isGreat": false,
     "africa": false,
     "theme": "Sweeping Fiction",
@@ -934,7 +940,9 @@
     "rating": 5,
     "isGreat": false,
     "africa": false,
-    "theme": "Christian Faith"
+    "theme": "Christian Faith",
+    "note": "One Thousand Gifts is THE book to read when you find yourself in a valley—or even just in the midst of a tough month. A thankful and grateful heart can change your perspective on everything.",
+    "link": "http://kruzoo.blogspot.com/2015/01/2015readinglist.madagascar.africa.jesus.unbroken.endersgame.eggers.howey.html"
   },
   {
     "id": 58,
@@ -971,7 +979,7 @@
   {
     "id": 60,
     "title": "The Battle for the Soul of South Africa, from Mandela to Zuma",
-    "author": "Alec Russel",
+    "author": "Alec Russell",
     "country": "South Africa",
     "region": "Africa",
     "pubYear": 2009,
@@ -1246,7 +1254,7 @@
   {
     "id": 77,
     "title": "Everything is Yours, Everything is Not Yours",
-    "author": "Clemantine Wamariya,",
+    "author": "Clemantine Wamariya",
     "country": "Rwanda",
     "region": "Africa",
     "pubYear": 2018,
@@ -1256,7 +1264,9 @@
     "rating": 4,
     "isGreat": false,
     "africa": true,
-    "theme": "Sweeping Fiction"
+    "theme": "Sweeping Fiction",
+    "note": "While Clemantine Wamariya's autobiographical introspective is not a book, it's significant enough in its beauty, skill and bravery to warrant its inclusion on our yearly reading list. The story of her struggles does not fit into any neat or easily digestible categories--but her perseverance will not only inspire but educate you.",
+    "link": "http://kruzoo.blogspot.com/2015/06/2015-reading-list.html"
   },
   {
     "id": 78,
@@ -1320,7 +1330,9 @@
     "isGreat": false,
     "africa": false,
     "theme": "Sweeping Fiction",
-    "quote": "You're so American. You believe everything is possible, everything will come."
+    "quote": "You're so American. You believe everything is possible, everything will come.",
+    "note": "This is a heart-breaking novel about love, marriage and the danger ignoring the slow cracks that seep into relationships.",
+    "link": "http://kruzoo.blogspot.com/2015/03/light-years-kindle-notes.jamessalter.theman.html"
   },
   {
     "id": 82,
@@ -2441,7 +2453,7 @@
     "yearRead": 2019,
     "type": "Fiction",
     "secondaryType": "Africa",
-    "rating": null,
+    "rating": 4,
     "isGreat": false,
     "africa": true,
     "theme": "Sweeping Fiction",
@@ -4692,7 +4704,7 @@
   },
   {
     "id": 286,
-    "title": "Bound by Violence",
+    "title": "Bound to Violence",
     "author": "Yambo Ouologuem",
     "country": "Mali",
     "region": "Africa",
@@ -4700,10 +4712,13 @@
     "yearRead": 2026,
     "type": "Fiction",
     "secondaryType": "",
-    "rating": null,
+    "rating": 2,
     "isGreat": false,
     "africa": true,
-    "theme": "Sweeping Fiction"
+    "theme": "Sweeping Fiction",
+    "note": "This is an angry novel. In it Malian author Yambo Ouologuem seethes and screams against…everyone. The colonial Europeans, the historic, and seemingly always corrupt, tribal leaders, the pan-Africanists, his buttoned-up Muslim fellow countrymen, the diaspora–no one is safe from his wrath and disgust. Penned 8 years after Malian independence and published in the same year as Moussa Traore's military coup there, this novel sent shockwaves across the country and a region caught up in burgeoning pan-Africanism. … I don't recommend anyone read the novel.",
+    "quote": "Men kill each other because they have been unable to communicate.",
+    "link": "https://fuuo.blogspot.com/2026/07/bound-to-violence-mali.html"
   },
   {
     "id": 287,
@@ -4765,7 +4780,7 @@
     "yearRead": 2026,
     "type": "Biography",
     "secondaryType": "",
-    "rating": null,
+    "rating": 4,
     "isGreat": false,
     "africa": false,
     "theme": "Memoir & a Life Examined",
@@ -4815,10 +4830,12 @@
     "yearRead": 2026,
     "type": "Non-Fiction",
     "secondaryType": "Business",
-    "rating": null,
+    "rating": 5,
     "isGreat": false,
     "africa": false,
-    "theme": "Leadership & Building Things"
+    "theme": "Leadership & Building Things",
+    "note": "One of my good (and very smart) friends Tim Berthold recommended this to me. You can read it in an afternoon and in it the authors lay out a clear framework for conducting a concise and mutually beneficial networking call or meeting. I found it so useful that I built a template for it … that I use inside Gemini for every networking call I use. The book also prompted me to create a networking app called Mahan. The app uses the book's recommendations to create a sortable and trackable database that prompts you via a weekly email to ensure you stay current on your networking goals and that no contact/relationship goes stale.",
+    "link": "https://kruzoo.blogspot.com/2026/01/2026-reading-list.html"
   },
   {
     "id": 294,
@@ -4916,7 +4933,7 @@
     "yearRead": 2012,
     "type": "Fiction",
     "secondaryType": "",
-    "rating": null,
+    "rating": 5,
     "isGreat": false,
     "africa": true,
     "theme": "Sweeping Fiction",
@@ -4933,11 +4950,12 @@
     "yearRead": 2012,
     "type": "Fiction",
     "secondaryType": "",
-    "rating": null,
+    "rating": 4,
     "isGreat": false,
     "africa": true,
     "theme": "Sweeping Fiction",
-    "link": "http://fuuo.blogspot.com/2012/02/no-longer-at-ease-notes.html"
+    "link": "http://fuuo.blogspot.com/2012/02/no-longer-at-ease-notes.html",
+    "note": "If there was a soundtrack to this novel it would be Biggie Smalls: Mo Money Mo Problems. I would love to develop a screenplay for this novel. It would make a good Sundance 'short'. … In a movie treatment I would begin the film in stark black and white, letting corruption slowly seep in as sepia tones and color. … This is a novel and a story that never resolves."
   },
   {
     "id": 301,
@@ -4949,11 +4967,13 @@
     "yearRead": 2012,
     "type": "Fiction",
     "secondaryType": "",
-    "rating": null,
+    "rating": 4,
     "isGreat": false,
     "africa": true,
     "theme": "Sweeping Fiction",
-    "link": "http://fuuo.blogspot.com/2012/02/disclaimer-these-are-my-notes-that-i.html"
+    "link": "http://fuuo.blogspot.com/2012/02/disclaimer-these-are-my-notes-that-i.html",
+    "note": "Without understanding that Chief Nanga is a man of the people, the story does not work. … After independence the value of education becomes inverted. … Corruption feeds and multiplies bureaucracy and vice versa.",
+    "quote": "it is only when you are close to a man that you can begin to smell his breath"
   },
   {
     "id": 302,
@@ -4965,10 +4985,11 @@
     "yearRead": 2012,
     "type": "Fiction",
     "secondaryType": "",
-    "rating": null,
+    "rating": 4,
     "isGreat": false,
     "africa": true,
     "theme": "Sweeping Fiction",
-    "link": "https://fuuo.blogspot.com/2012/04/anthills-of-savannah-discussion-notes.html"
+    "link": "https://fuuo.blogspot.com/2012/04/anthills-of-savannah-discussion-notes.html",
+    "note": "Irony that Achebe writes a novel about the disconnect between the elite and the poor masses at such a level that it is not accessible by those same masses because of the higher intellectual level at which it is written. … Older Abazonian man's speech is a throwback to Achebe's prior novels (and a breath of fresh air)."
   }
 ]
