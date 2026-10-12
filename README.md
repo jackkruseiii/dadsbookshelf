@@ -17,7 +17,7 @@ Two files do all the work (plus a social preview image). There is no build step.
 | File | Role |
 |---|---|
 | `index.html` | All page logic and CSS. Loads `books.json` and renders the cards. |
-| `books.json` | **The master data file.** One entry per book (ids 1-302, 301 entries). |
+| `books.json` | **The master data file.** One entry per book (ids 1-307, 306 entries). |
 | `og-image.png` | 1200x630 social preview image referenced by the og/twitter tags. |
 
 **Id 284 is intentionally absent.** Do not "fix" the gap or renumber. New entries take the next id after the highest in use.
