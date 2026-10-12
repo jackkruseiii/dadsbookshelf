@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dad's Bookshelf — 301 Books, 2009–2026</title>
-<meta name="description" content="A personal library of every book read since 2009 — 32 all-time greats, seven themes, and a lifetime of reading.">
+<meta name="description" content="A personal library of every book read since 2009 — the all-time greats, the themes, and a lifetime of reading.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -284,7 +284,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, .book-card:focus-vis
   font-size:0.66rem; font-weight:700; letter-spacing:0.04em; text-transform:uppercase;
   padding:0.22rem 0.5rem; border-radius:20px;
 }
-.badge-africa{background:var(--rust-soft); color:var(--rust);}
+.badge-africa{background:var(--rust-soft); color:var(--rust); text-decoration:none;}
+a.badge-africa:hover, a.badge-africa:focus-visible{background:var(--rust); color:#FBF2EB;}
 .badge-great{background:var(--gold-soft); color:#7A5A1C;}
 
 .great-ribbon{
@@ -582,12 +583,12 @@ body:has(.detail-overlay.open) #fb-open{display:none;}
   <div class="footer-inner">
     <div class="footer-col">
       <span class="footer-title">Dad's Bookshelf</span>
-      <p id="footerCount">301 books read between 2009 and 2026. Thirty-two of them changed how I think.</p>
+      <p id="footerCount"></p>
       <button type="button" class="fb-footer-link" onclick="openFeedback()">Suggest a book &rarr;</button>
     </div>
     <div class="footer-col">
       <span class="footer-eyebrow">Sibling project</span>
-      <a href="https://beyondachebe.com" target="_blank" rel="noopener">Beyond Achebe — a literary atlas of Africa, 54 countries ↗</a>
+      <a id="baFooterLink" href="https://beyondachebe.com" target="_blank" rel="noopener">Beyond Achebe — a literary atlas of Africa ↗</a>
     </div>
     <div class="footer-col">
       <span class="footer-eyebrow">Reviews &amp; reading lists</span>
@@ -639,11 +640,69 @@ const THEME_INTROS = {
   "Conflict Zones & Hard Truths": "Reporting and history from the hardest places — the kind of non-fiction that doesn't let you look away."
 };
 
-function beyondAchebeLink(country){
-  return "https://beyondachebe.com/";
+/* ---------- Beyond Achebe cross-links ----------
+   The 54 countries Beyond Achebe covers, spelled exactly as that site spells them. */
+const BA_COUNTRIES = [
+  "Algeria","Libya","Morocco","Tunisia","Mauritania","Cameroon","Ghana","Nigeria","Senegal","Togo",
+  "Côte d'Ivoire","Burkina Faso","Liberia","Sierra Leone","Cabo Verde","Mali","Tanzania","Kenya","Uganda",
+  "Comoros","Sudan","Ethiopia","Somalia","Eritrea","Djibouti","Congo (DRC)","Congo (Republic)","Burundi",
+  "Rwanda","Equatorial Guinea","South Africa","Zimbabwe","Mozambique","Zambia","Malawi","Madagascar","Egypt",
+  "Angola","Benin","Gambia","Guinea","Guinea-Bissau","Niger","São Tomé and Príncipe","Seychelles","Mauritius",
+  "South Sudan","Central African Republic","Chad","Gabon","Botswana","Eswatini","Lesotho","Namibia"
+];
+// Other spellings found in books.json (all lower-case, accents stripped) -> Beyond Achebe's spelling.
+const BA_ALIASES = {
+  "drc":"Congo (DRC)", "dr congo":"Congo (DRC)", "democratic republic of the congo":"Congo (DRC)",
+  "republic of congo":"Congo (Republic)",
+  "ivory coast":"Côte d'Ivoire",
+  "cape verde":"Cabo Verde",
+  "swaziland":"Eswatini"
+};
+function baNorm(s){
+  return String(s).normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[’‘]/g,"'").toLowerCase().trim();
+}
+const BA_BY_NORM = {};
+BA_COUNTRIES.forEach(c => BA_BY_NORM[baNorm(c)] = c);
+
+// books.json sometimes holds several places in one field ("Nigeria, NYC", "Greenland, Togo").
+// Take the first part that is a Beyond Achebe country; null when none is ("Multiple", "France").
+function baCountryName(raw){
+  if(!raw) return null;
+  for(const part of String(raw).split(/[,\/;]/)){
+    const k = baNorm(part);
+    if(BA_BY_NORM[k]) return BA_BY_NORM[k];
+    if(BA_ALIASES[k]) return BA_ALIASES[k];
+  }
+  return null;
 }
 
-const NUMERALS = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV","XXV","XXVI","XXVII","XXVIII","XXIX","XXX","XXXI","XXXII"];
+// Always lands on the atlas section. The ?country= parameter is there for Beyond Achebe
+// to open that country's entry once it reads the parameter; until then it is ignored.
+function beyondAchebeLink(country){
+  const name = baCountryName(country);
+  return "https://beyondachebe.com/" + (name ? "?country=" + encodeURIComponent(name) : "") + "#atlas";
+}
+
+/* ---------- Number helpers (so counts never need hand-editing) ---------- */
+function toRoman(n){
+  if(!Number.isInteger(n) || n < 1 || n > 3999) return String(n);
+  const map = [[1000,"M"],[900,"CM"],[500,"D"],[400,"CD"],[100,"C"],[90,"XC"],[50,"L"],[40,"XL"],[10,"X"],[9,"IX"],[5,"V"],[4,"IV"],[1,"I"]];
+  let out = "";
+  for(const [v,s] of map){ while(n >= v){ out += s; n -= v; } }
+  return out;
+}
+function numberWord(n){
+  const ones = ["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"];
+  const tens = ["","","twenty","thirty","forty","fifty","sixty","seventy","eighty","ninety"];
+  if(!Number.isInteger(n) || n < 0 || n > 99) return String(n);
+  if(n < 20) return ones[n];
+  return tens[Math.floor(n/10)] + (n % 10 ? "-" + ones[n % 10] : "");
+}
+function capitalize(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
+function readYearRange(){
+  const years = BOOKS.map(b => b.yearRead).filter(Boolean);
+  return years.length ? [Math.min(...years), Math.max(...years)] : [null, null];
+}
 
 let GREATS_ORDERED = [];
 let GREAT_NUMERAL = {};
@@ -672,7 +731,7 @@ function computeDerivedData(){
     .filter(b => b.isGreat && !b.isGreatDuplicate)
     .sort((a,b) => (a.yearRead - b.yearRead) || a.title.localeCompare(b.title));
   GREAT_NUMERAL = {};
-  GREATS_ORDERED.forEach((b,i) => GREAT_NUMERAL[b.id] = NUMERALS[i] || String(i+1));
+  GREATS_ORDERED.forEach((b,i) => GREAT_NUMERAL[b.id] = toRoman(i+1));
   AUTHORS = authorIndex();
 }
 
@@ -737,10 +796,19 @@ async function loadBooks(){
     return false;
   }
   computeDerivedData();
-  document.title = `Dad's Bookshelf — ${BOOKS.length} Books, 2009–2026`;
+  const [firstYear, lastYear] = readYearRange();
+  const yearSpan = (firstYear && lastYear) ? `${firstYear}–${lastYear}` : "";
+  document.title = `Dad's Bookshelf — ${BOOKS.length} Books${yearSpan ? ", " + yearSpan : ""}`;
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if(metaDesc) metaDesc.setAttribute("content",
+    `A personal library of every book read since ${firstYear || 2009} — ${GREATS_ORDERED.length} all-time greats, ${numberWord(THEMES.length)} themes, and a lifetime of reading.`);
   document.getElementById("searchInput").placeholder = `Search ${BOOKS.length} books by title or author…`;
   const footerCount = document.getElementById("footerCount");
-  if(footerCount) footerCount.textContent = `${BOOKS.length} books read between 2009 and 2026. Thirty-two of them changed how I think.`;
+  if(footerCount) footerCount.textContent = (firstYear && lastYear)
+    ? `${BOOKS.length} books read between ${firstYear} and ${lastYear}. ${capitalize(numberWord(GREATS_ORDERED.length))} of them changed how I think.`
+    : `${BOOKS.length} books read. ${capitalize(numberWord(GREATS_ORDERED.length))} of them changed how I think.`;
+  const baFooter = document.getElementById("baFooterLink");
+  if(baFooter) baFooter.textContent = `Beyond Achebe — a literary atlas of Africa, ${BA_COUNTRIES.length} countries ↗`;
   return true;
 }
 
@@ -800,7 +868,7 @@ function renderIntro(){
   if(state.view === "greats"){
     el.innerHTML = `
       <p class="intro-eyebrow">The shelf, distilled</p>
-      <h1 class="intro-title">32 All-Time Greats</h1>
+      <h1 class="intro-title">${GREATS_ORDERED.length} All-Time Greats</h1>
       <p class="intro-copy">Start here. These are books that can change and shape you, alight your imagination, wreck you, and inspire you.</p>`;
     renderStats();
     return;
@@ -887,7 +955,7 @@ function bookCard(b){
       ${quote ? `<blockquote class="card-quote">&ldquo;${escapeHtml(truncateQuote(quote, 130))}&rdquo;</blockquote>` : ''}
       <div class="badge-row">
         ${b.isGreat ? '<span class="badge badge-great">★ Great</span>' : ''}
-        ${b.africa ? '<span class="badge badge-africa">🌍 Africa</span>' : ''}
+        ${b.africa ? `<a class="badge badge-africa" href="${escapeAttr(beyondAchebeLink(b.country))}" target="_blank" rel="noopener" title="See this on Beyond Achebe" onclick="event.stopPropagation()" onkeypress="event.stopPropagation()">🌍 Beyond Achebe</a>` : ''}
       </div>
       <div class="card-meta">
         <div class="card-meta-left">
@@ -954,7 +1022,7 @@ function openDetail(id){
 
   let html = `<button class="detail-close" onclick="closeDetail()" aria-label="Close">&times;</button>`;
   if(b.isGreat){
-    html += `<div class="detail-numeral">${GREAT_NUMERAL[b.id] || ""} of XXXII</div>`;
+    html += `<div class="detail-numeral">${GREAT_NUMERAL[b.id] || ""} of ${toRoman(GREATS_ORDERED.length)}</div>`;
   }
   html += `<div class="detail-chips">${chips.map(c=>
     `<button class="chip chip-link" onclick="filterByMeta('${c.field}', '${jsEscape(c.value)}')">${escapeHtml(c.value)}</button>`
