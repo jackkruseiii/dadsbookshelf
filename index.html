@@ -3,8 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dad's Bookshelf — 301 Books, 2009–2026</title>
+<title>Dad's Bookshelf — Every Book Since 2009</title>
 <meta name="description" content="A personal library of every book read since 2009 — the all-time greats, the themes, and a lifetime of reading.">
+<meta name="theme-color" content="#1A1611">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231A1611'/%3E%3Cpath d='M14 14h13c3 0 5 1 5 4v32c0-2-2-3-5-3H14zM50 14H37c-3 0-5 1-5 4v32c0-2 2-3 5-3h13z' fill='%23C99C3C'/%3E%3C/svg%3E">
+<link rel="canonical" href="https://jackkruseiii.github.io/dadsbookshelf/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Dad's Bookshelf">
+<meta property="og:title" content="Dad's Bookshelf — Every Book Since 2009">
+<meta property="og:description" content="A personal library of every book read since 2009 — the all-time greats, the themes, and a lifetime of reading.">
+<meta property="og:url" content="https://jackkruseiii.github.io/dadsbookshelf/">
+<meta property="og:image" content="https://jackkruseiii.github.io/dadsbookshelf/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Dad's Bookshelf — one shelf, since 2009">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Dad's Bookshelf — Every Book Since 2009">
+<meta name="twitter:description" content="A personal library of every book read since 2009 — the all-time greats, the themes, and a lifetime of reading.">
+<meta name="twitter:image" content="https://jackkruseiii.github.io/dadsbookshelf/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -561,7 +577,7 @@ body:has(.detail-overlay.open) #fb-open{display:none;}
       </a>
     </div>
     <div class="search-wrap">
-      <input type="text" id="searchInput" class="search-input" placeholder="Search 301 books by title or author…" autocomplete="off">
+      <input type="text" id="searchInput" class="search-input" placeholder="Search by title or author…" autocomplete="off">
       <button class="search-clear" id="searchClear" aria-label="Clear search" onclick="clearSearch()">&times;</button>
     </div>
   </div>
@@ -571,6 +587,13 @@ body:has(.detail-overlay.open) #fb-open{display:none;}
 </header>
 
 <main id="mainContent">
+  <noscript>
+    <section class="intro-band">
+      <p class="intro-eyebrow">JavaScript needed</p>
+      <h1 class="intro-title">Dad's Bookshelf</h1>
+      <p class="intro-copy">The shelf is built in your browser, so it needs JavaScript turned on. The full reviews live on <a href="https://kruzoo.blogspot.com">Kruzoo</a> and <a href="https://fuuo.blogspot.com">FUUO</a>.</p>
+    </section>
+  </noscript>
   <section class="intro-band" id="introBand"></section>
   <section class="stats-strip" id="statsStrip"></section>
   <section class="grid-wrap">

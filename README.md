@@ -12,12 +12,13 @@ Full reviews live on the author's blogs, which every card links back to:
 
 ## How it's built
 
-Two files do all the work. There is no build step.
+Two files do all the work (plus a social preview image). There is no build step.
 
 | File | Role |
 |---|---|
 | `index.html` | All page logic and CSS. Loads `books.json` and renders the cards. |
 | `books.json` | **The master data file.** One entry per book (ids 1-302, 301 entries). |
+| `og-image.png` | 1200x630 social preview image referenced by the og/twitter tags. |
 
 **Id 284 is intentionally absent.** Do not "fix" the gap or renumber. New entries take the next id after the highest in use.
 
@@ -58,7 +59,6 @@ Session notes for Claude:
 
 ## Known open items
 
-- The "Beyond Achebe" badge should link to the specific country entry and read "Beyond Achebe", not "Africa".
-- Hard-coded counts in `index.html` ("32 All-Time", "Thirty-two", "XXXII", "54 countries") should be derived from the data.
 - Some books still have no note/summary or no rating.
-- Still to add: favicon, social/og tags, `<noscript>` fallback.
+- The "Beyond Achebe" badge sends `?country=<Name>#atlas`, but beyondachebe.com does not read `?country=` yet, so the link lands on the atlas section.
+- `Dads_Bookshelf_Master.xlsx` and `greats_reviews.json` still need to be brought in line with `books.json` (or retired).
