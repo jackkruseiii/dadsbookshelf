@@ -292,6 +292,17 @@ a:focus-visible, button:focus-visible, input:focus-visible, .book-card:focus-vis
   color:var(--ink-faint);
 }
 .card-meta-left{display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;}
+.card-meta-right{display:flex; align-items:center; gap:0.6rem;}
+.share-btn{
+  display:inline-flex; align-items:center; gap:0.3rem;
+  background:none; border:1px solid var(--line); border-radius:20px;
+  padding:0.2rem 0.55rem; cursor:pointer;
+  font:inherit; font-size:0.68rem; font-weight:600; letter-spacing:0.03em;
+  color:var(--ink-soft);
+  transition:background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.share-btn:hover, .share-btn:focus-visible{background:var(--gold-soft); color:#7A5A1C; border-color:var(--gold);}
+.share-btn.copied{background:var(--gold); color:#fff; border-color:var(--gold);}
 .rating-dots{letter-spacing:0.12em; color:var(--gold); font-size:0.7rem;}
 .rating-dots .dot-off{color:var(--line);}
 .badge-row{display:flex; gap:0.35rem; flex-wrap:wrap; margin-top:0.1rem;}
@@ -846,6 +857,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   if(!ok) return;
   renderTabs();
   render();
+  const bid = parseInt(new URLSearchParams(location.search).get("book"), 10);
+  if(bid && BOOKS.some(x => x.id === bid)) openDetail(bid);
 });
 
 function clearSearch(){
@@ -986,9 +999,48 @@ function bookCard(b){
           <span>·</span>
           <span>${b.region || "—"}</span>
         </div>
-        ${ratingDots(b.rating)}
+        <div class="card-meta-right">
+          <button type="button" class="share-btn" title="Copy link to this book" aria-label="Copy link to ${escapeAttr(b.title)}" onclick="shareBook(event, ${b.id})" onkeypress="event.stopPropagation()">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg>
+            <span class="share-label">Share</span>
+          </button>
+          ${ratingDots(b.rating)}
+        </div>
       </div>
     </div>`;
+}
+
+function bookLink(id){
+  return location.origin + location.pathname + "?book=" + id;
+}
+function shareBook(ev, id){
+  ev.stopPropagation();
+  ev.preventDefault();
+  const btn = ev.currentTarget;
+  const url = bookLink(id);
+  const done = () => {
+    const label = btn.querySelector(".share-label");
+    btn.classList.add("copied");
+    if(label) label.textContent = "Link copied";
+    setTimeout(() => {
+      btn.classList.remove("copied");
+      if(label) label.textContent = "Share";
+    }, 1800);
+  };
+  const fallback = () => {
+    const ta = document.createElement("textarea");
+    ta.value = url; ta.setAttribute("readonly", "");
+    ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); done(); }
+    catch(e) { window.prompt("Copy this link:", url); }
+    document.body.removeChild(ta);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(url).then(done, fallback);
+  } else {
+    fallback();
+  }
 }
 
 function authorCard(a){
