@@ -18,7 +18,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 UA = "DadsBookshelf/1.0 (https://github.com/jackkruseiii/dadsbookshelf)"
-MATCHER = 2      # raise this when the matching rules change; books without a cover are then tried again
+MATCHER = 3      # raise this when the matching rules change; books without a cover are then tried again
 
 
 def fold(s):
