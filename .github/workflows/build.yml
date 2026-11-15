@@ -4,7 +4,7 @@ name: Build site
 on:
   push:
     branches: [main]
-    paths: ["books.json", "build.py", "site-src/**"]
+    paths: ["books.json", "build.py", "covers.py", "site-src/**"]
   workflow_dispatch:
 permissions:
   contents: write
@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Find covers for new books (Open Library)
+        run: python3 covers.py
       - run: python3 build.py
       - name: Commit rebuilt pages
         run: |

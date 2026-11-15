@@ -175,7 +175,8 @@ def validate(books):
 
 # --------------------------------------------------------------- the model
 class Site:
-    def __init__(self, books, base_url, preview):
+    def __init__(self, books, base_url, preview, covers=None):
+        self.covers = covers or {}
         self.books = books
         self.base = base_url
         self.preview = preview
@@ -225,8 +226,14 @@ class Site:
     # ---- fragments
     def cover(self, b, extra=""):
         short = short_title(b)
+        # Real cover from Open Library when covers.json has one; the typeset cover
+        # underneath shows while it loads, or if it is missing.
+        cid = (self.covers.get(str(b["id"])) or {}).get("cover")
+        size = "L" if "cover-lg" in extra else "M"
+        img = (f'<img src="https://covers.openlibrary.org/b/id/{int(cid)}-{size}.jpg?default=false" alt="" '
+               f'loading="lazy" decoding="async" onerror="this.remove()">') if cid else ""
         return (f'<span class="cover th{self.th(b)}{extra}" aria-hidden="true">'
-                f'<span class="cover-t">{e(short)}</span><span class="cover-a">{e(b["author"])}</span></span>')
+                f'<span class="cover-t">{e(short)}</span><span class="cover-a">{e(b["author"])}</span>{img}</span>')
 
     def item(self, b, root=""):
         g = self.great_no.get(b["id"])
@@ -326,6 +333,7 @@ class Site:
       <span class="footer-head">Reviews and reading lists</span>
       <a href="https://fuuo.blogspot.com" target="_blank" rel="noopener">FUUO</a>
       <a href="https://kruzoo.blogspot.com" target="_blank" rel="noopener">Kruzoo</a>
+      {'<a href="https://openlibrary.org" target="_blank" rel="noopener">Cover images from Open Library</a>' if self.covers else ''}
     </div>
   </div>
 </footer>
@@ -353,9 +361,8 @@ class Site:
 ''')
         # hero with the shelf of spines
         spines = "".join(
-            f'<a class="spine th{self.th(b)}" style="--h:{72 + (b["id"] * 37) % 28}%" '
-            f'href="book/{self.slug[b["id"]]}/" data-id="{b["id"]}" title="{e(b["title"])} — {e(b["author"])}">'
-            f'<span>{e(short_title(b))}</span></a>' for b in self.greats)
+            f'<a class="face" href="book/{self.slug[b["id"]]}/" data-id="{b["id"]}" '
+            f'aria-label="{e(b["title"])} by {e(b["author"])}">{self.cover(b)}</a>' for b in self.greats)
         out.append(f'''<section class="hero" id="hero"><div class="wrap">
   <h1>{g} all-time greats</h1>
   <p class="lede">{e(GREATS_INTRO)}</p>
@@ -583,7 +590,9 @@ def main():
 
     out = HERE if args.live else HERE / "v2"
     base = SITE_URL if args.live else SITE_URL + "v2/"
-    site = Site(books, base, preview=not args.live)
+    cpath = HERE / "covers.json"
+    covers = json.loads(cpath.read_text(encoding="utf-8")) if cpath.exists() else {}
+    site = Site(books, base, preview=not args.live, covers=covers)
 
     out.mkdir(exist_ok=True)
     if (out / "book").exists():
