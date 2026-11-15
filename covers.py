@@ -13,11 +13,12 @@ covers.json is a lookup cache, not book data: books.json stays the only source
 of truth. To fix a wrong cover, set that book's "cover" to the right Open
 Library cover number (or null for none) and add "locked": true.
 """
-import json, re, sys, time, unicodedata, urllib.parse, urllib.request
+import difflib, json, re, sys, time, unicodedata, urllib.parse, urllib.request
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 UA = "DadsBookshelf/1.0 (https://github.com/jackkruseiii/dadsbookshelf)"
+MATCHER = 2      # raise this when the matching rules change; books without a cover are then tried again
 
 
 def fold(s):
@@ -34,21 +35,44 @@ def first_author(a):
     return re.split(r"\s*(?:&|,| and )\s*", a)[0].strip()
 
 
-def lookup(book):
-    title, author = short_title(book["title"]), first_author(book["author"])
-    q = urllib.parse.urlencode({"title": title, "author": author, "limit": 10,
-                                "fields": "cover_i,title,author_name,edition_count"})
+def search(params):
+    q = urllib.parse.urlencode(dict(params, limit=10, fields="cover_i,title,author_name"))
     req = urllib.request.Request("https://openlibrary.org/search.json?" + q, headers={"User-Agent": UA})
     with urllib.request.urlopen(req, timeout=30) as r:
-        docs = json.load(r).get("docs", [])
-    want_t, want_a = fold(title), fold(author).split()[-1]
-    for d in docs:                                   # Open Library's own relevance order
-        got_t = fold(short_title(d.get("title", "")))
-        authors = " ".join(fold(a) for a in d.get("author_name", []))
-        if d.get("cover_i") and want_a in authors.split() and (got_t == want_t or got_t.startswith(want_t + " ")
-                                                               or want_t.startswith(got_t + " ")):
-            return {"cover": d["cover_i"], "match": d.get("title", "")}
-    return {"cover": None}
+        return json.load(r).get("docs", [])
+
+
+def same_author(want, names):
+    """True when the author matches, allowing for a small spelling slip or name order."""
+    w = fold(want)
+    for n in names:
+        n = fold(n)
+        if not n:
+            continue
+        if set(w.split()) & {x for x in n.split() if len(x) > 3}:
+            return True
+        if difflib.SequenceMatcher(None, w, n).ratio() >= 0.8:
+            return True
+        if difflib.SequenceMatcher(None, " ".join(sorted(w.split())), " ".join(sorted(n.split()))).ratio() >= 0.8:
+            return True
+    return False
+
+
+def lookup(book):
+    title, author = short_title(book["title"]), first_author(book["author"])
+    want_t = fold(title)
+    # 1) title + author as written   2) title only, then check the author ourselves
+    for strict, params in ((False, {"title": title, "author": author}), (True, {"title": title})):
+        for d in search(params):                     # Open Library's own relevance order
+            got_t = fold(short_title(d.get("title", "")))
+            if strict:
+                title_ok = got_t == want_t
+            else:
+                title_ok = got_t == want_t or got_t.startswith(want_t + " ") or want_t.startswith(got_t + " ")
+            if d.get("cover_i") and title_ok and same_author(author, d.get("author_name", [])):
+                return {"cover": d["cover_i"], "match": d.get("title", "")}
+        time.sleep(0.4)
+    return {"cover": None, "v": MATCHER}
 
 
 def main():
@@ -60,7 +84,8 @@ def main():
     for b in books:
         key = str(b["id"])
         old = covers.get(key)
-        if old and (old.get("locked") or old.get("cover") or not retry):
+        stale = old and not old.get("cover") and old.get("v", 1) < MATCHER
+        if old and (old.get("locked") or old.get("cover") or not (retry or stale)):
             continue
         for attempt in range(3):
             try:
