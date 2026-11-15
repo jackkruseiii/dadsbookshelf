@@ -12,16 +12,18 @@
 "match": "Blue Like Jazz"
 },
 "4": {
-"cover": null,
-"v": 3
+"cover": 9654998,
+"match": "Love & respect",
+"locked": true
 },
 "5": {
 "cover": 12643437,
 "match": "My Sister's Keeper"
 },
 "6": {
-"cover": null,
-"v": 3
+"cover": 5055995,
+"match": "The Hakawati",
+"locked": true
 },
 "7": {
 "cover": 8373699,
@@ -88,8 +90,9 @@
 "match": "The Alchemist Graphic Novel"
 },
 "23": {
-"cover": null,
-"v": 3
+"cover": 14650260,
+"match": "The Cairo trilogy: Palace Walk / Palace of Desire / Sugar Street",
+"locked": true
 },
 "24": {
 "cover": 8387264,
@@ -100,12 +103,14 @@
 "match": "The Hunger Games Trilogy (Hunger Games / Catching Fire / Mockingjay)"
 },
 "26": {
-"cover": null,
-"v": 3
+"cover": 6621063,
+"match": "The shadow of the sun",
+"locked": true
 },
 "27": {
-"cover": null,
-"v": 3
+"cover": 8300236,
+"match": "The Shadow of the Wind",
+"locked": true
 },
 "28": {
 "cover": 10873292,
@@ -136,8 +141,9 @@
 "match": "Billy Lynn's Long Halftime Walk"
 },
 "35": {
-"cover": null,
-"v": 3
+"cover": 8066252,
+"match": "Cross Roads: a novel",
+"locked": true
 },
 "36": {
 "cover": 11434870,
@@ -204,8 +210,9 @@
 "match": "Every day is for the thief"
 },
 "52": {
-"cover": null,
-"v": 3
+"cover": 11167684,
+"match": "The golden hour",
+"locked": true
 },
 "53": {
 "cover": 12397487,
@@ -236,8 +243,9 @@
 "match": "Strong Fathers, Strong Daughters - 10 Secrets Every Father Should Know"
 },
 "60": {
-"cover": null,
-"v": 3
+"cover": 9789559,
+"match": "Bring Me My Machine Gun",
+"locked": true
 },
 "61": {
 "cover": 7418786,
@@ -272,8 +280,9 @@
 "match": "Wool"
 },
 "69": {
-"cover": null,
-"v": 3
+"cover": 7367937,
+"match": "Seven Women: And the Secret of Their Greatness",
+"locked": true
 },
 "70": {
 "cover": 112112,
@@ -312,8 +321,9 @@
 "v": 3
 },
 "79": {
-"cover": null,
-"v": 3
+"cover": 8792039,
+"match": "Half Way Home",
+"locked": true
 },
 "80": {
 "cover": 11506812,
@@ -332,8 +342,9 @@
 "match": "Redeployment"
 },
 "84": {
-"cover": null,
-"v": 3
+"cover": 7341446,
+"match": "7 Men and the Secret of Their Greatness",
+"locked": true
 },
 "85": {
 "cover": null,
@@ -412,8 +423,9 @@
 "match": "Ships of mercy"
 },
 "104": {
-"cover": null,
-"v": 3
+"cover": 6925131,
+"match": "So long a letter",
+"locked": true
 },
 "105": {
 "cover": 5637096,
@@ -468,8 +480,9 @@
 "match": "Essentialism"
 },
 "118": {
-"cover": null,
-"v": 3
+"cover": 15263916,
+"match": "Hawaii",
+"locked": true
 },
 "119": {
 "cover": 7888343,
@@ -636,8 +649,9 @@
 "match": "The High Mountains of Portugal"
 },
 "160": {
-"cover": null,
-"v": 3
+"cover": 9157544,
+"match": "The Three-Body Problem",
+"locked": true
 },
 "161": {
 "cover": 8806679,
@@ -840,8 +854,9 @@
 "match": "The gendarme"
 },
 "211": {
-"cover": null,
-"v": 3
+"cover": 6712231,
+"match": "House of Sand and Fog",
+"locked": true
 },
 "212": {
 "cover": 2079431,
