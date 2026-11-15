@@ -12,21 +12,24 @@
 "match": "Blue Like Jazz"
 },
 "4": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "5": {
 "cover": 12643437,
 "match": "My Sister's Keeper"
 },
 "6": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "7": {
 "cover": 8373699,
 "match": "The Memory Keeper's Daughter"
 },
 "8": {
-"cover": null
+"cover": 2700082,
+"match": "The Shack"
 },
 "9": {
 "cover": 9273734,
@@ -85,7 +88,8 @@
 "match": "The Alchemist Graphic Novel"
 },
 "23": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "24": {
 "cover": 8387264,
@@ -96,10 +100,12 @@
 "match": "The Hunger Games Trilogy (Hunger Games / Catching Fire / Mockingjay)"
 },
 "26": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "27": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "28": {
 "cover": 10873292,
@@ -130,14 +136,16 @@
 "match": "Billy Lynn's Long Halftime Walk"
 },
 "35": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "36": {
 "cover": 11434870,
 "match": "Disgrace"
 },
 "37": {
-"cover": null
+"cover": 12996033,
+"match": "Ender's Game"
 },
 "38": {
 "cover": 12869713,
@@ -152,7 +160,8 @@
 "match": "Never Let Me Go"
 },
 "41": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "42": {
 "cover": 8233927,
@@ -187,21 +196,24 @@
 "match": "Country of my skull"
 },
 "50": {
-"cover": null
+"cover": 6581373,
+"match": "Empire of the summer moon"
 },
 "51": {
 "cover": 10053717,
 "match": "Every day is for the thief"
 },
 "52": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "53": {
 "cover": 12397487,
 "match": "Jesus > Religion"
 },
 "54": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "55": {
 "cover": 4155600,
@@ -224,7 +236,8 @@
 "match": "Strong Fathers, Strong Daughters - 10 Secrets Every Father Should Know"
 },
 "60": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "61": {
 "cover": 7418786,
@@ -239,7 +252,8 @@
 "match": "The Love Affairs of Nathaniel P."
 },
 "64": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "65": {
 "cover": 6668103,
@@ -258,7 +272,8 @@
 "match": "Wool"
 },
 "69": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "70": {
 "cover": 112112,
@@ -285,16 +300,20 @@
 "match": "Confessions of a CPA"
 },
 "76": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "77": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "78": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "79": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "80": {
 "cover": 11506812,
@@ -313,10 +332,12 @@
 "match": "Redeployment"
 },
 "84": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "85": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "86": {
 "cover": 12464561,
@@ -339,14 +360,16 @@
 "match": "We Need New Names"
 },
 "91": {
-"cover": null
+"cover": 8304124,
+"match": "A Bend in the River"
 },
 "92": {
 "cover": 9321678,
 "match": "A Grief Observed"
 },
 "93": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "94": {
 "cover": 11333834,
@@ -365,7 +388,8 @@
 "match": "Houseboy"
 },
 "98": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "99": {
 "cover": 7647104,
@@ -376,7 +400,8 @@
 "match": "Leaving Tangier"
 },
 "101": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "102": {
 "cover": 6906262,
@@ -387,7 +412,8 @@
 "match": "Ships of mercy"
 },
 "104": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "105": {
 "cover": 5637096,
@@ -402,17 +428,20 @@
 "match": "The Girl on the Train"
 },
 "108": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "109": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "110": {
 "cover": 7913176,
 "match": "The Sympathizer"
 },
 "111": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "112": {
 "cover": 7381107,
@@ -439,7 +468,8 @@
 "match": "Essentialism"
 },
 "118": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "119": {
 "cover": 7888343,
@@ -454,17 +484,20 @@
 "match": "Prodigal God, Session 1"
 },
 "122": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "123": {
 "cover": 7279515,
 "match": "The Hard Thing About Hard Things"
 },
 "124": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "125": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "126": {
 "cover": 14604727,
@@ -479,7 +512,8 @@
 "match": "Transit"
 },
 "129": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "130": {
 "cover": 11134032,
@@ -518,7 +552,8 @@
 "match": "The Gunny Sack"
 },
 "139": {
-"cover": null
+"cover": 8346040,
+"match": "The Memory of Love"
 },
 "140": {
 "cover": 8142531,
@@ -557,7 +592,8 @@
 "match": "Homegoing"
 },
 "149": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "150": {
 "cover": 8865637,
@@ -568,14 +604,16 @@
 "match": "Rock breaks scissors"
 },
 "152": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "153": {
 "cover": 8789311,
 "match": "The Shadow King"
 },
 "154": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "155": {
 "cover": 10830768,
@@ -586,17 +624,20 @@
 "match": "The dry"
 },
 "157": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "158": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "159": {
 "cover": 10104441,
 "match": "The High Mountains of Portugal"
 },
 "160": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "161": {
 "cover": 8806679,
@@ -623,10 +664,12 @@
 "match": "Blessed child"
 },
 "167": {
-"cover": null
+"cover": 14065120,
+"match": "Burn-In"
 },
 "168": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "169": {
 "cover": 9242456,
@@ -641,7 +684,8 @@
 "match": "Death be not proud"
 },
 "172": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "173": {
 "cover": 1955323,
@@ -656,7 +700,8 @@
 "match": "Educated"
 },
 "176": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "177": {
 "cover": 656105,
@@ -671,14 +716,16 @@
 "match": "That Will Never Work"
 },
 "180": {
-"cover": null
+"cover": 9178409,
+"match": "The art of fiction"
 },
 "181": {
 "cover": 7270353,
 "match": "The Insanity of God"
 },
 "182": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "183": {
 "cover": 7962747,
@@ -689,7 +736,8 @@
 "match": "American Dirt"
 },
 "185": {
-"cover": null
+"cover": 8467822,
+"match": "Behold the Dreamers (Oprah's Book Club): A Novel"
 },
 "186": {
 "cover": 8294078,
@@ -704,10 +752,12 @@
 "match": "Homeland Elegies"
 },
 "189": {
-"cover": null
+"cover": 12045385,
+"match": "I'm still here"
 },
 "190": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "191": {
 "cover": 10471412,
@@ -722,7 +772,8 @@
 "match": "Quiet Cadence"
 },
 "194": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "195": {
 "cover": 13627897,
@@ -733,13 +784,16 @@
 "match": "Talking to Strangers"
 },
 "197": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "198": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "199": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "200": {
 "cover": 11514543,
@@ -750,13 +804,16 @@
 "match": "What The Day Owes The Night"
 },
 "202": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "203": {
-"cover": null
+"cover": 8359279,
+"match": "An Italian education"
 },
 "204": {
-"cover": null
+"cover": 10618770,
+"match": "How Beautiful We Were"
 },
 "205": {
 "cover": 4313071,
@@ -767,7 +824,8 @@
 "match": "Let my people go surfing"
 },
 "207": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "208": {
 "cover": 11320064,
@@ -782,10 +840,12 @@
 "match": "The gendarme"
 },
 "211": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "212": {
-"cover": null
+"cover": 2079431,
+"match": "The Long Walk Home"
 },
 "213": {
 "cover": 7892681,
@@ -808,7 +868,8 @@
 "match": "City on Fire"
 },
 "218": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "219": {
 "cover": 11337677,
@@ -819,14 +880,16 @@
 "match": "Into Thin Air"
 },
 "221": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "222": {
 "cover": 488279,
 "match": "Paradise"
 },
 "223": {
-"cover": null
+"cover": 13305330,
+"match": "Romantic Comedy"
 },
 "224": {
 "cover": 8352302,
@@ -845,7 +908,8 @@
 "match": "The Midnight Library"
 },
 "228": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "229": {
 "cover": 8758252,
@@ -868,7 +932,8 @@
 "match": "Uncertain Ground"
 },
 "234": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "235": {
 "cover": 10449357,
@@ -879,7 +944,8 @@
 "match": "Beartown"
 },
 "237": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "238": {
 "cover": 10149897,
@@ -918,10 +984,12 @@
 "match": "The Collector of Leftover Souls"
 },
 "247": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "248": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "249": {
 "cover": 13233039,
@@ -964,7 +1032,8 @@
 "match": "East of Eden"
 },
 "259": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "260": {
 "cover": 10285590,
@@ -991,7 +1060,8 @@
 "match": "Leaf by Niggle / Smith of Wootton Major"
 },
 "266": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "267": {
 "cover": 4198800,
@@ -1010,14 +1080,16 @@
 "match": "Reasons to stay alive"
 },
 "271": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "272": {
 "cover": 170621,
 "match": "Rumors of Another World"
 },
 "273": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "274": {
 "cover": 2042920,
@@ -1032,7 +1104,8 @@
 "match": "The Life Impossible"
 },
 "277": {
-"cover": null
+"cover": 10211106,
+"match": "The Ruthless Elimination of Hurry"
 },
 "278": {
 "cover": 15111949,
@@ -1047,7 +1120,8 @@
 "match": "A Day in the Life of Abed Salama"
 },
 "281": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "282": {
 "cover": 14431595,
@@ -1078,13 +1152,16 @@
 "match": "Letters by a modern mystic"
 },
 "290": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "291": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "292": {
-"cover": null
+"cover": 15104145,
+"match": "Practicing the Way"
 },
 "293": {
 "cover": 13132924,
@@ -1095,7 +1172,8 @@
 "match": "The Lemon Tree"
 },
 "295": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "296": {
 "cover": 15205233,
@@ -1162,7 +1240,8 @@
 "match": "The profession"
 },
 "312": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "313": {
 "cover": 745357,
@@ -1189,7 +1268,8 @@
 "match": "Robinson Crusoe"
 },
 "319": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "320": {
 "cover": 9315064,
@@ -1204,7 +1284,8 @@
 "match": "Gone Girl"
 },
 "323": {
-"cover": null
+"cover": null,
+"v": 2
 },
 "324": {
 "cover": 167208,
