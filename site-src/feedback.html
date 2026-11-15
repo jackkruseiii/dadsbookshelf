@@ -1,0 +1,187 @@
+<!-- ---------- Feedback / suggestions widget ---------- -->
+<button id="fb-open" type="button" aria-haspopup="dialog" onclick="openFeedback()">
+  <span class="fb-mark" aria-hidden="true">&#9998;</span>Suggest a book
+</button>
+
+<div id="fb-overlay" role="dialog" aria-modal="true" aria-labelledby="fb-title">
+  <div id="fb-card">
+    <div id="fb-head">
+      <div>
+        <h2 id="fb-title">Suggest a book, or tell me what's off</h2>
+        <p class="fb-intro">Read something that belongs on this shelf? Spotted a wrong year or a broken link? Send it along.</p>
+      </div>
+      <button id="fb-close" type="button">&times; Close</button>
+    </div>
+
+    <form id="fb-form" novalidate>
+      <div class="fb-field">
+        <label for="fb-kind">What's this about</label>
+        <select id="fb-kind" name="kind">
+          <option>A book I should read</option>
+          <option>A correction</option>
+          <option>General feedback</option>
+        </select>
+      </div>
+
+      <div class="fb-field">
+        <label for="fb-book">Book or author (optional)</label>
+        <input type="text" id="fb-book" name="book" placeholder="Title, author&hellip;">
+      </div>
+
+      <div class="fb-field">
+        <label for="fb-msg">Your message</label>
+        <textarea id="fb-msg" name="message" placeholder="What it is, and why I'd like it&hellip;"></textarea>
+      </div>
+
+      <div class="fb-row">
+        <div class="fb-field">
+          <label for="fb-name">Name (optional)</label>
+          <input type="text" id="fb-name" name="name">
+        </div>
+        <div class="fb-field">
+          <label for="fb-email">Email (optional)</label>
+          <input type="email" id="fb-email" name="email" placeholder="if you'd like a reply">
+        </div>
+      </div>
+
+      <div class="fb-hp" aria-hidden="true">
+        <label for="fb-hp">Leave this empty</label>
+        <input type="text" id="fb-hp" name="_gotcha" tabindex="-1" autocomplete="off">
+      </div>
+
+      <button id="fb-send" type="submit">Send</button>
+      <div id="fb-note" role="status" aria-live="polite"></div>
+    </form>
+
+    <div id="fb-done">
+      <p>Thank you &mdash; it's in my inbox. Good recommendations have a way of ending up on the shelf.</p>
+      <button type="button" id="fb-done-close">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ==============================================================
+   FEEDBACK / SUGGESTIONS WIDGET
+   ==============================================================
+   CONFIG - three ways to receive messages:
+     1. Email only  : leave ACCESS_KEY and ENDPOINT empty. Opens the
+                      visitor's own mail app, pre-filled.
+     2. Web3Forms   : paste your key into ACCESS_KEY (set below).
+     3. Formspree   : paste your form URL into ENDPOINT instead.
+   EMAIL is the fallback shown if a send ever fails.
+   ============================================================== */
+(function(){
+  var ACCESS_KEY = "b8cf6764-abdb-4b50-b461-55f99ab72543";   // Web3Forms key
+  var ENDPOINT   = "";                                       // Formspree URL, or leave empty
+  var EMAIL      = "jackkruseiii@gmail.com";                 // your address
+
+  if(ACCESS_KEY && !ENDPOINT) ENDPOINT = "https://api.web3forms.com/submit";
+
+  var overlay = document.getElementById('fb-overlay'),
+      card    = document.getElementById('fb-card'),
+      form    = document.getElementById('fb-form'),
+      note    = document.getElementById('fb-note'),
+      send    = document.getElementById('fb-send'),
+      lastFocus = null;
+
+  function val(id){ return (document.getElementById(id).value || '').trim(); }
+
+  window.openFeedback = function(){
+    lastFocus = document.activeElement;
+    overlay.classList.remove('sent');
+    note.textContent = '';
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function(){ document.getElementById('fb-kind').focus(); }, 30);
+  };
+  function closeFeedback(){
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    if(lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  function setNote(text, isError){
+    note.textContent = text;
+    note.className = isError ? 'fb-err' : '';
+  }
+
+  document.getElementById('fb-close').addEventListener('click', closeFeedback);
+  document.getElementById('fb-done-close').addEventListener('click', closeFeedback);
+  overlay.addEventListener('mousedown', function(e){ if(e.target === overlay) closeFeedback(); });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && overlay.classList.contains('open')) closeFeedback();
+  });
+  /* keep tabbing inside the panel while it's open */
+  card.addEventListener('keydown', function(e){
+    if(e.key !== 'Tab') return;
+    var f = card.querySelectorAll('button, input, select, textarea, a[href]');
+    f = Array.prototype.filter.call(f, function(el){
+      return el.offsetParent !== null && el.tabIndex !== -1 && !el.disabled;
+    });
+    if(!f.length) return;
+    var first = f[0], last = f[f.length - 1];
+    if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+    else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+  });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(val('fb-hp')) return;                        /* bot caught by honeypot */
+
+    if(!val('fb-msg')){
+      setNote('Add a message first - a title and author is plenty.', true);
+      document.getElementById('fb-msg').focus();
+      return;
+    }
+
+    var kind  = val('fb-kind'),
+        book  = val('fb-book'),
+        body  = val('fb-msg'),
+        name  = val('fb-name'),
+        email = val('fb-email'),
+        page  = (location.pathname + location.search) || '/';
+
+    if(!ENDPOINT){
+      var text = kind + '\n\nBook: ' + (book || '-') +
+                 '\n\n' + body +
+                 '\n\n- ' + (name || 'a reader') + (email ? ' (' + email + ')' : '') +
+                 '\nSent from ' + page;
+      window.location.href = 'mailto:' + EMAIL +
+        '?subject=' + encodeURIComponent("Dad's Bookshelf - " + kind) +
+        '&body='    + encodeURIComponent(text);
+      overlay.classList.add('sent');
+      return;
+    }
+
+    var payload = {
+      subject: "Dad's Bookshelf - " + kind,
+      from_name: name || 'A reader',
+      site: "Dad's Bookshelf",
+      kind: kind,
+      book: book || '-',
+      message: body,
+      name: name || '-',
+      email: email || '',
+      page: page
+    };
+    if(ACCESS_KEY) payload.access_key = ACCESS_KEY;
+
+    send.disabled = true;
+    setNote('Sending\u2026', false);
+
+    fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function(r){
+      if(!r.ok) throw new Error('bad status');
+      form.reset();
+      overlay.classList.add('sent');
+    }).catch(function(){
+      setNote('That didn\u2019t go through. Email it to ' + EMAIL + ' instead.', true);
+    }).then(function(){
+      send.disabled = false;
+    });
+  });
+})();
+</script>

@@ -1,0 +1,22 @@
+# Rebuilds the generated pages whenever books.json (or the site source) changes,
+# so the book pages can never drift from the data.
+name: Build site
+on:
+  push:
+    branches: [main]
+    paths: ["books.json", "build.py", "site-src/**"]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 build.py
+      - name: Commit rebuilt pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || (git commit -m "Rebuild site from books.json" && git push)

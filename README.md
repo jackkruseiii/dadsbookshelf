@@ -10,6 +10,30 @@ Full reviews live on the author's blogs, which every card links back to:
 - https://kruzoo.blogspot.com
 - https://fuuo.blogspot.com
 
+## Remake preview (v2) — added 2026-11-15
+
+A rebuilt version of the site lives in `v2/` so it can be compared side by side with the current one. The current `index.html` is untouched.
+
+**Preview:** https://jackkruseiii.github.io/dadsbookshelf/v2/ (once this branch is on `main`)
+
+What is different:
+
+- **One real page per book** (`v2/book/<id>-<title>/`). Each has its own title, description and share-preview tags, so a shared link shows that book, and search engines can index every book.
+- **Search reads everything**: titles, authors, countries, themes, years, and the full text of the notes and quotes. Filters for theme, region, type, year and rating, plus sorting. Every search and filter has its own address that can be shared.
+- **Old links still work**: `?book=<id>` opens that book.
+- **Still one source of truth.** `books.json` is the only file that holds book data. `build.py` reads it and writes everything in `v2/`. Review text is copied character for character; the build never writes or rewords anything.
+
+| File | Role |
+|---|---|
+| `build.py` | Checks `books.json` (parses, unique ids, themes, links) and writes the site. |
+| `site-src/` | The design: `site.css`, `site.js`, and the suggestion form. Edit here, never in `v2/`. |
+| `v2/` | Generated output. Never edit by hand; rerun `python3 build.py`. |
+| `.github/workflows/build.yml` | Reruns the build on GitHub whenever `books.json` changes. |
+
+Update workflow with the remake: edit `books.json`, run `python3 build.py`, commit everything in one commit.
+
+To make the remake the real site: `python3 build.py --live` writes it to the repo root (replacing `index.html`) and adds `sitemap.xml`. The preview pages carry `noindex` so search engines ignore them until then.
+
 ## How it's built
 
 Two files do all the work (plus a social preview image). There is no build step.
