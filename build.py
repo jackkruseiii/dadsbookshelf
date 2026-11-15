@@ -6,8 +6,8 @@ books.json is the only source of truth. This script reads it, checks it, and
 writes the whole site: the home page, one page per book, the search index and
 the sitemap. Nothing in the output is edited by hand.
 
-    python3 build.py              build the preview into ./v2
-    python3 build.py --live       build the real site into the repo root
+    python3 build.py              build the site into the repo root
+    python3 build.py --preview    build a trial copy into ./v2 (hidden from search engines)
     python3 build.py --check      only validate books.json
 
 Every word of review text is copied from books.json exactly as written.
@@ -299,8 +299,8 @@ class Site:
 '''
 
     def header(self, root, home=False):
-        banner = (f'<p class="preview-bar">This is the preview of the remake. '
-                  f'<a href="{SITE_URL}">Open the current site to compare</a></p>\n') if self.preview else ""
+        banner = (f'<p class="preview-bar">This is a trial copy. '
+                  f'<a href="{SITE_URL}">Open the live site</a></p>\n') if self.preview else ""
         n = len(self.books)
         return f'''{banner}<header class="site-header">
   <div class="wrap header-row">
@@ -571,7 +571,7 @@ def _q(s):
 # ------------------------------------------------------------------ main
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--live", action="store_true", help="build the real site into the repo root")
+    ap.add_argument("--preview", action="store_true", help="build a trial copy into ./v2")
     ap.add_argument("--check", action="store_true", help="validate books.json and stop")
     args = ap.parse_args()
 
@@ -588,11 +588,12 @@ def main():
     if args.check:
         return
 
-    out = HERE if args.live else HERE / "v2"
-    base = SITE_URL if args.live else SITE_URL + "v2/"
+    live = not args.preview
+    out = HERE if live else HERE / "v2"
+    base = SITE_URL if live else SITE_URL + "v2/"
     cpath = HERE / "covers.json"
     covers = json.loads(cpath.read_text(encoding="utf-8")) if cpath.exists() else {}
-    site = Site(books, base, preview=not args.live, covers=covers)
+    site = Site(books, base, preview=not live, covers=covers)
 
     out.mkdir(exist_ok=True)
     if (out / "book").exists():
@@ -608,7 +609,7 @@ def main():
         (d / "index.html").write_text(site.book_page(b), encoding="utf-8")
     (out / "search.json").write_text(json.dumps(site.search_index(), ensure_ascii=False, separators=(",", ":")),
                                      encoding="utf-8")
-    if args.live:
+    if live:
         urls = [base] + [base + f"book/{site.slug[b['id']]}/" for b in books]
         (out / "sitemap.xml").write_text(
             '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'

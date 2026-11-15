@@ -10,39 +10,30 @@ Full reviews live on the author's blogs, which every card links back to:
 - https://kruzoo.blogspot.com
 - https://fuuo.blogspot.com
 
-## Remake preview (v2) — added 2026-11-15
-
-A rebuilt version of the site lives in `v2/` so it can be compared side by side with the current one. The current `index.html` is untouched.
-
-**Preview:** https://jackkruseiii.github.io/dadsbookshelf/v2/ (once this branch is on `main`)
-
-What is different:
-
-- **One real page per book** (`v2/book/<id>-<title>/`). Each has its own title, description and share-preview tags, so a shared link shows that book, and search engines can index every book.
-- **Search reads everything**: titles, authors, countries, themes, years, and the full text of the notes and quotes. Filters for theme, region, type, year and rating, plus sorting. Every search and filter has its own address that can be shared.
-- **Old links still work**: `?book=<id>` opens that book.
-- **Still one source of truth.** `books.json` is the only file that holds book data. `build.py` reads it and writes everything in `v2/`. Review text is copied character for character; the build never writes or rewords anything.
-
-| File | Role |
-|---|---|
-| `build.py` | Checks `books.json` (parses, unique ids, themes, links) and writes the site. |
-| `site-src/` | The design: `site.css`, `site.js`, and the suggestion form. Edit here, never in `v2/`. |
-| `v2/` | Generated output. Never edit by hand; rerun `python3 build.py`. |
-| `.github/workflows/build.yml` | Reruns the build on GitHub whenever `books.json` changes. |
-
-Update workflow with the remake: edit `books.json`, run `python3 build.py`, commit everything in one commit.
-
-To make the remake the real site: `python3 build.py --live` writes it to the repo root (replacing `index.html`) and adds `sitemap.xml`. The preview pages carry `noindex` so search engines ignore them until then.
-
 ## How it's built
 
-Two files do all the work (plus a social preview image). There is no build step.
+`books.json` holds every book. A build script turns it into the site. Nothing generated is edited by hand.
 
 | File | Role |
 |---|---|
-| `index.html` | All page logic and CSS. Loads `books.json` and renders the cards. |
 | `books.json` | **The master data file.** One entry per book (ids 1-329, 328 entries; id 284 intentionally absent). |
-| `og-image.png` | 1200x630 social preview image referenced by the og/twitter tags. |
+| `build.py` | Checks `books.json` (parses, unique ids, themes, links) and writes the whole site. Review text is copied character for character; the build never writes or rewords anything. |
+| `covers.py` | Finds cover art on Open Library and remembers it in `covers.json`. Runs on GitHub only. |
+| `covers.json` | Cover lookup cache (not book data). To fix a wrong cover, set its `"cover"` number (or `null`) and add `"locked": true`. |
+| `site-src/` | The design: `site.css`, `site.js`, and the suggestion form. Edit here. |
+| `index.html`, `book/`, `assets/`, `search.json`, `sitemap.xml` | **Generated.** Never edit by hand; rerun `python3 build.py`. |
+| `.github/workflows/build.yml` | On every push that changes the data or design, GitHub finds covers for new books and rebuilds. |
+| `og-image.png` | 1200x630 social preview image. |
+
+What the site does:
+
+- **One real page per book** (`book/<id>-<title>/`) with its own title, description and share-preview tags.
+- **Search reads everything**: titles, authors, countries, themes, years, and the full text of the notes and quotes, with filters and sorting. Every search and filter has its own address.
+- **Old links still work**: `?book=<id>` opens that book.
+
+`python3 build.py --preview` builds a trial copy into `v2/` (not committed) for trying design changes.
+
+The site was rebuilt on 2026-11-15. The previous single-page version is in the git history at commit `5a258b6`.
 
 **Id 284 is intentionally absent.** Do not "fix" the gap or renumber. New entries take the next id after the highest in use.
 
@@ -63,8 +54,8 @@ When in doubt, `books.json` wins.
 1. **Publish the new review** on kruzoo or fuuo as usual.
 2. **Give Claude the link(s)** to the new post(s), plus anything not in the post (rating, theme, year read, whether it is an all-time "great").
 3. **Claude builds the entry** from the author's own words in the linked review (see rules below) and assigns the next unused id.
-4. **Claude validates** that `books.json` still parses, ids are unique, and no entry is missing a link, rating, or note.
-5. **Claude commits and pushes** to `main`. GitHub Pages redeploys on its own within a minute or two.
+4. **Claude runs `python3 build.py`**, which validates `books.json` (parses, ids unique) and regenerates the pages.
+5. **Claude commits `books.json` and the generated pages in one commit and pushes** to `main`. GitHub then looks up the cover for any new book, rebuilds, and Pages redeploys within a few minutes. Claude pulls that rebuild before the next edit.
 6. **Spot-check the live site** and read any new card once for flow.
 
 Session notes for Claude:
@@ -83,4 +74,4 @@ Session notes for Claude:
 ## Known open items
 
 - Some books still have no note/summary or no rating.
-- The "Beyond Achebe" badge sends `?country=<Name>#atlas`, but beyondachebe.com does not read `?country=` yet, so the link lands on the atlas section.
+- About 64 books have no cover on Open Library and show a typeset cover instead.
