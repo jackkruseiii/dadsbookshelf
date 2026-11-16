@@ -228,10 +228,14 @@ class Site:
         short = short_title(b)
         # Real cover from Open Library when covers.json has one; the typeset cover
         # underneath shows while it loads, or if it is missing.
-        cid = (self.covers.get(str(b["id"])) or {}).get("cover")
+        entry = self.covers.get(str(b["id"])) or {}
+        cid = entry.get("cover")
         size = "L" if "cover-lg" in extra else "M"
-        img = (f'<img src="https://covers.openlibrary.org/b/id/{int(cid)}-{size}.jpg?default=false" alt="" '
-               f'loading="lazy" decoding="async" onerror="this.remove()">') if cid else ""
+        # A hand-set "url" in covers.json (any https image) is used when there is no Open Library number.
+        src = (f"https://covers.openlibrary.org/b/id/{int(cid)}-{size}.jpg?default=false" if cid
+               else entry.get("url") if str(entry.get("url", "")).startswith("https://") else "")
+        img = (f'<img src="{e(src)}" alt="" '
+               f'loading="lazy" decoding="async" onerror="this.remove()">') if src else ""
         return (f'<span class="cover th{self.th(b)}{extra}" aria-hidden="true">'
                 f'<span class="cover-t">{e(short)}</span><span class="cover-a">{e(b["author"])}</span>{img}</span>')
 
