@@ -220,8 +220,8 @@
 },
 "54": {
 "cover": null,
-"match": "The Lean Life (Amazon)",
-"url": "https://m.media-amazon.com/images/I/510nOIv2%2BAL._SL500_.jpg",
+"match": "The Lean Life (own photo)",
+"file": "covers/54.jpg",
 "locked": true
 },
 "55": {
@@ -311,8 +311,9 @@
 "match": "Confessions of a CPA"
 },
 "76": {
-"cover": 11442959,
-"match": "The confines of the shadow",
+"cover": null,
+"match": "The Confines of the Shadow (own photo)",
+"file": "covers/76.jpg",
 "locked": true
 },
 "77": {
@@ -463,8 +464,8 @@
 },
 "111": {
 "cover": null,
-"match": "They Are Coming (Amazon)",
-"url": "https://m.media-amazon.com/images/I/71ZoZ9v0AqL._SL500_.jpg",
+"match": "They Are Coming (own photo)",
+"file": "covers/111.jpg",
 "locked": true
 },
 "112": {
