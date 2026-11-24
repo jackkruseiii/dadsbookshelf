@@ -54,12 +54,21 @@ button{cursor:pointer}
 .views button:hover{color:var(--cream)}
 .views button[aria-pressed=true]{color:var(--cream);border-bottom-color:var(--gold-bright)}
 .views button[aria-pressed=true] span{color:var(--gold-bright)}
+/* theme tabs: a second row of the same tabs; wraps on wide screens so none are hidden, scrolls on phones */
+.themes-row{flex-wrap:wrap;align-content:flex-start;gap:0 1.05rem;overflow-x:visible;padding-bottom:.2rem}
+.themes-row button{font-size:.82rem;padding:.6rem 0 .55rem}
 
 /* ---------- hero: the shelf, covers facing out ---------- */
 .hero{padding:clamp(1.8rem,5vw,3.2rem) 0 0}
 .hero h1,.authors h2{font-family:var(--serif);font-weight:500;font-size:clamp(2.1rem,6vw,3.6rem);line-height:1.05;letter-spacing:-.01em;margin:0}
-.shelf{display:flex;align-items:flex-end;gap:clamp(10px,1.4vw,16px);margin-top:clamp(1.4rem,3vw,2.2rem);padding:0 10px;border-bottom:10px solid var(--deep);box-shadow:0 14px 18px -12px rgba(26,22,17,.45);overflow-x:auto;scrollbar-width:thin;scroll-snap-type:x proximity}
-.face{flex:none;width:clamp(104px,11vw,132px);scroll-snap-align:start;text-decoration:none;transition:transform .15s ease}
+/* The shelf wraps onto as many boards as it needs, so every all-time great is on the page and
+   the reader just scrolls down. Each row is exactly one cover tall (covers are 2:3), which lets
+   the gradient draw a board under every row; the last board is the border. */
+.shelf{--fw:clamp(104px,11vw,132px);--board:10px;--rowgap:26px;
+  display:flex;flex-wrap:wrap;align-content:flex-start;align-items:flex-end;column-gap:clamp(10px,1.4vw,16px);row-gap:calc(var(--board) + var(--rowgap));
+  margin-top:clamp(1.4rem,3vw,2.2rem);padding:0 10px;border-bottom:var(--board) solid var(--deep);box-shadow:0 14px 18px -12px rgba(26,22,17,.45);
+  background:repeating-linear-gradient(to bottom,transparent 0,transparent calc(var(--fw)*1.5),var(--deep) calc(var(--fw)*1.5),var(--deep) calc(var(--fw)*1.5 + var(--board)),transparent calc(var(--fw)*1.5 + var(--board)),transparent calc(var(--fw)*1.5 + var(--board) + var(--rowgap)))}
+.face{flex:none;width:var(--fw);text-decoration:none;transition:transform .15s ease}
 .face .cover{width:100%;border-radius:2px 3px 0 0}
 .face .cover-t{font-size:.95rem}
 .face:hover,.face:focus-visible{transform:translateY(-6px)}
@@ -225,6 +234,7 @@ body.locked{overflow:hidden}
 }
 @media (max-width:640px){
   .site-header{position:static}
+  .themes-row{flex-wrap:nowrap;overflow-x:auto}
   .header-row{padding-block:.7rem .8rem;gap:.6rem}
   .search{flex-basis:100%;max-width:none}
   .filter-row{grid-template-columns:repeat(2,minmax(0,1fr))}

@@ -357,12 +357,17 @@ class Site:
         out = [self.head(f"{SITE_NAME} — Every Book Since {self.y0}", desc, "", "", jsonld=ld),
                '<body class="home">\n<a class="skip" href="#shelf">Skip to the books</a>\n', self.header("", True)]
 
-        # view switch
+        # view switch + one clickable tab per theme (counts come from the data)
+        theme_tabs = "".join(
+            f'<button type="button" data-theme="{i}" aria-pressed="false">{e(t)} '
+            f'<span>{sum(1 for b in books if b["theme"] == t)}</span></button>'
+            for i, t in enumerate(THEMES))
         out.append(f'''<nav class="views" aria-label="Sections"><div class="wrap views-row">
   <button type="button" data-view="greats" aria-pressed="true">All-time greats <span>{g}</span></button>
   <button type="button" data-view="all" aria-pressed="false">Every book <span>{n}</span></button>
   <button type="button" data-view="authors" aria-pressed="false">Authors I return to <span>{len(self.authors)}</span></button>
-</div></nav>
+</div>
+<div class="wrap views-row themes-row" role="group" aria-label="Browse by theme">{theme_tabs}</div></nav>
 <main id="main">
 ''')
         # hero with the shelf of spines

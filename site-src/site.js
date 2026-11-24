@@ -47,7 +47,8 @@
   var q = $("q"), form = q.form;
   var sel = { theme: $("f-theme"), region: $("f-region"), type: $("f-type"), year: $("f-year"), min: $("f-min"), sort: $("f-sort") };
   var chk = { great: $("f-great"), africa: $("f-africa"), words: $("f-words") };
-  var viewBtns = Array.prototype.slice.call(document.querySelectorAll(".views button"));
+  var viewBtns = Array.prototype.slice.call(document.querySelectorAll(".views button[data-view]"));
+  var themeBtns = Array.prototype.slice.call(document.querySelectorAll(".views button[data-theme]"));
   var bars = Array.prototype.slice.call(document.querySelectorAll(".bar"));
   var state = { view: "greats", q: "", theme: "", region: "", type: "", year: "", min: "", sort: "recent", great: false, africa: false, words: false, book: "" };
   var KEYS = ["q","theme","region","type","year","min","great","africa","words"];
@@ -160,7 +161,13 @@
 
   function apply(){
     var v = state.view;
-    viewBtns.forEach(function(b){ b.setAttribute("aria-pressed", String(b.dataset.view === v)); });
+    /* a theme tab is "Every book" with one theme chosen, so only one tab shows as pressed */
+    viewBtns.forEach(function(b){
+      b.setAttribute("aria-pressed", String(b.dataset.view === v && !(v === "all" && state.theme !== "")));
+    });
+    themeBtns.forEach(function(b){
+      b.setAttribute("aria-pressed", String(v === "all" && b.dataset.theme === state.theme));
+    });
     $("hero").hidden = v !== "greats";
     $("numbers").hidden = v !== "all";
     $("numbers").classList.toggle("searching", !!state.q);
@@ -204,7 +211,17 @@
   viewBtns.forEach(function(b){
     b.addEventListener("click", function(){
       state.view = b.dataset.view;
-      if(state.view !== "all") clearFilters();
+      clearFilters();   // "Every book" means every book, even straight after a theme tab
+      change(true);
+      window.scrollTo(0, 0);
+    });
+  });
+  themeBtns.forEach(function(b){
+    b.addEventListener("click", function(){
+      clearFilters();
+      state.view = "all";
+      state.theme = b.dataset.theme;
+      sel.theme.value = state.theme;
       change(true);
       window.scrollTo(0, 0);
     });
