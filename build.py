@@ -233,8 +233,13 @@ class Site:
         size = "L" if "cover-lg" in extra else "M"
         # A hand-set "url" in covers.json (any https image) is used when there is no Open Library number.
         # A "file" (e.g. covers/54.jpg, kept in the repo) wins over everything else.
+        # Copies saved in the repo by fetch_covers.py are used when present; the remote link is the fallback.
+        ol_copy = HERE / "covers" / "ol" / f"{int(cid)}.jpg" if cid else None
+        url_copy = HERE / "covers" / "url" / f"{b['id']}.jpg"
         src = (self.base + entry["file"] if entry.get("file")
+               else self.base + f"covers/ol/{int(cid)}.jpg" if ol_copy and ol_copy.exists()
                else f"https://covers.openlibrary.org/b/id/{int(cid)}-{size}.jpg?default=false" if cid
+               else self.base + f"covers/url/{b['id']}.jpg" if url_copy.exists()
                else entry.get("url") if str(entry.get("url", "")).startswith("https://") else "")
         img = (f'<img src="{e(src)}" alt="" '
                f'loading="lazy" decoding="async" onerror="this.remove()">') if src else ""
